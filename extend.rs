@@ -1,32 +1,48 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           Extend (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
 use crate::string_expression::StringExpression;
-use crate::use_case::UseCase;
 use crate::constraint::Constraint;
-use crate::extension_point::ExtensionPoint;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct Extend {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
     name: Option<String>,
     visibility: Option<String>,
-    client_dependency: Vec<Rc<RefCell<Dependency>>>,
+    client_dependency: Vec<String>,
     name_expression: Option<StringExpression>,
-    extended_case: Rc<RefCell<UseCase>>,
+    extended_case: String,
     condition: Option<Constraint>,
-    extension_location: Vec<Rc<RefCell<ExtensionPoint>>>,
-    extension: Weak<RefCell<UseCase>>,
+    extension_location: Vec<String>,
+    extension: String,
 }
 
+#[wasm_bindgen]
 impl Extend {
-    pub fn new(extended_case: Rc<RefCell<UseCase>>, extension_location: Vec<Rc<RefCell<ExtensionPoint>>>, extension: Weak<RefCell<UseCase>>) -> Self {
+    pub fn new(extended_case: String, extension_location: Vec<String>, extension: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -41,54 +57,9 @@ impl Extend {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -101,14 +72,9 @@ impl Extend {
         self.name.take()
     }
 
-    /// Returns a reference to visibility if present
-    pub fn visibility(&self) -> Option<&String> {
-        self.visibility.as_ref()
-    }
-
-    /// Returns a mutable reference to visibility if present
-    pub fn visibility_mut(&mut self) -> Option<&mut String> {
-        self.visibility.as_mut()
+    /// Returns a clone of visibility if present
+    pub fn visibility(&self) -> Option<String> {
+        self.visibility.clone()
     }
 
     /// Sets visibility
@@ -121,19 +87,14 @@ impl Extend {
         self.visibility.take()
     }
 
-    /// Returns a reference to client_dependency
-    pub fn client_dependency(&self) -> &Vec<Rc<RefCell<Dependency>>> {
-        &self.client_dependency
+    /// Returns a clone of client_dependency
+    pub fn client_dependency(&self) -> Vec<String> {
+        self.client_dependency.clone()
     }
 
-    /// Returns a mutable reference to client_dependency
-    pub fn client_dependency_mut(&mut self) -> &mut Vec<Rc<RefCell<Dependency>>> {
-        &mut self.client_dependency
-    }
-
-    /// Adds an item to client_dependency
-    pub fn add_client_dependency(&mut self, item: Rc<RefCell<Dependency>>) {
-        self.client_dependency.push(item);
+    /// Adds an existing Dependency to client_dependency by ID
+    pub fn add_client_dependency_by_id(&mut self, id: String) {
+        self.client_dependency.push(id);
     }
 
     /// Clears all items from client_dependency
@@ -141,74 +102,29 @@ impl Extend {
         self.client_dependency.clear();
     }
 
-    /// Returns a reference to name_expression if present
-    pub fn name_expression(&self) -> Option<&StringExpression> {
-        self.name_expression.as_ref()
-    }
-
-    /// Returns a mutable reference to name_expression if present
-    pub fn name_expression_mut(&mut self) -> Option<&mut StringExpression> {
-        self.name_expression.as_mut()
-    }
-
-    /// Sets name_expression
-    pub fn set_name_expression(&mut self, value: StringExpression) {
-        self.name_expression = Some(value);
-    }
-
-    /// Takes name_expression, leaving None in its place
-    pub fn take_name_expression(&mut self) -> Option<StringExpression> {
-        self.name_expression.take()
-    }
-
-    /// Returns a reference to extended_case
-    pub fn extended_case(&self) -> &Rc<RefCell<UseCase>> {
-        &self.extended_case
-    }
-
-    /// Returns a mutable reference to extended_case
-    pub fn extended_case_mut(&mut self) -> &mut Rc<RefCell<UseCase>> {
-        &mut self.extended_case
+    /// Returns a clone of extended_case
+    pub fn extended_case(&self) -> String {
+        self.extended_case.clone()
     }
 
     /// Sets extended_case
-    pub fn set_extended_case(&mut self, value: Rc<RefCell<UseCase>>) {
+    pub fn set_extended_case(&mut self, value: String) {
         self.extended_case = value;
     }
 
-    /// Returns a reference to condition if present
-    pub fn condition(&self) -> Option<&Constraint> {
-        self.condition.as_ref()
+    /// Takes ownership of extended_case, replacing it with an empty string
+    pub fn take_extended_case(&mut self) -> String {
+        std::mem::take(&mut self.extended_case)
     }
 
-    /// Returns a mutable reference to condition if present
-    pub fn condition_mut(&mut self) -> Option<&mut Constraint> {
-        self.condition.as_mut()
+    /// Returns a clone of extension_location
+    pub fn extension_location(&self) -> Vec<String> {
+        self.extension_location.clone()
     }
 
-    /// Sets condition
-    pub fn set_condition(&mut self, value: Constraint) {
-        self.condition = Some(value);
-    }
-
-    /// Takes condition, leaving None in its place
-    pub fn take_condition(&mut self) -> Option<Constraint> {
-        self.condition.take()
-    }
-
-    /// Returns a reference to extension_location
-    pub fn extension_location(&self) -> &Vec<Rc<RefCell<ExtensionPoint>>> {
-        &self.extension_location
-    }
-
-    /// Returns a mutable reference to extension_location
-    pub fn extension_location_mut(&mut self) -> &mut Vec<Rc<RefCell<ExtensionPoint>>> {
-        &mut self.extension_location
-    }
-
-    /// Adds an item to extension_location
-    pub fn add_extension_location(&mut self, item: Rc<RefCell<ExtensionPoint>>) {
-        self.extension_location.push(item);
+    /// Adds an existing ExtensionPoint to extension_location by ID
+    pub fn add_extension_location_by_id(&mut self, id: String) {
+        self.extension_location.push(id);
     }
 
     /// Clears all items from extension_location
@@ -216,19 +132,46 @@ impl Extend {
         self.extension_location.clear();
     }
 
-    /// Returns a reference to extension
-    pub fn extension(&self) -> &Weak<RefCell<UseCase>> {
-        &self.extension
-    }
-
-    /// Returns a mutable reference to extension
-    pub fn extension_mut(&mut self) -> &mut Weak<RefCell<UseCase>> {
-        &mut self.extension
+    /// Returns a clone of extension
+    pub fn extension(&self) -> String {
+        self.extension.clone()
     }
 
     /// Sets extension
-    pub fn set_extension(&mut self, value: Weak<RefCell<UseCase>>) {
+    pub fn set_extension(&mut self, value: String) {
         self.extension = value;
+    }
+
+    /// Takes ownership of extension, replacing it with an empty string
+    pub fn take_extension(&mut self) -> String {
+        std::mem::take(&mut self.extension)
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "Extend".to_string()
     }
 
 }

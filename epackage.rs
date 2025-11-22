@@ -1,8 +1,30 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           EPackage (struct)
+// Source Package: ecore
+// Package URI:    http://www.eclipse.org/emf/2002/Ecore
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::eclassifier::EClassifier;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct EPackage {
     e_annotations: Vec<EAnnotation>,
     name: Option<String>,
@@ -12,6 +34,7 @@ pub struct EPackage {
     e_subpackages: Vec<Box<EPackage>>,
 }
 
+#[wasm_bindgen]
 impl EPackage {
     pub fn new() -> Self {
         Self {
@@ -24,34 +47,9 @@ impl EPackage {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -64,14 +62,9 @@ impl EPackage {
         self.name.take()
     }
 
-    /// Returns a reference to ns_uri if present
-    pub fn ns_uri(&self) -> Option<&String> {
-        self.ns_uri.as_ref()
-    }
-
-    /// Returns a mutable reference to ns_uri if present
-    pub fn ns_uri_mut(&mut self) -> Option<&mut String> {
-        self.ns_uri.as_mut()
+    /// Returns a clone of ns_uri if present
+    pub fn ns_uri(&self) -> Option<String> {
+        self.ns_uri.clone()
     }
 
     /// Sets ns_uri
@@ -84,14 +77,9 @@ impl EPackage {
         self.ns_uri.take()
     }
 
-    /// Returns a reference to ns_prefix if present
-    pub fn ns_prefix(&self) -> Option<&String> {
-        self.ns_prefix.as_ref()
-    }
-
-    /// Returns a mutable reference to ns_prefix if present
-    pub fn ns_prefix_mut(&mut self) -> Option<&mut String> {
-        self.ns_prefix.as_mut()
+    /// Returns a clone of ns_prefix if present
+    pub fn ns_prefix(&self) -> Option<String> {
+        self.ns_prefix.clone()
     }
 
     /// Sets ns_prefix
@@ -104,44 +92,31 @@ impl EPackage {
         self.ns_prefix.take()
     }
 
-    /// Returns a slice of e_classifiers
-    pub fn e_classifiers(&self) -> &[EClassifier] {
-        &self.e_classifiers
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
     }
 
-    /// Returns a mutable reference to e_classifiers
-    pub fn e_classifiers_mut(&mut self) -> &mut Vec<EClassifier> {
-        &mut self.e_classifiers
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
     }
 
-    /// Adds an item to e_classifiers
-    pub fn add_e_classifier(&mut self, item: EClassifier) {
-        self.e_classifiers.push(item);
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
     }
 
-    /// Clears all items from e_classifiers
-    pub fn clear_e_classifiers(&mut self) {
-        self.e_classifiers.clear();
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
     }
 
-    /// Returns a reference to e_subpackages
-    pub fn e_subpackages(&self) -> &Vec<Box<EPackage>> {
-        &self.e_subpackages
-    }
-
-    /// Returns a mutable reference to e_subpackages
-    pub fn e_subpackages_mut(&mut self) -> &mut Vec<Box<EPackage>> {
-        &mut self.e_subpackages
-    }
-
-    /// Adds an item to e_subpackages
-    pub fn add_e_subpackage(&mut self, item: EPackage) {
-        self.e_subpackages.push(Box::new(item));
-    }
-
-    /// Clears all items from e_subpackages
-    pub fn clear_e_subpackages(&mut self) {
-        self.e_subpackages.clear();
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "EPackage".to_string()
     }
 
 }

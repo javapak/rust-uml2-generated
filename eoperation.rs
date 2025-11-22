@@ -1,11 +1,30 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           EOperation (struct)
+// Source Package: ecore
+// Package URI:    http://www.eclipse.org/emf/2002/Ecore
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
-use crate::eclassifier::EClassifier;
 use crate::eparameter::EParameter;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct EOperation {
     e_annotations: Vec<EAnnotation>,
     name: Option<String>,
@@ -13,11 +32,12 @@ pub struct EOperation {
     unique: Option<bool>,
     lower_bound: Option<i32>,
     upper_bound: Option<i32>,
-    e_type: Option<Rc<RefCell<EClassifier>>>,
+    e_type: Option<String>,
     e_parameters: Vec<EParameter>,
-    e_exceptions: Vec<Rc<RefCell<EClassifier>>>,
+    e_exceptions: Vec<String>,
 }
 
+#[wasm_bindgen]
 impl EOperation {
     pub fn new() -> Self {
         Self {
@@ -33,34 +53,9 @@ impl EOperation {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -73,14 +68,9 @@ impl EOperation {
         self.name.take()
     }
 
-    /// Returns a reference to ordered if present
-    pub fn ordered(&self) -> Option<&bool> {
-        self.ordered.as_ref()
-    }
-
-    /// Returns a mutable reference to ordered if present
-    pub fn ordered_mut(&mut self) -> Option<&mut bool> {
-        self.ordered.as_mut()
+    /// Returns a clone of ordered if present
+    pub fn ordered(&self) -> Option<bool> {
+        self.ordered.clone()
     }
 
     /// Sets ordered
@@ -93,14 +83,9 @@ impl EOperation {
         self.ordered.take()
     }
 
-    /// Returns a reference to unique if present
-    pub fn unique(&self) -> Option<&bool> {
-        self.unique.as_ref()
-    }
-
-    /// Returns a mutable reference to unique if present
-    pub fn unique_mut(&mut self) -> Option<&mut bool> {
-        self.unique.as_mut()
+    /// Returns a clone of unique if present
+    pub fn unique(&self) -> Option<bool> {
+        self.unique.clone()
     }
 
     /// Sets unique
@@ -113,14 +98,9 @@ impl EOperation {
         self.unique.take()
     }
 
-    /// Returns a reference to lower_bound if present
-    pub fn lower_bound(&self) -> Option<&i32> {
-        self.lower_bound.as_ref()
-    }
-
-    /// Returns a mutable reference to lower_bound if present
-    pub fn lower_bound_mut(&mut self) -> Option<&mut i32> {
-        self.lower_bound.as_mut()
+    /// Returns a clone of lower_bound if present
+    pub fn lower_bound(&self) -> Option<i32> {
+        self.lower_bound.clone()
     }
 
     /// Sets lower_bound
@@ -133,14 +113,9 @@ impl EOperation {
         self.lower_bound.take()
     }
 
-    /// Returns a reference to upper_bound if present
-    pub fn upper_bound(&self) -> Option<&i32> {
-        self.upper_bound.as_ref()
-    }
-
-    /// Returns a mutable reference to upper_bound if present
-    pub fn upper_bound_mut(&mut self) -> Option<&mut i32> {
-        self.upper_bound.as_mut()
+    /// Returns a clone of upper_bound if present
+    pub fn upper_bound(&self) -> Option<i32> {
+        self.upper_bound.clone()
     }
 
     /// Sets upper_bound
@@ -153,64 +128,61 @@ impl EOperation {
         self.upper_bound.take()
     }
 
-    /// Returns a reference to e_type if present
-    pub fn e_type(&self) -> Option<&Rc<RefCell<EClassifier>>> {
-        self.e_type.as_ref()
-    }
-
-    /// Returns a mutable reference to e_type if present
-    pub fn e_type_mut(&mut self) -> Option<&mut Rc<RefCell<EClassifier>>> {
-        self.e_type.as_mut()
+    /// Returns a clone of e_type if present
+    pub fn e_type(&self) -> Option<String> {
+        self.e_type.clone()
     }
 
     /// Sets e_type
-    pub fn set_e_type(&mut self, value: Rc<RefCell<EClassifier>>) {
+    pub fn set_e_type(&mut self, value: String) {
         self.e_type = Some(value);
     }
 
     /// Takes e_type, leaving None in its place
-    pub fn take_e_type(&mut self) -> Option<Rc<RefCell<EClassifier>>> {
+    pub fn take_e_type(&mut self) -> Option<String> {
         self.e_type.take()
     }
 
-    /// Returns a slice of e_parameters
-    pub fn e_parameters(&self) -> &[EParameter] {
-        &self.e_parameters
+    /// Returns a clone of e_exceptions
+    pub fn e_exceptions(&self) -> Vec<String> {
+        self.e_exceptions.clone()
     }
 
-    /// Returns a mutable reference to e_parameters
-    pub fn e_parameters_mut(&mut self) -> &mut Vec<EParameter> {
-        &mut self.e_parameters
-    }
-
-    /// Adds an item to e_parameters
-    pub fn add_e_parameter(&mut self, item: EParameter) {
-        self.e_parameters.push(item);
-    }
-
-    /// Clears all items from e_parameters
-    pub fn clear_e_parameters(&mut self) {
-        self.e_parameters.clear();
-    }
-
-    /// Returns a reference to e_exceptions
-    pub fn e_exceptions(&self) -> &Vec<Rc<RefCell<EClassifier>>> {
-        &self.e_exceptions
-    }
-
-    /// Returns a mutable reference to e_exceptions
-    pub fn e_exceptions_mut(&mut self) -> &mut Vec<Rc<RefCell<EClassifier>>> {
-        &mut self.e_exceptions
-    }
-
-    /// Adds an item to e_exceptions
-    pub fn add_e_exception(&mut self, item: Rc<RefCell<EClassifier>>) {
-        self.e_exceptions.push(item);
+    /// Adds an existing EClassifier to e_exceptions by ID
+    pub fn add_e_exception_by_id(&mut self, id: String) {
+        self.e_exceptions.push(id);
     }
 
     /// Clears all items from e_exceptions
     pub fn clear_e_exceptions(&mut self) {
         self.e_exceptions.clear();
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "EOperation".to_string()
     }
 
 }

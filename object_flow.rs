@@ -1,47 +1,58 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           ObjectFlow (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
 use crate::string_expression::StringExpression;
-use crate::activity_node::ActivityNode;
-use crate::activity_edge::ActivityEdge;
-use crate::activity_partition::ActivityPartition;
 use crate::value_specification::ValueSpecification;
-use crate::interruptible_activity_region::InterruptibleActivityRegion;
-use crate::structured_activity_node::StructuredActivityNode;
-use crate::activity::Activity;
-use crate::behavior::Behavior;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct ObjectFlow {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
     name: Option<String>,
     visibility: Option<String>,
-    client_dependency: Vec<Rc<RefCell<Dependency>>>,
+    client_dependency: Vec<String>,
     name_expression: Option<StringExpression>,
     is_leaf: bool,
-    source: Rc<RefCell<ActivityNode>>,
-    target: Rc<RefCell<ActivityNode>>,
-    redefined_edge: Vec<Rc<RefCell<ActivityEdge>>>,
-    in_partition: Vec<Rc<RefCell<ActivityPartition>>>,
+    source: String,
+    target: String,
+    redefined_edge: Vec<String>,
+    in_partition: Vec<String>,
     guard: ValueSpecification,
     weight: ValueSpecification,
-    interrupts: Option<Rc<RefCell<InterruptibleActivityRegion>>>,
-    in_structured_node: Option<Weak<RefCell<StructuredActivityNode>>>,
-    activity: Option<Weak<RefCell<Activity>>>,
+    interrupts: Option<String>,
+    in_structured_node: Option<String>,
+    activity: Option<String>,
     is_multicast: bool,
     is_multireceive: bool,
-    transformation: Option<Rc<RefCell<Behavior>>>,
-    selection: Option<Rc<RefCell<Behavior>>>,
+    transformation: Option<String>,
+    selection: Option<String>,
 }
 
+#[wasm_bindgen]
 impl ObjectFlow {
-    pub fn new(is_leaf: bool, source: Rc<RefCell<ActivityNode>>, target: Rc<RefCell<ActivityNode>>, guard: ValueSpecification, weight: ValueSpecification, is_multicast: bool, is_multireceive: bool) -> Self {
+    pub fn new(is_leaf: bool, source: String, target: String, guard: ValueSpecification, weight: ValueSpecification, is_multicast: bool, is_multireceive: bool) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -66,54 +77,9 @@ impl ObjectFlow {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -126,14 +92,9 @@ impl ObjectFlow {
         self.name.take()
     }
 
-    /// Returns a reference to visibility if present
-    pub fn visibility(&self) -> Option<&String> {
-        self.visibility.as_ref()
-    }
-
-    /// Returns a mutable reference to visibility if present
-    pub fn visibility_mut(&mut self) -> Option<&mut String> {
-        self.visibility.as_mut()
+    /// Returns a clone of visibility if present
+    pub fn visibility(&self) -> Option<String> {
+        self.visibility.clone()
     }
 
     /// Sets visibility
@@ -146,44 +107,19 @@ impl ObjectFlow {
         self.visibility.take()
     }
 
-    /// Returns a reference to client_dependency
-    pub fn client_dependency(&self) -> &Vec<Rc<RefCell<Dependency>>> {
-        &self.client_dependency
+    /// Returns a clone of client_dependency
+    pub fn client_dependency(&self) -> Vec<String> {
+        self.client_dependency.clone()
     }
 
-    /// Returns a mutable reference to client_dependency
-    pub fn client_dependency_mut(&mut self) -> &mut Vec<Rc<RefCell<Dependency>>> {
-        &mut self.client_dependency
-    }
-
-    /// Adds an item to client_dependency
-    pub fn add_client_dependency(&mut self, item: Rc<RefCell<Dependency>>) {
-        self.client_dependency.push(item);
+    /// Adds an existing Dependency to client_dependency by ID
+    pub fn add_client_dependency_by_id(&mut self, id: String) {
+        self.client_dependency.push(id);
     }
 
     /// Clears all items from client_dependency
     pub fn clear_client_dependency(&mut self) {
         self.client_dependency.clear();
-    }
-
-    /// Returns a reference to name_expression if present
-    pub fn name_expression(&self) -> Option<&StringExpression> {
-        self.name_expression.as_ref()
-    }
-
-    /// Returns a mutable reference to name_expression if present
-    pub fn name_expression_mut(&mut self) -> Option<&mut StringExpression> {
-        self.name_expression.as_mut()
-    }
-
-    /// Sets name_expression
-    pub fn set_name_expression(&mut self, value: StringExpression) {
-        self.name_expression = Some(value);
-    }
-
-    /// Takes name_expression, leaving None in its place
-    pub fn take_name_expression(&mut self) -> Option<StringExpression> {
-        self.name_expression.take()
     }
 
     /// Returns is_leaf
@@ -196,49 +132,44 @@ impl ObjectFlow {
         self.is_leaf = value;
     }
 
-    /// Returns a reference to source
-    pub fn source(&self) -> &Rc<RefCell<ActivityNode>> {
-        &self.source
-    }
-
-    /// Returns a mutable reference to source
-    pub fn source_mut(&mut self) -> &mut Rc<RefCell<ActivityNode>> {
-        &mut self.source
+    /// Returns a clone of source
+    pub fn source(&self) -> String {
+        self.source.clone()
     }
 
     /// Sets source
-    pub fn set_source(&mut self, value: Rc<RefCell<ActivityNode>>) {
+    pub fn set_source(&mut self, value: String) {
         self.source = value;
     }
 
-    /// Returns a reference to target
-    pub fn target(&self) -> &Rc<RefCell<ActivityNode>> {
-        &self.target
+    /// Takes ownership of source, replacing it with an empty string
+    pub fn take_source(&mut self) -> String {
+        std::mem::take(&mut self.source)
     }
 
-    /// Returns a mutable reference to target
-    pub fn target_mut(&mut self) -> &mut Rc<RefCell<ActivityNode>> {
-        &mut self.target
+    /// Returns a clone of target
+    pub fn target(&self) -> String {
+        self.target.clone()
     }
 
     /// Sets target
-    pub fn set_target(&mut self, value: Rc<RefCell<ActivityNode>>) {
+    pub fn set_target(&mut self, value: String) {
         self.target = value;
     }
 
-    /// Returns a reference to redefined_edge
-    pub fn redefined_edge(&self) -> &Vec<Rc<RefCell<ActivityEdge>>> {
-        &self.redefined_edge
+    /// Takes ownership of target, replacing it with an empty string
+    pub fn take_target(&mut self) -> String {
+        std::mem::take(&mut self.target)
     }
 
-    /// Returns a mutable reference to redefined_edge
-    pub fn redefined_edge_mut(&mut self) -> &mut Vec<Rc<RefCell<ActivityEdge>>> {
-        &mut self.redefined_edge
+    /// Returns a clone of redefined_edge
+    pub fn redefined_edge(&self) -> Vec<String> {
+        self.redefined_edge.clone()
     }
 
-    /// Adds an item to redefined_edge
-    pub fn add_redefined_edge(&mut self, item: Rc<RefCell<ActivityEdge>>) {
-        self.redefined_edge.push(item);
+    /// Adds an existing ActivityEdge to redefined_edge by ID
+    pub fn add_redefined_edge_by_id(&mut self, id: String) {
+        self.redefined_edge.push(id);
     }
 
     /// Clears all items from redefined_edge
@@ -246,19 +177,14 @@ impl ObjectFlow {
         self.redefined_edge.clear();
     }
 
-    /// Returns a reference to in_partition
-    pub fn in_partition(&self) -> &Vec<Rc<RefCell<ActivityPartition>>> {
-        &self.in_partition
+    /// Returns a clone of in_partition
+    pub fn in_partition(&self) -> Vec<String> {
+        self.in_partition.clone()
     }
 
-    /// Returns a mutable reference to in_partition
-    pub fn in_partition_mut(&mut self) -> &mut Vec<Rc<RefCell<ActivityPartition>>> {
-        &mut self.in_partition
-    }
-
-    /// Adds an item to in_partition
-    pub fn add_in_partition(&mut self, item: Rc<RefCell<ActivityPartition>>) {
-        self.in_partition.push(item);
+    /// Adds an existing ActivityPartition to in_partition by ID
+    pub fn add_in_partition_by_id(&mut self, id: String) {
+        self.in_partition.push(id);
     }
 
     /// Clears all items from in_partition
@@ -266,93 +192,48 @@ impl ObjectFlow {
         self.in_partition.clear();
     }
 
-    /// Returns a reference to guard
-    pub fn guard(&self) -> &ValueSpecification {
-        &self.guard
-    }
-
-    /// Returns a mutable reference to guard
-    pub fn guard_mut(&mut self) -> &mut ValueSpecification {
-        &mut self.guard
-    }
-
-    /// Sets guard
-    pub fn set_guard(&mut self, value: ValueSpecification) {
-        self.guard = value;
-    }
-
-    /// Returns a reference to weight
-    pub fn weight(&self) -> &ValueSpecification {
-        &self.weight
-    }
-
-    /// Returns a mutable reference to weight
-    pub fn weight_mut(&mut self) -> &mut ValueSpecification {
-        &mut self.weight
-    }
-
-    /// Sets weight
-    pub fn set_weight(&mut self, value: ValueSpecification) {
-        self.weight = value;
-    }
-
-    /// Returns a reference to interrupts if present
-    pub fn interrupts(&self) -> Option<&Rc<RefCell<InterruptibleActivityRegion>>> {
-        self.interrupts.as_ref()
-    }
-
-    /// Returns a mutable reference to interrupts if present
-    pub fn interrupts_mut(&mut self) -> Option<&mut Rc<RefCell<InterruptibleActivityRegion>>> {
-        self.interrupts.as_mut()
+    /// Returns a clone of interrupts if present
+    pub fn interrupts(&self) -> Option<String> {
+        self.interrupts.clone()
     }
 
     /// Sets interrupts
-    pub fn set_interrupts(&mut self, value: Rc<RefCell<InterruptibleActivityRegion>>) {
+    pub fn set_interrupts(&mut self, value: String) {
         self.interrupts = Some(value);
     }
 
     /// Takes interrupts, leaving None in its place
-    pub fn take_interrupts(&mut self) -> Option<Rc<RefCell<InterruptibleActivityRegion>>> {
+    pub fn take_interrupts(&mut self) -> Option<String> {
         self.interrupts.take()
     }
 
-    /// Returns a reference to in_structured_node if present
-    pub fn in_structured_node(&self) -> Option<&Weak<RefCell<StructuredActivityNode>>> {
-        self.in_structured_node.as_ref()
-    }
-
-    /// Returns a mutable reference to in_structured_node if present
-    pub fn in_structured_node_mut(&mut self) -> Option<&mut Weak<RefCell<StructuredActivityNode>>> {
-        self.in_structured_node.as_mut()
+    /// Returns a clone of in_structured_node if present
+    pub fn in_structured_node(&self) -> Option<String> {
+        self.in_structured_node.clone()
     }
 
     /// Sets in_structured_node
-    pub fn set_in_structured_node(&mut self, value: Weak<RefCell<StructuredActivityNode>>) {
+    pub fn set_in_structured_node(&mut self, value: String) {
         self.in_structured_node = Some(value);
     }
 
     /// Takes in_structured_node, leaving None in its place
-    pub fn take_in_structured_node(&mut self) -> Option<Weak<RefCell<StructuredActivityNode>>> {
+    pub fn take_in_structured_node(&mut self) -> Option<String> {
         self.in_structured_node.take()
     }
 
-    /// Returns a reference to activity if present
-    pub fn activity(&self) -> Option<&Weak<RefCell<Activity>>> {
-        self.activity.as_ref()
-    }
-
-    /// Returns a mutable reference to activity if present
-    pub fn activity_mut(&mut self) -> Option<&mut Weak<RefCell<Activity>>> {
-        self.activity.as_mut()
+    /// Returns a clone of activity if present
+    pub fn activity(&self) -> Option<String> {
+        self.activity.clone()
     }
 
     /// Sets activity
-    pub fn set_activity(&mut self, value: Weak<RefCell<Activity>>) {
+    pub fn set_activity(&mut self, value: String) {
         self.activity = Some(value);
     }
 
     /// Takes activity, leaving None in its place
-    pub fn take_activity(&mut self) -> Option<Weak<RefCell<Activity>>> {
+    pub fn take_activity(&mut self) -> Option<String> {
         self.activity.take()
     }
 
@@ -376,44 +257,61 @@ impl ObjectFlow {
         self.is_multireceive = value;
     }
 
-    /// Returns a reference to transformation if present
-    pub fn transformation(&self) -> Option<&Rc<RefCell<Behavior>>> {
-        self.transformation.as_ref()
-    }
-
-    /// Returns a mutable reference to transformation if present
-    pub fn transformation_mut(&mut self) -> Option<&mut Rc<RefCell<Behavior>>> {
-        self.transformation.as_mut()
+    /// Returns a clone of transformation if present
+    pub fn transformation(&self) -> Option<String> {
+        self.transformation.clone()
     }
 
     /// Sets transformation
-    pub fn set_transformation(&mut self, value: Rc<RefCell<Behavior>>) {
+    pub fn set_transformation(&mut self, value: String) {
         self.transformation = Some(value);
     }
 
     /// Takes transformation, leaving None in its place
-    pub fn take_transformation(&mut self) -> Option<Rc<RefCell<Behavior>>> {
+    pub fn take_transformation(&mut self) -> Option<String> {
         self.transformation.take()
     }
 
-    /// Returns a reference to selection if present
-    pub fn selection(&self) -> Option<&Rc<RefCell<Behavior>>> {
-        self.selection.as_ref()
-    }
-
-    /// Returns a mutable reference to selection if present
-    pub fn selection_mut(&mut self) -> Option<&mut Rc<RefCell<Behavior>>> {
-        self.selection.as_mut()
+    /// Returns a clone of selection if present
+    pub fn selection(&self) -> Option<String> {
+        self.selection.clone()
     }
 
     /// Sets selection
-    pub fn set_selection(&mut self, value: Rc<RefCell<Behavior>>) {
+    pub fn set_selection(&mut self, value: String) {
         self.selection = Some(value);
     }
 
     /// Takes selection, leaving None in its place
-    pub fn take_selection(&mut self) -> Option<Rc<RefCell<Behavior>>> {
+    pub fn take_selection(&mut self) -> Option<String> {
         self.selection.take()
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ObjectFlow".to_string()
     }
 
 }

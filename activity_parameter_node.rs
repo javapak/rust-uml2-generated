@@ -1,52 +1,59 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           ActivityParameterNode (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
 use crate::string_expression::StringExpression;
-use crate::structured_activity_node::StructuredActivityNode;
-use crate::activity::Activity;
-use crate::activity_edge::ActivityEdge;
-use crate::activity_partition::ActivityPartition;
-use crate::interruptible_activity_region::InterruptibleActivityRegion;
-use crate::activity_node::ActivityNode;
-use crate::type_::Type;
-use crate::object_node_ordering_kind::ObjectNodeOrderingKind;
 use crate::value_specification::ValueSpecification;
-use crate::state::State;
-use crate::behavior::Behavior;
-use crate::parameter::Parameter;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct ActivityParameterNode {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
     name: Option<String>,
     visibility: Option<String>,
-    client_dependency: Vec<Rc<RefCell<Dependency>>>,
+    client_dependency: Vec<String>,
     name_expression: Option<StringExpression>,
     is_leaf: bool,
-    in_structured_node: Option<Weak<RefCell<StructuredActivityNode>>>,
-    activity: Option<Weak<RefCell<Activity>>>,
-    outgoing: Vec<Rc<RefCell<ActivityEdge>>>,
-    incoming: Vec<Rc<RefCell<ActivityEdge>>>,
-    in_partition: Vec<Rc<RefCell<ActivityPartition>>>,
-    in_interruptible_region: Vec<Rc<RefCell<InterruptibleActivityRegion>>>,
-    redefined_node: Vec<Rc<RefCell<ActivityNode>>>,
-    type_: Option<Rc<RefCell<Type>>>,
+    in_structured_node: Option<String>,
+    activity: Option<String>,
+    outgoing: Vec<String>,
+    incoming: Vec<String>,
+    in_partition: Vec<String>,
+    in_interruptible_region: Vec<String>,
+    redefined_node: Vec<String>,
+    type_: Option<String>,
     ordering: String,
     is_control_type: bool,
     upper_bound: ValueSpecification,
-    in_state: Vec<Rc<RefCell<State>>>,
-    selection: Option<Rc<RefCell<Behavior>>>,
-    parameter: Rc<RefCell<Parameter>>,
+    in_state: Vec<String>,
+    selection: Option<String>,
+    parameter: String,
 }
 
+#[wasm_bindgen]
 impl ActivityParameterNode {
-    pub fn new(is_leaf: bool, ordering: String, is_control_type: bool, upper_bound: ValueSpecification, parameter: Rc<RefCell<Parameter>>) -> Self {
+    pub fn new(is_leaf: bool, ordering: String, is_control_type: bool, upper_bound: ValueSpecification, parameter: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -72,54 +79,9 @@ impl ActivityParameterNode {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -132,14 +94,9 @@ impl ActivityParameterNode {
         self.name.take()
     }
 
-    /// Returns a reference to visibility if present
-    pub fn visibility(&self) -> Option<&String> {
-        self.visibility.as_ref()
-    }
-
-    /// Returns a mutable reference to visibility if present
-    pub fn visibility_mut(&mut self) -> Option<&mut String> {
-        self.visibility.as_mut()
+    /// Returns a clone of visibility if present
+    pub fn visibility(&self) -> Option<String> {
+        self.visibility.clone()
     }
 
     /// Sets visibility
@@ -152,44 +109,19 @@ impl ActivityParameterNode {
         self.visibility.take()
     }
 
-    /// Returns a reference to client_dependency
-    pub fn client_dependency(&self) -> &Vec<Rc<RefCell<Dependency>>> {
-        &self.client_dependency
+    /// Returns a clone of client_dependency
+    pub fn client_dependency(&self) -> Vec<String> {
+        self.client_dependency.clone()
     }
 
-    /// Returns a mutable reference to client_dependency
-    pub fn client_dependency_mut(&mut self) -> &mut Vec<Rc<RefCell<Dependency>>> {
-        &mut self.client_dependency
-    }
-
-    /// Adds an item to client_dependency
-    pub fn add_client_dependency(&mut self, item: Rc<RefCell<Dependency>>) {
-        self.client_dependency.push(item);
+    /// Adds an existing Dependency to client_dependency by ID
+    pub fn add_client_dependency_by_id(&mut self, id: String) {
+        self.client_dependency.push(id);
     }
 
     /// Clears all items from client_dependency
     pub fn clear_client_dependency(&mut self) {
         self.client_dependency.clear();
-    }
-
-    /// Returns a reference to name_expression if present
-    pub fn name_expression(&self) -> Option<&StringExpression> {
-        self.name_expression.as_ref()
-    }
-
-    /// Returns a mutable reference to name_expression if present
-    pub fn name_expression_mut(&mut self) -> Option<&mut StringExpression> {
-        self.name_expression.as_mut()
-    }
-
-    /// Sets name_expression
-    pub fn set_name_expression(&mut self, value: StringExpression) {
-        self.name_expression = Some(value);
-    }
-
-    /// Takes name_expression, leaving None in its place
-    pub fn take_name_expression(&mut self) -> Option<StringExpression> {
-        self.name_expression.take()
     }
 
     /// Returns is_leaf
@@ -202,59 +134,44 @@ impl ActivityParameterNode {
         self.is_leaf = value;
     }
 
-    /// Returns a reference to in_structured_node if present
-    pub fn in_structured_node(&self) -> Option<&Weak<RefCell<StructuredActivityNode>>> {
-        self.in_structured_node.as_ref()
-    }
-
-    /// Returns a mutable reference to in_structured_node if present
-    pub fn in_structured_node_mut(&mut self) -> Option<&mut Weak<RefCell<StructuredActivityNode>>> {
-        self.in_structured_node.as_mut()
+    /// Returns a clone of in_structured_node if present
+    pub fn in_structured_node(&self) -> Option<String> {
+        self.in_structured_node.clone()
     }
 
     /// Sets in_structured_node
-    pub fn set_in_structured_node(&mut self, value: Weak<RefCell<StructuredActivityNode>>) {
+    pub fn set_in_structured_node(&mut self, value: String) {
         self.in_structured_node = Some(value);
     }
 
     /// Takes in_structured_node, leaving None in its place
-    pub fn take_in_structured_node(&mut self) -> Option<Weak<RefCell<StructuredActivityNode>>> {
+    pub fn take_in_structured_node(&mut self) -> Option<String> {
         self.in_structured_node.take()
     }
 
-    /// Returns a reference to activity if present
-    pub fn activity(&self) -> Option<&Weak<RefCell<Activity>>> {
-        self.activity.as_ref()
-    }
-
-    /// Returns a mutable reference to activity if present
-    pub fn activity_mut(&mut self) -> Option<&mut Weak<RefCell<Activity>>> {
-        self.activity.as_mut()
+    /// Returns a clone of activity if present
+    pub fn activity(&self) -> Option<String> {
+        self.activity.clone()
     }
 
     /// Sets activity
-    pub fn set_activity(&mut self, value: Weak<RefCell<Activity>>) {
+    pub fn set_activity(&mut self, value: String) {
         self.activity = Some(value);
     }
 
     /// Takes activity, leaving None in its place
-    pub fn take_activity(&mut self) -> Option<Weak<RefCell<Activity>>> {
+    pub fn take_activity(&mut self) -> Option<String> {
         self.activity.take()
     }
 
-    /// Returns a reference to outgoing
-    pub fn outgoing(&self) -> &Vec<Rc<RefCell<ActivityEdge>>> {
-        &self.outgoing
+    /// Returns a clone of outgoing
+    pub fn outgoing(&self) -> Vec<String> {
+        self.outgoing.clone()
     }
 
-    /// Returns a mutable reference to outgoing
-    pub fn outgoing_mut(&mut self) -> &mut Vec<Rc<RefCell<ActivityEdge>>> {
-        &mut self.outgoing
-    }
-
-    /// Adds an item to outgoing
-    pub fn add_outgoing(&mut self, item: Rc<RefCell<ActivityEdge>>) {
-        self.outgoing.push(item);
+    /// Adds an existing ActivityEdge to outgoing by ID
+    pub fn add_outgoing_by_id(&mut self, id: String) {
+        self.outgoing.push(id);
     }
 
     /// Clears all items from outgoing
@@ -262,19 +179,14 @@ impl ActivityParameterNode {
         self.outgoing.clear();
     }
 
-    /// Returns a reference to incoming
-    pub fn incoming(&self) -> &Vec<Rc<RefCell<ActivityEdge>>> {
-        &self.incoming
+    /// Returns a clone of incoming
+    pub fn incoming(&self) -> Vec<String> {
+        self.incoming.clone()
     }
 
-    /// Returns a mutable reference to incoming
-    pub fn incoming_mut(&mut self) -> &mut Vec<Rc<RefCell<ActivityEdge>>> {
-        &mut self.incoming
-    }
-
-    /// Adds an item to incoming
-    pub fn add_incoming(&mut self, item: Rc<RefCell<ActivityEdge>>) {
-        self.incoming.push(item);
+    /// Adds an existing ActivityEdge to incoming by ID
+    pub fn add_incoming_by_id(&mut self, id: String) {
+        self.incoming.push(id);
     }
 
     /// Clears all items from incoming
@@ -282,19 +194,14 @@ impl ActivityParameterNode {
         self.incoming.clear();
     }
 
-    /// Returns a reference to in_partition
-    pub fn in_partition(&self) -> &Vec<Rc<RefCell<ActivityPartition>>> {
-        &self.in_partition
+    /// Returns a clone of in_partition
+    pub fn in_partition(&self) -> Vec<String> {
+        self.in_partition.clone()
     }
 
-    /// Returns a mutable reference to in_partition
-    pub fn in_partition_mut(&mut self) -> &mut Vec<Rc<RefCell<ActivityPartition>>> {
-        &mut self.in_partition
-    }
-
-    /// Adds an item to in_partition
-    pub fn add_in_partition(&mut self, item: Rc<RefCell<ActivityPartition>>) {
-        self.in_partition.push(item);
+    /// Adds an existing ActivityPartition to in_partition by ID
+    pub fn add_in_partition_by_id(&mut self, id: String) {
+        self.in_partition.push(id);
     }
 
     /// Clears all items from in_partition
@@ -302,19 +209,14 @@ impl ActivityParameterNode {
         self.in_partition.clear();
     }
 
-    /// Returns a reference to in_interruptible_region
-    pub fn in_interruptible_region(&self) -> &Vec<Rc<RefCell<InterruptibleActivityRegion>>> {
-        &self.in_interruptible_region
+    /// Returns a clone of in_interruptible_region
+    pub fn in_interruptible_region(&self) -> Vec<String> {
+        self.in_interruptible_region.clone()
     }
 
-    /// Returns a mutable reference to in_interruptible_region
-    pub fn in_interruptible_region_mut(&mut self) -> &mut Vec<Rc<RefCell<InterruptibleActivityRegion>>> {
-        &mut self.in_interruptible_region
-    }
-
-    /// Adds an item to in_interruptible_region
-    pub fn add_in_interruptible_region(&mut self, item: Rc<RefCell<InterruptibleActivityRegion>>) {
-        self.in_interruptible_region.push(item);
+    /// Adds an existing InterruptibleActivityRegion to in_interruptible_region by ID
+    pub fn add_in_interruptible_region_by_id(&mut self, id: String) {
+        self.in_interruptible_region.push(id);
     }
 
     /// Clears all items from in_interruptible_region
@@ -322,19 +224,14 @@ impl ActivityParameterNode {
         self.in_interruptible_region.clear();
     }
 
-    /// Returns a reference to redefined_node
-    pub fn redefined_node(&self) -> &Vec<Rc<RefCell<ActivityNode>>> {
-        &self.redefined_node
+    /// Returns a clone of redefined_node
+    pub fn redefined_node(&self) -> Vec<String> {
+        self.redefined_node.clone()
     }
 
-    /// Returns a mutable reference to redefined_node
-    pub fn redefined_node_mut(&mut self) -> &mut Vec<Rc<RefCell<ActivityNode>>> {
-        &mut self.redefined_node
-    }
-
-    /// Adds an item to redefined_node
-    pub fn add_redefined_node(&mut self, item: Rc<RefCell<ActivityNode>>) {
-        self.redefined_node.push(item);
+    /// Adds an existing ActivityNode to redefined_node by ID
+    pub fn add_redefined_node_by_id(&mut self, id: String) {
+        self.redefined_node.push(id);
     }
 
     /// Clears all items from redefined_node
@@ -342,34 +239,29 @@ impl ActivityParameterNode {
         self.redefined_node.clear();
     }
 
-    /// Returns a reference to type_ if present
-    pub fn type_(&self) -> Option<&Rc<RefCell<Type>>> {
-        self.type_.as_ref()
-    }
-
-    /// Returns a mutable reference to type_ if present
-    pub fn type_mut(&mut self) -> Option<&mut Rc<RefCell<Type>>> {
-        self.type_.as_mut()
+    /// Returns a clone of type_ if present
+    pub fn type_(&self) -> Option<String> {
+        self.type_.clone()
     }
 
     /// Sets type_
-    pub fn set_type_(&mut self, value: Rc<RefCell<Type>>) {
+    pub fn set_type_(&mut self, value: String) {
         self.type_ = Some(value);
     }
 
     /// Takes type_, leaving None in its place
-    pub fn take_type(&mut self) -> Option<Rc<RefCell<Type>>> {
+    pub fn take_type(&mut self) -> Option<String> {
         self.type_.take()
     }
 
-    /// Returns ordering as a string slice
-    pub fn ordering(&self) -> &str {
-        &self.ordering
+    /// Returns a clone of ordering
+    pub fn ordering(&self) -> String {
+        self.ordering.clone()
     }
 
     /// Sets ordering
-    pub fn set_ordering(&mut self, value: impl Into<String>) {
-        self.ordering = value.into();
+    pub fn set_ordering(&mut self, value: String) {
+        self.ordering = value;
     }
 
     /// Takes ownership of ordering, replacing it with an empty string
@@ -387,34 +279,14 @@ impl ActivityParameterNode {
         self.is_control_type = value;
     }
 
-    /// Returns a reference to upper_bound
-    pub fn upper_bound(&self) -> &ValueSpecification {
-        &self.upper_bound
+    /// Returns a clone of in_state
+    pub fn in_state(&self) -> Vec<String> {
+        self.in_state.clone()
     }
 
-    /// Returns a mutable reference to upper_bound
-    pub fn upper_bound_mut(&mut self) -> &mut ValueSpecification {
-        &mut self.upper_bound
-    }
-
-    /// Sets upper_bound
-    pub fn set_upper_bound(&mut self, value: ValueSpecification) {
-        self.upper_bound = value;
-    }
-
-    /// Returns a reference to in_state
-    pub fn in_state(&self) -> &Vec<Rc<RefCell<State>>> {
-        &self.in_state
-    }
-
-    /// Returns a mutable reference to in_state
-    pub fn in_state_mut(&mut self) -> &mut Vec<Rc<RefCell<State>>> {
-        &mut self.in_state
-    }
-
-    /// Adds an item to in_state
-    pub fn add_in_state(&mut self, item: Rc<RefCell<State>>) {
-        self.in_state.push(item);
+    /// Adds an existing State to in_state by ID
+    pub fn add_in_state_by_id(&mut self, id: String) {
+        self.in_state.push(id);
     }
 
     /// Clears all items from in_state
@@ -422,39 +294,61 @@ impl ActivityParameterNode {
         self.in_state.clear();
     }
 
-    /// Returns a reference to selection if present
-    pub fn selection(&self) -> Option<&Rc<RefCell<Behavior>>> {
-        self.selection.as_ref()
-    }
-
-    /// Returns a mutable reference to selection if present
-    pub fn selection_mut(&mut self) -> Option<&mut Rc<RefCell<Behavior>>> {
-        self.selection.as_mut()
+    /// Returns a clone of selection if present
+    pub fn selection(&self) -> Option<String> {
+        self.selection.clone()
     }
 
     /// Sets selection
-    pub fn set_selection(&mut self, value: Rc<RefCell<Behavior>>) {
+    pub fn set_selection(&mut self, value: String) {
         self.selection = Some(value);
     }
 
     /// Takes selection, leaving None in its place
-    pub fn take_selection(&mut self) -> Option<Rc<RefCell<Behavior>>> {
+    pub fn take_selection(&mut self) -> Option<String> {
         self.selection.take()
     }
 
-    /// Returns a reference to parameter
-    pub fn parameter(&self) -> &Rc<RefCell<Parameter>> {
-        &self.parameter
-    }
-
-    /// Returns a mutable reference to parameter
-    pub fn parameter_mut(&mut self) -> &mut Rc<RefCell<Parameter>> {
-        &mut self.parameter
+    /// Returns a clone of parameter
+    pub fn parameter(&self) -> String {
+        self.parameter.clone()
     }
 
     /// Sets parameter
-    pub fn set_parameter(&mut self, value: Rc<RefCell<Parameter>>) {
+    pub fn set_parameter(&mut self, value: String) {
         self.parameter = value;
+    }
+
+    /// Takes ownership of parameter, replacing it with an empty string
+    pub fn take_parameter(&mut self) -> String {
+        std::mem::take(&mut self.parameter)
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ActivityParameterNode".to_string()
     }
 
 }

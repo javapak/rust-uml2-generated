@@ -1,10 +1,29 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           EStructuralFeature (struct)
+// Source Package: ecore
+// Package URI:    http://www.eclipse.org/emf/2002/Ecore
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
-use crate::eclassifier::EClassifier;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct EStructuralFeature {
     e_annotations: Vec<EAnnotation>,
     name: Option<String>,
@@ -12,7 +31,7 @@ pub struct EStructuralFeature {
     unique: Option<bool>,
     lower_bound: Option<i32>,
     upper_bound: Option<i32>,
-    e_type: Option<Rc<RefCell<EClassifier>>>,
+    e_type: Option<String>,
     changeable: Option<bool>,
     volatile: Option<bool>,
     transient: Option<bool>,
@@ -21,6 +40,7 @@ pub struct EStructuralFeature {
     derived: Option<bool>,
 }
 
+#[wasm_bindgen]
 impl EStructuralFeature {
     pub fn new() -> Self {
         Self {
@@ -40,34 +60,9 @@ impl EStructuralFeature {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -80,14 +75,9 @@ impl EStructuralFeature {
         self.name.take()
     }
 
-    /// Returns a reference to ordered if present
-    pub fn ordered(&self) -> Option<&bool> {
-        self.ordered.as_ref()
-    }
-
-    /// Returns a mutable reference to ordered if present
-    pub fn ordered_mut(&mut self) -> Option<&mut bool> {
-        self.ordered.as_mut()
+    /// Returns a clone of ordered if present
+    pub fn ordered(&self) -> Option<bool> {
+        self.ordered.clone()
     }
 
     /// Sets ordered
@@ -100,14 +90,9 @@ impl EStructuralFeature {
         self.ordered.take()
     }
 
-    /// Returns a reference to unique if present
-    pub fn unique(&self) -> Option<&bool> {
-        self.unique.as_ref()
-    }
-
-    /// Returns a mutable reference to unique if present
-    pub fn unique_mut(&mut self) -> Option<&mut bool> {
-        self.unique.as_mut()
+    /// Returns a clone of unique if present
+    pub fn unique(&self) -> Option<bool> {
+        self.unique.clone()
     }
 
     /// Sets unique
@@ -120,14 +105,9 @@ impl EStructuralFeature {
         self.unique.take()
     }
 
-    /// Returns a reference to lower_bound if present
-    pub fn lower_bound(&self) -> Option<&i32> {
-        self.lower_bound.as_ref()
-    }
-
-    /// Returns a mutable reference to lower_bound if present
-    pub fn lower_bound_mut(&mut self) -> Option<&mut i32> {
-        self.lower_bound.as_mut()
+    /// Returns a clone of lower_bound if present
+    pub fn lower_bound(&self) -> Option<i32> {
+        self.lower_bound.clone()
     }
 
     /// Sets lower_bound
@@ -140,14 +120,9 @@ impl EStructuralFeature {
         self.lower_bound.take()
     }
 
-    /// Returns a reference to upper_bound if present
-    pub fn upper_bound(&self) -> Option<&i32> {
-        self.upper_bound.as_ref()
-    }
-
-    /// Returns a mutable reference to upper_bound if present
-    pub fn upper_bound_mut(&mut self) -> Option<&mut i32> {
-        self.upper_bound.as_mut()
+    /// Returns a clone of upper_bound if present
+    pub fn upper_bound(&self) -> Option<i32> {
+        self.upper_bound.clone()
     }
 
     /// Sets upper_bound
@@ -160,34 +135,24 @@ impl EStructuralFeature {
         self.upper_bound.take()
     }
 
-    /// Returns a reference to e_type if present
-    pub fn e_type(&self) -> Option<&Rc<RefCell<EClassifier>>> {
-        self.e_type.as_ref()
-    }
-
-    /// Returns a mutable reference to e_type if present
-    pub fn e_type_mut(&mut self) -> Option<&mut Rc<RefCell<EClassifier>>> {
-        self.e_type.as_mut()
+    /// Returns a clone of e_type if present
+    pub fn e_type(&self) -> Option<String> {
+        self.e_type.clone()
     }
 
     /// Sets e_type
-    pub fn set_e_type(&mut self, value: Rc<RefCell<EClassifier>>) {
+    pub fn set_e_type(&mut self, value: String) {
         self.e_type = Some(value);
     }
 
     /// Takes e_type, leaving None in its place
-    pub fn take_e_type(&mut self) -> Option<Rc<RefCell<EClassifier>>> {
+    pub fn take_e_type(&mut self) -> Option<String> {
         self.e_type.take()
     }
 
-    /// Returns a reference to changeable if present
-    pub fn changeable(&self) -> Option<&bool> {
-        self.changeable.as_ref()
-    }
-
-    /// Returns a mutable reference to changeable if present
-    pub fn changeable_mut(&mut self) -> Option<&mut bool> {
-        self.changeable.as_mut()
+    /// Returns a clone of changeable if present
+    pub fn changeable(&self) -> Option<bool> {
+        self.changeable.clone()
     }
 
     /// Sets changeable
@@ -200,14 +165,9 @@ impl EStructuralFeature {
         self.changeable.take()
     }
 
-    /// Returns a reference to volatile if present
-    pub fn volatile(&self) -> Option<&bool> {
-        self.volatile.as_ref()
-    }
-
-    /// Returns a mutable reference to volatile if present
-    pub fn volatile_mut(&mut self) -> Option<&mut bool> {
-        self.volatile.as_mut()
+    /// Returns a clone of volatile if present
+    pub fn volatile(&self) -> Option<bool> {
+        self.volatile.clone()
     }
 
     /// Sets volatile
@@ -220,14 +180,9 @@ impl EStructuralFeature {
         self.volatile.take()
     }
 
-    /// Returns a reference to transient if present
-    pub fn transient(&self) -> Option<&bool> {
-        self.transient.as_ref()
-    }
-
-    /// Returns a mutable reference to transient if present
-    pub fn transient_mut(&mut self) -> Option<&mut bool> {
-        self.transient.as_mut()
+    /// Returns a clone of transient if present
+    pub fn transient(&self) -> Option<bool> {
+        self.transient.clone()
     }
 
     /// Sets transient
@@ -240,14 +195,9 @@ impl EStructuralFeature {
         self.transient.take()
     }
 
-    /// Returns a reference to default_value_literal if present
-    pub fn default_value_literal(&self) -> Option<&String> {
-        self.default_value_literal.as_ref()
-    }
-
-    /// Returns a mutable reference to default_value_literal if present
-    pub fn default_value_literal_mut(&mut self) -> Option<&mut String> {
-        self.default_value_literal.as_mut()
+    /// Returns a clone of default_value_literal if present
+    pub fn default_value_literal(&self) -> Option<String> {
+        self.default_value_literal.clone()
     }
 
     /// Sets default_value_literal
@@ -260,14 +210,9 @@ impl EStructuralFeature {
         self.default_value_literal.take()
     }
 
-    /// Returns a reference to unsettable if present
-    pub fn unsettable(&self) -> Option<&bool> {
-        self.unsettable.as_ref()
-    }
-
-    /// Returns a mutable reference to unsettable if present
-    pub fn unsettable_mut(&mut self) -> Option<&mut bool> {
-        self.unsettable.as_mut()
+    /// Returns a clone of unsettable if present
+    pub fn unsettable(&self) -> Option<bool> {
+        self.unsettable.clone()
     }
 
     /// Sets unsettable
@@ -280,14 +225,9 @@ impl EStructuralFeature {
         self.unsettable.take()
     }
 
-    /// Returns a reference to derived if present
-    pub fn derived(&self) -> Option<&bool> {
-        self.derived.as_ref()
-    }
-
-    /// Returns a mutable reference to derived if present
-    pub fn derived_mut(&mut self) -> Option<&mut bool> {
-        self.derived.as_mut()
+    /// Returns a clone of derived if present
+    pub fn derived(&self) -> Option<bool> {
+        self.derived.clone()
     }
 
     /// Sets derived
@@ -298,6 +238,33 @@ impl EStructuralFeature {
     /// Takes derived, leaving None in its place
     pub fn take_derived(&mut self) -> Option<bool> {
         self.derived.take()
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "EStructuralFeature".to_string()
     }
 
 }

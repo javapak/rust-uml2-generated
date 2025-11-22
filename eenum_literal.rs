@@ -1,7 +1,29 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           EEnumLiteral (struct)
+// Source Package: ecore
+// Package URI:    http://www.eclipse.org/emf/2002/Ecore
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct EEnumLiteral {
     e_annotations: Vec<EAnnotation>,
     name: Option<String>,
@@ -9,6 +31,7 @@ pub struct EEnumLiteral {
     literal: Option<String>,
 }
 
+#[wasm_bindgen]
 impl EEnumLiteral {
     pub fn new() -> Self {
         Self {
@@ -19,34 +42,9 @@ impl EEnumLiteral {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -59,14 +57,9 @@ impl EEnumLiteral {
         self.name.take()
     }
 
-    /// Returns a reference to value if present
-    pub fn value(&self) -> Option<&i32> {
-        self.value.as_ref()
-    }
-
-    /// Returns a mutable reference to value if present
-    pub fn value_mut(&mut self) -> Option<&mut i32> {
-        self.value.as_mut()
+    /// Returns a clone of value if present
+    pub fn value(&self) -> Option<i32> {
+        self.value.clone()
     }
 
     /// Sets value
@@ -79,14 +72,9 @@ impl EEnumLiteral {
         self.value.take()
     }
 
-    /// Returns a reference to literal if present
-    pub fn literal(&self) -> Option<&String> {
-        self.literal.as_ref()
-    }
-
-    /// Returns a mutable reference to literal if present
-    pub fn literal_mut(&mut self) -> Option<&mut String> {
-        self.literal.as_mut()
+    /// Returns a clone of literal if present
+    pub fn literal(&self) -> Option<String> {
+        self.literal.clone()
     }
 
     /// Sets literal
@@ -97,6 +85,33 @@ impl EEnumLiteral {
     /// Takes literal, leaving None in its place
     pub fn take_literal(&mut self) -> Option<String> {
         self.literal.take()
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "EEnumLiteral".to_string()
     }
 
 }

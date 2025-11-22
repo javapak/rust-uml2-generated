@@ -1,9 +1,31 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           MultiplicityElement (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:06
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
 use crate::value_specification::ValueSpecification;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct MultiplicityElement {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
@@ -13,6 +35,7 @@ pub struct MultiplicityElement {
     lower_value: Option<ValueSpecification>,
 }
 
+#[wasm_bindgen]
 impl MultiplicityElement {
     pub fn new(is_ordered: bool, is_unique: bool) -> Self {
         Self {
@@ -23,46 +46,6 @@ impl MultiplicityElement {
             upper_value: None,
             lower_value: None,
         }
-    }
-
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
     }
 
     /// Returns is_ordered
@@ -85,44 +68,31 @@ impl MultiplicityElement {
         self.is_unique = value;
     }
 
-    /// Returns a reference to upper_value if present
-    pub fn upper_value(&self) -> Option<&ValueSpecification> {
-        self.upper_value.as_ref()
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
     }
 
-    /// Returns a mutable reference to upper_value if present
-    pub fn upper_value_mut(&mut self) -> Option<&mut ValueSpecification> {
-        self.upper_value.as_mut()
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
     }
 
-    /// Sets upper_value
-    pub fn set_upper_value(&mut self, value: ValueSpecification) {
-        self.upper_value = Some(value);
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
     }
 
-    /// Takes upper_value, leaving None in its place
-    pub fn take_upper_value(&mut self) -> Option<ValueSpecification> {
-        self.upper_value.take()
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
     }
 
-    /// Returns a reference to lower_value if present
-    pub fn lower_value(&self) -> Option<&ValueSpecification> {
-        self.lower_value.as_ref()
-    }
-
-    /// Returns a mutable reference to lower_value if present
-    pub fn lower_value_mut(&mut self) -> Option<&mut ValueSpecification> {
-        self.lower_value.as_mut()
-    }
-
-    /// Sets lower_value
-    pub fn set_lower_value(&mut self, value: ValueSpecification) {
-        self.lower_value = Some(value);
-    }
-
-    /// Takes lower_value, leaving None in its place
-    pub fn take_lower_value(&mut self) -> Option<ValueSpecification> {
-        self.lower_value.take()
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "MultiplicityElement".to_string()
     }
 
 }

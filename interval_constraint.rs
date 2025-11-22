@@ -1,32 +1,47 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           IntervalConstraint (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
 use crate::string_expression::StringExpression;
-use crate::template_parameter::TemplateParameter;
-use crate::element::Element;
 use crate::value_specification::ValueSpecification;
-use crate::namespace::Namespace;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct IntervalConstraint {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
     name: Option<String>,
     visibility: Option<String>,
-    client_dependency: Vec<Rc<RefCell<Dependency>>>,
+    client_dependency: Vec<String>,
     name_expression: Option<StringExpression>,
-    owning_template_parameter: Option<Weak<RefCell<TemplateParameter>>>,
-    template_parameter: Option<Rc<RefCell<TemplateParameter>>>,
-    constrained_element: Vec<Rc<RefCell<Element>>>,
+    owning_template_parameter: Option<String>,
+    template_parameter: Option<String>,
+    constrained_element: Vec<String>,
     specification: ValueSpecification,
-    context: Option<Weak<RefCell<Namespace>>>,
+    context: Option<String>,
 }
 
+#[wasm_bindgen]
 impl IntervalConstraint {
     pub fn new(specification: ValueSpecification) -> Self {
         Self {
@@ -44,54 +59,9 @@ impl IntervalConstraint {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -104,14 +74,9 @@ impl IntervalConstraint {
         self.name.take()
     }
 
-    /// Returns a reference to visibility if present
-    pub fn visibility(&self) -> Option<&String> {
-        self.visibility.as_ref()
-    }
-
-    /// Returns a mutable reference to visibility if present
-    pub fn visibility_mut(&mut self) -> Option<&mut String> {
-        self.visibility.as_mut()
+    /// Returns a clone of visibility if present
+    pub fn visibility(&self) -> Option<String> {
+        self.visibility.clone()
     }
 
     /// Sets visibility
@@ -124,19 +89,14 @@ impl IntervalConstraint {
         self.visibility.take()
     }
 
-    /// Returns a reference to client_dependency
-    pub fn client_dependency(&self) -> &Vec<Rc<RefCell<Dependency>>> {
-        &self.client_dependency
+    /// Returns a clone of client_dependency
+    pub fn client_dependency(&self) -> Vec<String> {
+        self.client_dependency.clone()
     }
 
-    /// Returns a mutable reference to client_dependency
-    pub fn client_dependency_mut(&mut self) -> &mut Vec<Rc<RefCell<Dependency>>> {
-        &mut self.client_dependency
-    }
-
-    /// Adds an item to client_dependency
-    pub fn add_client_dependency(&mut self, item: Rc<RefCell<Dependency>>) {
-        self.client_dependency.push(item);
+    /// Adds an existing Dependency to client_dependency by ID
+    pub fn add_client_dependency_by_id(&mut self, id: String) {
+        self.client_dependency.push(id);
     }
 
     /// Clears all items from client_dependency
@@ -144,79 +104,44 @@ impl IntervalConstraint {
         self.client_dependency.clear();
     }
 
-    /// Returns a reference to name_expression if present
-    pub fn name_expression(&self) -> Option<&StringExpression> {
-        self.name_expression.as_ref()
-    }
-
-    /// Returns a mutable reference to name_expression if present
-    pub fn name_expression_mut(&mut self) -> Option<&mut StringExpression> {
-        self.name_expression.as_mut()
-    }
-
-    /// Sets name_expression
-    pub fn set_name_expression(&mut self, value: StringExpression) {
-        self.name_expression = Some(value);
-    }
-
-    /// Takes name_expression, leaving None in its place
-    pub fn take_name_expression(&mut self) -> Option<StringExpression> {
-        self.name_expression.take()
-    }
-
-    /// Returns a reference to owning_template_parameter if present
-    pub fn owning_template_parameter(&self) -> Option<&Weak<RefCell<TemplateParameter>>> {
-        self.owning_template_parameter.as_ref()
-    }
-
-    /// Returns a mutable reference to owning_template_parameter if present
-    pub fn owning_template_parameter_mut(&mut self) -> Option<&mut Weak<RefCell<TemplateParameter>>> {
-        self.owning_template_parameter.as_mut()
+    /// Returns a clone of owning_template_parameter if present
+    pub fn owning_template_parameter(&self) -> Option<String> {
+        self.owning_template_parameter.clone()
     }
 
     /// Sets owning_template_parameter
-    pub fn set_owning_template_parameter(&mut self, value: Weak<RefCell<TemplateParameter>>) {
+    pub fn set_owning_template_parameter(&mut self, value: String) {
         self.owning_template_parameter = Some(value);
     }
 
     /// Takes owning_template_parameter, leaving None in its place
-    pub fn take_owning_template_parameter(&mut self) -> Option<Weak<RefCell<TemplateParameter>>> {
+    pub fn take_owning_template_parameter(&mut self) -> Option<String> {
         self.owning_template_parameter.take()
     }
 
-    /// Returns a reference to template_parameter if present
-    pub fn template_parameter(&self) -> Option<&Rc<RefCell<TemplateParameter>>> {
-        self.template_parameter.as_ref()
-    }
-
-    /// Returns a mutable reference to template_parameter if present
-    pub fn template_parameter_mut(&mut self) -> Option<&mut Rc<RefCell<TemplateParameter>>> {
-        self.template_parameter.as_mut()
+    /// Returns a clone of template_parameter if present
+    pub fn template_parameter(&self) -> Option<String> {
+        self.template_parameter.clone()
     }
 
     /// Sets template_parameter
-    pub fn set_template_parameter(&mut self, value: Rc<RefCell<TemplateParameter>>) {
+    pub fn set_template_parameter(&mut self, value: String) {
         self.template_parameter = Some(value);
     }
 
     /// Takes template_parameter, leaving None in its place
-    pub fn take_template_parameter(&mut self) -> Option<Rc<RefCell<TemplateParameter>>> {
+    pub fn take_template_parameter(&mut self) -> Option<String> {
         self.template_parameter.take()
     }
 
-    /// Returns a reference to constrained_element
-    pub fn constrained_element(&self) -> &Vec<Rc<RefCell<Element>>> {
-        &self.constrained_element
+    /// Returns a clone of constrained_element
+    pub fn constrained_element(&self) -> Vec<String> {
+        self.constrained_element.clone()
     }
 
-    /// Returns a mutable reference to constrained_element
-    pub fn constrained_element_mut(&mut self) -> &mut Vec<Rc<RefCell<Element>>> {
-        &mut self.constrained_element
-    }
-
-    /// Adds an item to constrained_element
-    pub fn add_constrained_element(&mut self, item: Rc<RefCell<Element>>) {
-        self.constrained_element.push(item);
+    /// Adds an existing Element to constrained_element by ID
+    pub fn add_constrained_element_by_id(&mut self, id: String) {
+        self.constrained_element.push(id);
     }
 
     /// Clears all items from constrained_element
@@ -224,39 +149,46 @@ impl IntervalConstraint {
         self.constrained_element.clear();
     }
 
-    /// Returns a reference to specification
-    pub fn specification(&self) -> &ValueSpecification {
-        &self.specification
-    }
-
-    /// Returns a mutable reference to specification
-    pub fn specification_mut(&mut self) -> &mut ValueSpecification {
-        &mut self.specification
-    }
-
-    /// Sets specification
-    pub fn set_specification(&mut self, value: ValueSpecification) {
-        self.specification = value;
-    }
-
-    /// Returns a reference to context if present
-    pub fn context(&self) -> Option<&Weak<RefCell<Namespace>>> {
-        self.context.as_ref()
-    }
-
-    /// Returns a mutable reference to context if present
-    pub fn context_mut(&mut self) -> Option<&mut Weak<RefCell<Namespace>>> {
-        self.context.as_mut()
+    /// Returns a clone of context if present
+    pub fn context(&self) -> Option<String> {
+        self.context.clone()
     }
 
     /// Sets context
-    pub fn set_context(&mut self, value: Weak<RefCell<Namespace>>) {
+    pub fn set_context(&mut self, value: String) {
         self.context = Some(value);
     }
 
     /// Takes context, leaving None in its place
-    pub fn take_context(&mut self) -> Option<Weak<RefCell<Namespace>>> {
+    pub fn take_context(&mut self) -> Option<String> {
         self.context.take()
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "IntervalConstraint".to_string()
     }
 
 }

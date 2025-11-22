@@ -1,13 +1,31 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           ConnectorEnd (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:06
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
 use crate::value_specification::ValueSpecification;
-use crate::property::Property;
-use crate::connectable_element::ConnectableElement;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct ConnectorEnd {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
@@ -15,12 +33,13 @@ pub struct ConnectorEnd {
     is_unique: bool,
     upper_value: Option<ValueSpecification>,
     lower_value: Option<ValueSpecification>,
-    part_with_port: Option<Rc<RefCell<Property>>>,
-    role: Rc<RefCell<ConnectableElement>>,
+    part_with_port: Option<String>,
+    role: String,
 }
 
+#[wasm_bindgen]
 impl ConnectorEnd {
-    pub fn new(is_ordered: bool, is_unique: bool, role: Rc<RefCell<ConnectableElement>>) -> Self {
+    pub fn new(is_ordered: bool, is_unique: bool, role: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -31,46 +50,6 @@ impl ConnectorEnd {
             part_with_port: None,
             role: role,
         }
-    }
-
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
     }
 
     /// Returns is_ordered
@@ -93,79 +72,61 @@ impl ConnectorEnd {
         self.is_unique = value;
     }
 
-    /// Returns a reference to upper_value if present
-    pub fn upper_value(&self) -> Option<&ValueSpecification> {
-        self.upper_value.as_ref()
-    }
-
-    /// Returns a mutable reference to upper_value if present
-    pub fn upper_value_mut(&mut self) -> Option<&mut ValueSpecification> {
-        self.upper_value.as_mut()
-    }
-
-    /// Sets upper_value
-    pub fn set_upper_value(&mut self, value: ValueSpecification) {
-        self.upper_value = Some(value);
-    }
-
-    /// Takes upper_value, leaving None in its place
-    pub fn take_upper_value(&mut self) -> Option<ValueSpecification> {
-        self.upper_value.take()
-    }
-
-    /// Returns a reference to lower_value if present
-    pub fn lower_value(&self) -> Option<&ValueSpecification> {
-        self.lower_value.as_ref()
-    }
-
-    /// Returns a mutable reference to lower_value if present
-    pub fn lower_value_mut(&mut self) -> Option<&mut ValueSpecification> {
-        self.lower_value.as_mut()
-    }
-
-    /// Sets lower_value
-    pub fn set_lower_value(&mut self, value: ValueSpecification) {
-        self.lower_value = Some(value);
-    }
-
-    /// Takes lower_value, leaving None in its place
-    pub fn take_lower_value(&mut self) -> Option<ValueSpecification> {
-        self.lower_value.take()
-    }
-
-    /// Returns a reference to part_with_port if present
-    pub fn part_with_port(&self) -> Option<&Rc<RefCell<Property>>> {
-        self.part_with_port.as_ref()
-    }
-
-    /// Returns a mutable reference to part_with_port if present
-    pub fn part_with_port_mut(&mut self) -> Option<&mut Rc<RefCell<Property>>> {
-        self.part_with_port.as_mut()
+    /// Returns a clone of part_with_port if present
+    pub fn part_with_port(&self) -> Option<String> {
+        self.part_with_port.clone()
     }
 
     /// Sets part_with_port
-    pub fn set_part_with_port(&mut self, value: Rc<RefCell<Property>>) {
+    pub fn set_part_with_port(&mut self, value: String) {
         self.part_with_port = Some(value);
     }
 
     /// Takes part_with_port, leaving None in its place
-    pub fn take_part_with_port(&mut self) -> Option<Rc<RefCell<Property>>> {
+    pub fn take_part_with_port(&mut self) -> Option<String> {
         self.part_with_port.take()
     }
 
-    /// Returns a reference to role
-    pub fn role(&self) -> &Rc<RefCell<ConnectableElement>> {
-        &self.role
-    }
-
-    /// Returns a mutable reference to role
-    pub fn role_mut(&mut self) -> &mut Rc<RefCell<ConnectableElement>> {
-        &mut self.role
+    /// Returns a clone of role
+    pub fn role(&self) -> String {
+        self.role.clone()
     }
 
     /// Sets role
-    pub fn set_role(&mut self, value: Rc<RefCell<ConnectableElement>>) {
+    pub fn set_role(&mut self, value: String) {
         self.role = value;
+    }
+
+    /// Takes ownership of role, replacing it with an empty string
+    pub fn take_role(&mut self) -> String {
+        std::mem::take(&mut self.role)
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        false
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        true
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ConnectorEnd".to_string()
     }
 
 }

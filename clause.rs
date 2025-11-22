@@ -1,26 +1,44 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           Clause (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::executable_node::ExecutableNode;
-use crate::output_pin::OutputPin;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct Clause {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
-    test: Vec<Rc<RefCell<ExecutableNode>>>,
-    body: Vec<Rc<RefCell<ExecutableNode>>>,
-    predecessor_clause: Vec<Weak<RefCell<Clause>>>,
-    successor_clause: Vec<Weak<RefCell<Clause>>>,
-    decider: Rc<RefCell<OutputPin>>,
-    body_output: Vec<Rc<RefCell<OutputPin>>>,
+    test: Vec<String>,
+    body: Vec<String>,
+    predecessor_clause: Vec<String>,
+    successor_clause: Vec<String>,
+    decider: String,
+    body_output: Vec<String>,
 }
 
+#[wasm_bindgen]
 impl Clause {
-    pub fn new(decider: Rc<RefCell<OutputPin>>) -> Self {
+    pub fn new(decider: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -33,59 +51,14 @@ impl Clause {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
+    /// Returns a clone of test
+    pub fn test(&self) -> Vec<String> {
+        self.test.clone()
     }
 
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to test
-    pub fn test(&self) -> &Vec<Rc<RefCell<ExecutableNode>>> {
-        &self.test
-    }
-
-    /// Returns a mutable reference to test
-    pub fn test_mut(&mut self) -> &mut Vec<Rc<RefCell<ExecutableNode>>> {
-        &mut self.test
-    }
-
-    /// Adds an item to test
-    pub fn add_test(&mut self, item: Rc<RefCell<ExecutableNode>>) {
-        self.test.push(item);
+    /// Adds an existing ExecutableNode to test by ID
+    pub fn add_test_by_id(&mut self, id: String) {
+        self.test.push(id);
     }
 
     /// Clears all items from test
@@ -93,19 +66,14 @@ impl Clause {
         self.test.clear();
     }
 
-    /// Returns a reference to body
-    pub fn body(&self) -> &Vec<Rc<RefCell<ExecutableNode>>> {
-        &self.body
+    /// Returns a clone of body
+    pub fn body(&self) -> Vec<String> {
+        self.body.clone()
     }
 
-    /// Returns a mutable reference to body
-    pub fn body_mut(&mut self) -> &mut Vec<Rc<RefCell<ExecutableNode>>> {
-        &mut self.body
-    }
-
-    /// Adds an item to body
-    pub fn add_body(&mut self, item: Rc<RefCell<ExecutableNode>>) {
-        self.body.push(item);
+    /// Adds an existing ExecutableNode to body by ID
+    pub fn add_body_by_id(&mut self, id: String) {
+        self.body.push(id);
     }
 
     /// Clears all items from body
@@ -113,19 +81,14 @@ impl Clause {
         self.body.clear();
     }
 
-    /// Returns a reference to predecessor_clause
-    pub fn predecessor_clause(&self) -> &Vec<Weak<RefCell<Clause>>> {
-        &self.predecessor_clause
+    /// Returns a clone of predecessor_clause
+    pub fn predecessor_clause(&self) -> Vec<String> {
+        self.predecessor_clause.clone()
     }
 
-    /// Returns a mutable reference to predecessor_clause
-    pub fn predecessor_clause_mut(&mut self) -> &mut Vec<Weak<RefCell<Clause>>> {
-        &mut self.predecessor_clause
-    }
-
-    /// Adds an item to predecessor_clause
-    pub fn add_predecessor_clause(&mut self, item: Weak<RefCell<Clause>>) {
-        self.predecessor_clause.push(item);
+    /// Adds an existing Clause to predecessor_clause by ID
+    pub fn add_predecessor_clause_by_id(&mut self, id: String) {
+        self.predecessor_clause.push(id);
     }
 
     /// Clears all items from predecessor_clause
@@ -133,19 +96,14 @@ impl Clause {
         self.predecessor_clause.clear();
     }
 
-    /// Returns a reference to successor_clause
-    pub fn successor_clause(&self) -> &Vec<Weak<RefCell<Clause>>> {
-        &self.successor_clause
+    /// Returns a clone of successor_clause
+    pub fn successor_clause(&self) -> Vec<String> {
+        self.successor_clause.clone()
     }
 
-    /// Returns a mutable reference to successor_clause
-    pub fn successor_clause_mut(&mut self) -> &mut Vec<Weak<RefCell<Clause>>> {
-        &mut self.successor_clause
-    }
-
-    /// Adds an item to successor_clause
-    pub fn add_successor_clause(&mut self, item: Weak<RefCell<Clause>>) {
-        self.successor_clause.push(item);
+    /// Adds an existing Clause to successor_clause by ID
+    pub fn add_successor_clause_by_id(&mut self, id: String) {
+        self.successor_clause.push(id);
     }
 
     /// Clears all items from successor_clause
@@ -153,39 +111,61 @@ impl Clause {
         self.successor_clause.clear();
     }
 
-    /// Returns a reference to decider
-    pub fn decider(&self) -> &Rc<RefCell<OutputPin>> {
-        &self.decider
-    }
-
-    /// Returns a mutable reference to decider
-    pub fn decider_mut(&mut self) -> &mut Rc<RefCell<OutputPin>> {
-        &mut self.decider
+    /// Returns a clone of decider
+    pub fn decider(&self) -> String {
+        self.decider.clone()
     }
 
     /// Sets decider
-    pub fn set_decider(&mut self, value: Rc<RefCell<OutputPin>>) {
+    pub fn set_decider(&mut self, value: String) {
         self.decider = value;
     }
 
-    /// Returns a reference to body_output
-    pub fn body_output(&self) -> &Vec<Rc<RefCell<OutputPin>>> {
-        &self.body_output
+    /// Takes ownership of decider, replacing it with an empty string
+    pub fn take_decider(&mut self) -> String {
+        std::mem::take(&mut self.decider)
     }
 
-    /// Returns a mutable reference to body_output
-    pub fn body_output_mut(&mut self) -> &mut Vec<Rc<RefCell<OutputPin>>> {
-        &mut self.body_output
+    /// Returns a clone of body_output
+    pub fn body_output(&self) -> Vec<String> {
+        self.body_output.clone()
     }
 
-    /// Adds an item to body_output
-    pub fn add_body_output(&mut self, item: Rc<RefCell<OutputPin>>) {
-        self.body_output.push(item);
+    /// Adds an existing OutputPin to body_output by ID
+    pub fn add_body_output_by_id(&mut self, id: String) {
+        self.body_output.push(id);
     }
 
     /// Clears all items from body_output
     pub fn clear_body_output(&mut self) {
         self.body_output.clear();
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        false
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        true
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "Clause".to_string()
     }
 
 }

@@ -1,8 +1,30 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           EEnum (struct)
+// Source Package: ecore
+// Package URI:    http://www.eclipse.org/emf/2002/Ecore
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::eenum_literal::EEnumLiteral;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct EEnum {
     e_annotations: Vec<EAnnotation>,
     name: Option<String>,
@@ -12,6 +34,7 @@ pub struct EEnum {
     e_literals: Vec<EEnumLiteral>,
 }
 
+#[wasm_bindgen]
 impl EEnum {
     pub fn new() -> Self {
         Self {
@@ -24,34 +47,9 @@ impl EEnum {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -64,14 +62,9 @@ impl EEnum {
         self.name.take()
     }
 
-    /// Returns a reference to instance_class_name if present
-    pub fn instance_class_name(&self) -> Option<&String> {
-        self.instance_class_name.as_ref()
-    }
-
-    /// Returns a mutable reference to instance_class_name if present
-    pub fn instance_class_name_mut(&mut self) -> Option<&mut String> {
-        self.instance_class_name.as_mut()
+    /// Returns a clone of instance_class_name if present
+    pub fn instance_class_name(&self) -> Option<String> {
+        self.instance_class_name.clone()
     }
 
     /// Sets instance_class_name
@@ -84,14 +77,9 @@ impl EEnum {
         self.instance_class_name.take()
     }
 
-    /// Returns a reference to instance_type_name if present
-    pub fn instance_type_name(&self) -> Option<&String> {
-        self.instance_type_name.as_ref()
-    }
-
-    /// Returns a mutable reference to instance_type_name if present
-    pub fn instance_type_name_mut(&mut self) -> Option<&mut String> {
-        self.instance_type_name.as_mut()
+    /// Returns a clone of instance_type_name if present
+    pub fn instance_type_name(&self) -> Option<String> {
+        self.instance_type_name.clone()
     }
 
     /// Sets instance_type_name
@@ -104,14 +92,9 @@ impl EEnum {
         self.instance_type_name.take()
     }
 
-    /// Returns a reference to serializable if present
-    pub fn serializable(&self) -> Option<&bool> {
-        self.serializable.as_ref()
-    }
-
-    /// Returns a mutable reference to serializable if present
-    pub fn serializable_mut(&mut self) -> Option<&mut bool> {
-        self.serializable.as_mut()
+    /// Returns a clone of serializable if present
+    pub fn serializable(&self) -> Option<bool> {
+        self.serializable.clone()
     }
 
     /// Sets serializable
@@ -124,24 +107,31 @@ impl EEnum {
         self.serializable.take()
     }
 
-    /// Returns a slice of e_literals
-    pub fn e_literals(&self) -> &[EEnumLiteral] {
-        &self.e_literals
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
     }
 
-    /// Returns a mutable reference to e_literals
-    pub fn e_literals_mut(&mut self) -> &mut Vec<EEnumLiteral> {
-        &mut self.e_literals
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
     }
 
-    /// Adds an item to e_literals
-    pub fn add_e_literal(&mut self, item: EEnumLiteral) {
-        self.e_literals.push(item);
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
     }
 
-    /// Clears all items from e_literals
-    pub fn clear_e_literals(&mut self) {
-        self.e_literals.clear();
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "EEnum".to_string()
     }
 
 }

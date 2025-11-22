@@ -1,41 +1,52 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           InformationFlow (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
 use crate::string_expression::StringExpression;
-use crate::template_parameter::TemplateParameter;
-use crate::relationship::Relationship;
-use crate::classifier::Classifier;
-use crate::named_element::NamedElement;
-use crate::activity_edge::ActivityEdge;
-use crate::connector::Connector;
-use crate::message::Message;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct InformationFlow {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
     name: Option<String>,
     visibility: Option<String>,
-    client_dependency: Vec<Rc<RefCell<Dependency>>>,
+    client_dependency: Vec<String>,
     name_expression: Option<StringExpression>,
-    owning_template_parameter: Option<Weak<RefCell<TemplateParameter>>>,
-    template_parameter: Option<Rc<RefCell<TemplateParameter>>>,
-    realization: Vec<Rc<RefCell<Relationship>>>,
-    conveyed: Vec<Rc<RefCell<Classifier>>>,
-    information_source: Vec<Rc<RefCell<NamedElement>>>,
-    information_target: Vec<Rc<RefCell<NamedElement>>>,
-    realizing_activity_edge: Vec<Rc<RefCell<ActivityEdge>>>,
-    realizing_connector: Vec<Rc<RefCell<Connector>>>,
-    realizing_message: Vec<Rc<RefCell<Message>>>,
+    owning_template_parameter: Option<String>,
+    template_parameter: Option<String>,
+    realization: Vec<String>,
+    conveyed: Vec<String>,
+    information_source: Vec<String>,
+    information_target: Vec<String>,
+    realizing_activity_edge: Vec<String>,
+    realizing_connector: Vec<String>,
+    realizing_message: Vec<String>,
 }
 
+#[wasm_bindgen]
 impl InformationFlow {
-    pub fn new(conveyed: Vec<Rc<RefCell<Classifier>>>, information_source: Vec<Rc<RefCell<NamedElement>>>, information_target: Vec<Rc<RefCell<NamedElement>>>) -> Self {
+    pub fn new(conveyed: Vec<String>, information_source: Vec<String>, information_target: Vec<String>) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -55,54 +66,9 @@ impl InformationFlow {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -115,14 +81,9 @@ impl InformationFlow {
         self.name.take()
     }
 
-    /// Returns a reference to visibility if present
-    pub fn visibility(&self) -> Option<&String> {
-        self.visibility.as_ref()
-    }
-
-    /// Returns a mutable reference to visibility if present
-    pub fn visibility_mut(&mut self) -> Option<&mut String> {
-        self.visibility.as_mut()
+    /// Returns a clone of visibility if present
+    pub fn visibility(&self) -> Option<String> {
+        self.visibility.clone()
     }
 
     /// Sets visibility
@@ -135,19 +96,14 @@ impl InformationFlow {
         self.visibility.take()
     }
 
-    /// Returns a reference to client_dependency
-    pub fn client_dependency(&self) -> &Vec<Rc<RefCell<Dependency>>> {
-        &self.client_dependency
+    /// Returns a clone of client_dependency
+    pub fn client_dependency(&self) -> Vec<String> {
+        self.client_dependency.clone()
     }
 
-    /// Returns a mutable reference to client_dependency
-    pub fn client_dependency_mut(&mut self) -> &mut Vec<Rc<RefCell<Dependency>>> {
-        &mut self.client_dependency
-    }
-
-    /// Adds an item to client_dependency
-    pub fn add_client_dependency(&mut self, item: Rc<RefCell<Dependency>>) {
-        self.client_dependency.push(item);
+    /// Adds an existing Dependency to client_dependency by ID
+    pub fn add_client_dependency_by_id(&mut self, id: String) {
+        self.client_dependency.push(id);
     }
 
     /// Clears all items from client_dependency
@@ -155,79 +111,44 @@ impl InformationFlow {
         self.client_dependency.clear();
     }
 
-    /// Returns a reference to name_expression if present
-    pub fn name_expression(&self) -> Option<&StringExpression> {
-        self.name_expression.as_ref()
-    }
-
-    /// Returns a mutable reference to name_expression if present
-    pub fn name_expression_mut(&mut self) -> Option<&mut StringExpression> {
-        self.name_expression.as_mut()
-    }
-
-    /// Sets name_expression
-    pub fn set_name_expression(&mut self, value: StringExpression) {
-        self.name_expression = Some(value);
-    }
-
-    /// Takes name_expression, leaving None in its place
-    pub fn take_name_expression(&mut self) -> Option<StringExpression> {
-        self.name_expression.take()
-    }
-
-    /// Returns a reference to owning_template_parameter if present
-    pub fn owning_template_parameter(&self) -> Option<&Weak<RefCell<TemplateParameter>>> {
-        self.owning_template_parameter.as_ref()
-    }
-
-    /// Returns a mutable reference to owning_template_parameter if present
-    pub fn owning_template_parameter_mut(&mut self) -> Option<&mut Weak<RefCell<TemplateParameter>>> {
-        self.owning_template_parameter.as_mut()
+    /// Returns a clone of owning_template_parameter if present
+    pub fn owning_template_parameter(&self) -> Option<String> {
+        self.owning_template_parameter.clone()
     }
 
     /// Sets owning_template_parameter
-    pub fn set_owning_template_parameter(&mut self, value: Weak<RefCell<TemplateParameter>>) {
+    pub fn set_owning_template_parameter(&mut self, value: String) {
         self.owning_template_parameter = Some(value);
     }
 
     /// Takes owning_template_parameter, leaving None in its place
-    pub fn take_owning_template_parameter(&mut self) -> Option<Weak<RefCell<TemplateParameter>>> {
+    pub fn take_owning_template_parameter(&mut self) -> Option<String> {
         self.owning_template_parameter.take()
     }
 
-    /// Returns a reference to template_parameter if present
-    pub fn template_parameter(&self) -> Option<&Rc<RefCell<TemplateParameter>>> {
-        self.template_parameter.as_ref()
-    }
-
-    /// Returns a mutable reference to template_parameter if present
-    pub fn template_parameter_mut(&mut self) -> Option<&mut Rc<RefCell<TemplateParameter>>> {
-        self.template_parameter.as_mut()
+    /// Returns a clone of template_parameter if present
+    pub fn template_parameter(&self) -> Option<String> {
+        self.template_parameter.clone()
     }
 
     /// Sets template_parameter
-    pub fn set_template_parameter(&mut self, value: Rc<RefCell<TemplateParameter>>) {
+    pub fn set_template_parameter(&mut self, value: String) {
         self.template_parameter = Some(value);
     }
 
     /// Takes template_parameter, leaving None in its place
-    pub fn take_template_parameter(&mut self) -> Option<Rc<RefCell<TemplateParameter>>> {
+    pub fn take_template_parameter(&mut self) -> Option<String> {
         self.template_parameter.take()
     }
 
-    /// Returns a reference to realization
-    pub fn realization(&self) -> &Vec<Rc<RefCell<Relationship>>> {
-        &self.realization
+    /// Returns a clone of realization
+    pub fn realization(&self) -> Vec<String> {
+        self.realization.clone()
     }
 
-    /// Returns a mutable reference to realization
-    pub fn realization_mut(&mut self) -> &mut Vec<Rc<RefCell<Relationship>>> {
-        &mut self.realization
-    }
-
-    /// Adds an item to realization
-    pub fn add_realization(&mut self, item: Rc<RefCell<Relationship>>) {
-        self.realization.push(item);
+    /// Adds an existing Relationship to realization by ID
+    pub fn add_realization_by_id(&mut self, id: String) {
+        self.realization.push(id);
     }
 
     /// Clears all items from realization
@@ -235,19 +156,14 @@ impl InformationFlow {
         self.realization.clear();
     }
 
-    /// Returns a reference to conveyed
-    pub fn conveyed(&self) -> &Vec<Rc<RefCell<Classifier>>> {
-        &self.conveyed
+    /// Returns a clone of conveyed
+    pub fn conveyed(&self) -> Vec<String> {
+        self.conveyed.clone()
     }
 
-    /// Returns a mutable reference to conveyed
-    pub fn conveyed_mut(&mut self) -> &mut Vec<Rc<RefCell<Classifier>>> {
-        &mut self.conveyed
-    }
-
-    /// Adds an item to conveyed
-    pub fn add_conveyed(&mut self, item: Rc<RefCell<Classifier>>) {
-        self.conveyed.push(item);
+    /// Adds an existing Classifier to conveyed by ID
+    pub fn add_conveyed_by_id(&mut self, id: String) {
+        self.conveyed.push(id);
     }
 
     /// Clears all items from conveyed
@@ -255,19 +171,14 @@ impl InformationFlow {
         self.conveyed.clear();
     }
 
-    /// Returns a reference to information_source
-    pub fn information_source(&self) -> &Vec<Rc<RefCell<NamedElement>>> {
-        &self.information_source
+    /// Returns a clone of information_source
+    pub fn information_source(&self) -> Vec<String> {
+        self.information_source.clone()
     }
 
-    /// Returns a mutable reference to information_source
-    pub fn information_source_mut(&mut self) -> &mut Vec<Rc<RefCell<NamedElement>>> {
-        &mut self.information_source
-    }
-
-    /// Adds an item to information_source
-    pub fn add_information_source(&mut self, item: Rc<RefCell<NamedElement>>) {
-        self.information_source.push(item);
+    /// Adds an existing NamedElement to information_source by ID
+    pub fn add_information_source_by_id(&mut self, id: String) {
+        self.information_source.push(id);
     }
 
     /// Clears all items from information_source
@@ -275,19 +186,14 @@ impl InformationFlow {
         self.information_source.clear();
     }
 
-    /// Returns a reference to information_target
-    pub fn information_target(&self) -> &Vec<Rc<RefCell<NamedElement>>> {
-        &self.information_target
+    /// Returns a clone of information_target
+    pub fn information_target(&self) -> Vec<String> {
+        self.information_target.clone()
     }
 
-    /// Returns a mutable reference to information_target
-    pub fn information_target_mut(&mut self) -> &mut Vec<Rc<RefCell<NamedElement>>> {
-        &mut self.information_target
-    }
-
-    /// Adds an item to information_target
-    pub fn add_information_target(&mut self, item: Rc<RefCell<NamedElement>>) {
-        self.information_target.push(item);
+    /// Adds an existing NamedElement to information_target by ID
+    pub fn add_information_target_by_id(&mut self, id: String) {
+        self.information_target.push(id);
     }
 
     /// Clears all items from information_target
@@ -295,19 +201,14 @@ impl InformationFlow {
         self.information_target.clear();
     }
 
-    /// Returns a reference to realizing_activity_edge
-    pub fn realizing_activity_edge(&self) -> &Vec<Rc<RefCell<ActivityEdge>>> {
-        &self.realizing_activity_edge
+    /// Returns a clone of realizing_activity_edge
+    pub fn realizing_activity_edge(&self) -> Vec<String> {
+        self.realizing_activity_edge.clone()
     }
 
-    /// Returns a mutable reference to realizing_activity_edge
-    pub fn realizing_activity_edge_mut(&mut self) -> &mut Vec<Rc<RefCell<ActivityEdge>>> {
-        &mut self.realizing_activity_edge
-    }
-
-    /// Adds an item to realizing_activity_edge
-    pub fn add_realizing_activity_edge(&mut self, item: Rc<RefCell<ActivityEdge>>) {
-        self.realizing_activity_edge.push(item);
+    /// Adds an existing ActivityEdge to realizing_activity_edge by ID
+    pub fn add_realizing_activity_edge_by_id(&mut self, id: String) {
+        self.realizing_activity_edge.push(id);
     }
 
     /// Clears all items from realizing_activity_edge
@@ -315,19 +216,14 @@ impl InformationFlow {
         self.realizing_activity_edge.clear();
     }
 
-    /// Returns a reference to realizing_connector
-    pub fn realizing_connector(&self) -> &Vec<Rc<RefCell<Connector>>> {
-        &self.realizing_connector
+    /// Returns a clone of realizing_connector
+    pub fn realizing_connector(&self) -> Vec<String> {
+        self.realizing_connector.clone()
     }
 
-    /// Returns a mutable reference to realizing_connector
-    pub fn realizing_connector_mut(&mut self) -> &mut Vec<Rc<RefCell<Connector>>> {
-        &mut self.realizing_connector
-    }
-
-    /// Adds an item to realizing_connector
-    pub fn add_realizing_connector(&mut self, item: Rc<RefCell<Connector>>) {
-        self.realizing_connector.push(item);
+    /// Adds an existing Connector to realizing_connector by ID
+    pub fn add_realizing_connector_by_id(&mut self, id: String) {
+        self.realizing_connector.push(id);
     }
 
     /// Clears all items from realizing_connector
@@ -335,24 +231,46 @@ impl InformationFlow {
         self.realizing_connector.clear();
     }
 
-    /// Returns a reference to realizing_message
-    pub fn realizing_message(&self) -> &Vec<Rc<RefCell<Message>>> {
-        &self.realizing_message
+    /// Returns a clone of realizing_message
+    pub fn realizing_message(&self) -> Vec<String> {
+        self.realizing_message.clone()
     }
 
-    /// Returns a mutable reference to realizing_message
-    pub fn realizing_message_mut(&mut self) -> &mut Vec<Rc<RefCell<Message>>> {
-        &mut self.realizing_message
-    }
-
-    /// Adds an item to realizing_message
-    pub fn add_realizing_message(&mut self, item: Rc<RefCell<Message>>) {
-        self.realizing_message.push(item);
+    /// Adds an existing Message to realizing_message by ID
+    pub fn add_realizing_message_by_id(&mut self, id: String) {
+        self.realizing_message.push(id);
     }
 
     /// Clears all items from realizing_message
     pub fn clear_realizing_message(&mut self) {
         self.realizing_message.clear();
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "InformationFlow".to_string()
     }
 
 }

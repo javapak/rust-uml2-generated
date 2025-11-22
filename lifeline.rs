@@ -1,35 +1,49 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           Lifeline (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
 use crate::string_expression::StringExpression;
-use crate::connectable_element::ConnectableElement;
-use crate::interaction::Interaction;
 use crate::value_specification::ValueSpecification;
-use crate::part_decomposition::PartDecomposition;
-use crate::interaction_fragment::InteractionFragment;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct Lifeline {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
     name: Option<String>,
     visibility: Option<String>,
-    client_dependency: Vec<Rc<RefCell<Dependency>>>,
+    client_dependency: Vec<String>,
     name_expression: Option<StringExpression>,
-    represents: Option<Rc<RefCell<ConnectableElement>>>,
-    interaction: Weak<RefCell<Interaction>>,
+    represents: Option<String>,
+    interaction: String,
     selector: Option<ValueSpecification>,
-    decomposed_as: Option<Rc<RefCell<PartDecomposition>>>,
-    covered_by: Vec<Rc<RefCell<InteractionFragment>>>,
+    decomposed_as: Option<String>,
+    covered_by: Vec<String>,
 }
 
+#[wasm_bindgen]
 impl Lifeline {
-    pub fn new(interaction: Weak<RefCell<Interaction>>) -> Self {
+    pub fn new(interaction: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -45,54 +59,9 @@ impl Lifeline {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -105,14 +74,9 @@ impl Lifeline {
         self.name.take()
     }
 
-    /// Returns a reference to visibility if present
-    pub fn visibility(&self) -> Option<&String> {
-        self.visibility.as_ref()
-    }
-
-    /// Returns a mutable reference to visibility if present
-    pub fn visibility_mut(&mut self) -> Option<&mut String> {
-        self.visibility.as_mut()
+    /// Returns a clone of visibility if present
+    pub fn visibility(&self) -> Option<String> {
+        self.visibility.clone()
     }
 
     /// Sets visibility
@@ -125,19 +89,14 @@ impl Lifeline {
         self.visibility.take()
     }
 
-    /// Returns a reference to client_dependency
-    pub fn client_dependency(&self) -> &Vec<Rc<RefCell<Dependency>>> {
-        &self.client_dependency
+    /// Returns a clone of client_dependency
+    pub fn client_dependency(&self) -> Vec<String> {
+        self.client_dependency.clone()
     }
 
-    /// Returns a mutable reference to client_dependency
-    pub fn client_dependency_mut(&mut self) -> &mut Vec<Rc<RefCell<Dependency>>> {
-        &mut self.client_dependency
-    }
-
-    /// Adds an item to client_dependency
-    pub fn add_client_dependency(&mut self, item: Rc<RefCell<Dependency>>) {
-        self.client_dependency.push(item);
+    /// Adds an existing Dependency to client_dependency by ID
+    pub fn add_client_dependency_by_id(&mut self, id: String) {
+        self.client_dependency.push(id);
     }
 
     /// Clears all items from client_dependency
@@ -145,119 +104,91 @@ impl Lifeline {
         self.client_dependency.clear();
     }
 
-    /// Returns a reference to name_expression if present
-    pub fn name_expression(&self) -> Option<&StringExpression> {
-        self.name_expression.as_ref()
-    }
-
-    /// Returns a mutable reference to name_expression if present
-    pub fn name_expression_mut(&mut self) -> Option<&mut StringExpression> {
-        self.name_expression.as_mut()
-    }
-
-    /// Sets name_expression
-    pub fn set_name_expression(&mut self, value: StringExpression) {
-        self.name_expression = Some(value);
-    }
-
-    /// Takes name_expression, leaving None in its place
-    pub fn take_name_expression(&mut self) -> Option<StringExpression> {
-        self.name_expression.take()
-    }
-
-    /// Returns a reference to represents if present
-    pub fn represents(&self) -> Option<&Rc<RefCell<ConnectableElement>>> {
-        self.represents.as_ref()
-    }
-
-    /// Returns a mutable reference to represents if present
-    pub fn represents_mut(&mut self) -> Option<&mut Rc<RefCell<ConnectableElement>>> {
-        self.represents.as_mut()
+    /// Returns a clone of represents if present
+    pub fn represents(&self) -> Option<String> {
+        self.represents.clone()
     }
 
     /// Sets represents
-    pub fn set_represents(&mut self, value: Rc<RefCell<ConnectableElement>>) {
+    pub fn set_represents(&mut self, value: String) {
         self.represents = Some(value);
     }
 
     /// Takes represents, leaving None in its place
-    pub fn take_represents(&mut self) -> Option<Rc<RefCell<ConnectableElement>>> {
+    pub fn take_represents(&mut self) -> Option<String> {
         self.represents.take()
     }
 
-    /// Returns a reference to interaction
-    pub fn interaction(&self) -> &Weak<RefCell<Interaction>> {
-        &self.interaction
-    }
-
-    /// Returns a mutable reference to interaction
-    pub fn interaction_mut(&mut self) -> &mut Weak<RefCell<Interaction>> {
-        &mut self.interaction
+    /// Returns a clone of interaction
+    pub fn interaction(&self) -> String {
+        self.interaction.clone()
     }
 
     /// Sets interaction
-    pub fn set_interaction(&mut self, value: Weak<RefCell<Interaction>>) {
+    pub fn set_interaction(&mut self, value: String) {
         self.interaction = value;
     }
 
-    /// Returns a reference to selector if present
-    pub fn selector(&self) -> Option<&ValueSpecification> {
-        self.selector.as_ref()
+    /// Takes ownership of interaction, replacing it with an empty string
+    pub fn take_interaction(&mut self) -> String {
+        std::mem::take(&mut self.interaction)
     }
 
-    /// Returns a mutable reference to selector if present
-    pub fn selector_mut(&mut self) -> Option<&mut ValueSpecification> {
-        self.selector.as_mut()
-    }
-
-    /// Sets selector
-    pub fn set_selector(&mut self, value: ValueSpecification) {
-        self.selector = Some(value);
-    }
-
-    /// Takes selector, leaving None in its place
-    pub fn take_selector(&mut self) -> Option<ValueSpecification> {
-        self.selector.take()
-    }
-
-    /// Returns a reference to decomposed_as if present
-    pub fn decomposed_as(&self) -> Option<&Rc<RefCell<PartDecomposition>>> {
-        self.decomposed_as.as_ref()
-    }
-
-    /// Returns a mutable reference to decomposed_as if present
-    pub fn decomposed_as_mut(&mut self) -> Option<&mut Rc<RefCell<PartDecomposition>>> {
-        self.decomposed_as.as_mut()
+    /// Returns a clone of decomposed_as if present
+    pub fn decomposed_as(&self) -> Option<String> {
+        self.decomposed_as.clone()
     }
 
     /// Sets decomposed_as
-    pub fn set_decomposed_as(&mut self, value: Rc<RefCell<PartDecomposition>>) {
+    pub fn set_decomposed_as(&mut self, value: String) {
         self.decomposed_as = Some(value);
     }
 
     /// Takes decomposed_as, leaving None in its place
-    pub fn take_decomposed_as(&mut self) -> Option<Rc<RefCell<PartDecomposition>>> {
+    pub fn take_decomposed_as(&mut self) -> Option<String> {
         self.decomposed_as.take()
     }
 
-    /// Returns a reference to covered_by
-    pub fn covered_by(&self) -> &Vec<Rc<RefCell<InteractionFragment>>> {
-        &self.covered_by
+    /// Returns a clone of covered_by
+    pub fn covered_by(&self) -> Vec<String> {
+        self.covered_by.clone()
     }
 
-    /// Returns a mutable reference to covered_by
-    pub fn covered_by_mut(&mut self) -> &mut Vec<Rc<RefCell<InteractionFragment>>> {
-        &mut self.covered_by
-    }
-
-    /// Adds an item to covered_by
-    pub fn add_covered_by(&mut self, item: Rc<RefCell<InteractionFragment>>) {
-        self.covered_by.push(item);
+    /// Adds an existing InteractionFragment to covered_by by ID
+    pub fn add_covered_by_by_id(&mut self, id: String) {
+        self.covered_by.push(id);
     }
 
     /// Clears all items from covered_by
     pub fn clear_covered_by(&mut self) {
         self.covered_by.clear();
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "Lifeline".to_string()
     }
 
 }

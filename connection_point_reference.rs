@@ -1,30 +1,45 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           ConnectionPointReference (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
 use crate::string_expression::StringExpression;
-use crate::region::Region;
-use crate::pseudostate::Pseudostate;
-use crate::state::State;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct ConnectionPointReference {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
     name: Option<String>,
     visibility: Option<String>,
-    client_dependency: Vec<Rc<RefCell<Dependency>>>,
+    client_dependency: Vec<String>,
     name_expression: Option<StringExpression>,
-    container: Option<Weak<RefCell<Region>>>,
-    entry: Vec<Rc<RefCell<Pseudostate>>>,
-    exit: Vec<Rc<RefCell<Pseudostate>>>,
-    state: Option<Weak<RefCell<State>>>,
+    container: Option<String>,
+    entry: Vec<String>,
+    exit: Vec<String>,
+    state: Option<String>,
 }
 
+#[wasm_bindgen]
 impl ConnectionPointReference {
     pub fn new() -> Self {
         Self {
@@ -41,54 +56,9 @@ impl ConnectionPointReference {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -101,14 +71,9 @@ impl ConnectionPointReference {
         self.name.take()
     }
 
-    /// Returns a reference to visibility if present
-    pub fn visibility(&self) -> Option<&String> {
-        self.visibility.as_ref()
-    }
-
-    /// Returns a mutable reference to visibility if present
-    pub fn visibility_mut(&mut self) -> Option<&mut String> {
-        self.visibility.as_mut()
+    /// Returns a clone of visibility if present
+    pub fn visibility(&self) -> Option<String> {
+        self.visibility.clone()
     }
 
     /// Sets visibility
@@ -121,19 +86,14 @@ impl ConnectionPointReference {
         self.visibility.take()
     }
 
-    /// Returns a reference to client_dependency
-    pub fn client_dependency(&self) -> &Vec<Rc<RefCell<Dependency>>> {
-        &self.client_dependency
+    /// Returns a clone of client_dependency
+    pub fn client_dependency(&self) -> Vec<String> {
+        self.client_dependency.clone()
     }
 
-    /// Returns a mutable reference to client_dependency
-    pub fn client_dependency_mut(&mut self) -> &mut Vec<Rc<RefCell<Dependency>>> {
-        &mut self.client_dependency
-    }
-
-    /// Adds an item to client_dependency
-    pub fn add_client_dependency(&mut self, item: Rc<RefCell<Dependency>>) {
-        self.client_dependency.push(item);
+    /// Adds an existing Dependency to client_dependency by ID
+    pub fn add_client_dependency_by_id(&mut self, id: String) {
+        self.client_dependency.push(id);
     }
 
     /// Clears all items from client_dependency
@@ -141,59 +101,29 @@ impl ConnectionPointReference {
         self.client_dependency.clear();
     }
 
-    /// Returns a reference to name_expression if present
-    pub fn name_expression(&self) -> Option<&StringExpression> {
-        self.name_expression.as_ref()
-    }
-
-    /// Returns a mutable reference to name_expression if present
-    pub fn name_expression_mut(&mut self) -> Option<&mut StringExpression> {
-        self.name_expression.as_mut()
-    }
-
-    /// Sets name_expression
-    pub fn set_name_expression(&mut self, value: StringExpression) {
-        self.name_expression = Some(value);
-    }
-
-    /// Takes name_expression, leaving None in its place
-    pub fn take_name_expression(&mut self) -> Option<StringExpression> {
-        self.name_expression.take()
-    }
-
-    /// Returns a reference to container if present
-    pub fn container(&self) -> Option<&Weak<RefCell<Region>>> {
-        self.container.as_ref()
-    }
-
-    /// Returns a mutable reference to container if present
-    pub fn container_mut(&mut self) -> Option<&mut Weak<RefCell<Region>>> {
-        self.container.as_mut()
+    /// Returns a clone of container if present
+    pub fn container(&self) -> Option<String> {
+        self.container.clone()
     }
 
     /// Sets container
-    pub fn set_container(&mut self, value: Weak<RefCell<Region>>) {
+    pub fn set_container(&mut self, value: String) {
         self.container = Some(value);
     }
 
     /// Takes container, leaving None in its place
-    pub fn take_container(&mut self) -> Option<Weak<RefCell<Region>>> {
+    pub fn take_container(&mut self) -> Option<String> {
         self.container.take()
     }
 
-    /// Returns a reference to entry
-    pub fn entry(&self) -> &Vec<Rc<RefCell<Pseudostate>>> {
-        &self.entry
+    /// Returns a clone of entry
+    pub fn entry(&self) -> Vec<String> {
+        self.entry.clone()
     }
 
-    /// Returns a mutable reference to entry
-    pub fn entry_mut(&mut self) -> &mut Vec<Rc<RefCell<Pseudostate>>> {
-        &mut self.entry
-    }
-
-    /// Adds an item to entry
-    pub fn add_entry(&mut self, item: Rc<RefCell<Pseudostate>>) {
-        self.entry.push(item);
+    /// Adds an existing Pseudostate to entry by ID
+    pub fn add_entry_by_id(&mut self, id: String) {
+        self.entry.push(id);
     }
 
     /// Clears all items from entry
@@ -201,19 +131,14 @@ impl ConnectionPointReference {
         self.entry.clear();
     }
 
-    /// Returns a reference to exit
-    pub fn exit(&self) -> &Vec<Rc<RefCell<Pseudostate>>> {
-        &self.exit
+    /// Returns a clone of exit
+    pub fn exit(&self) -> Vec<String> {
+        self.exit.clone()
     }
 
-    /// Returns a mutable reference to exit
-    pub fn exit_mut(&mut self) -> &mut Vec<Rc<RefCell<Pseudostate>>> {
-        &mut self.exit
-    }
-
-    /// Adds an item to exit
-    pub fn add_exit(&mut self, item: Rc<RefCell<Pseudostate>>) {
-        self.exit.push(item);
+    /// Adds an existing Pseudostate to exit by ID
+    pub fn add_exit_by_id(&mut self, id: String) {
+        self.exit.push(id);
     }
 
     /// Clears all items from exit
@@ -221,24 +146,46 @@ impl ConnectionPointReference {
         self.exit.clear();
     }
 
-    /// Returns a reference to state if present
-    pub fn state(&self) -> Option<&Weak<RefCell<State>>> {
-        self.state.as_ref()
-    }
-
-    /// Returns a mutable reference to state if present
-    pub fn state_mut(&mut self) -> Option<&mut Weak<RefCell<State>>> {
-        self.state.as_mut()
+    /// Returns a clone of state if present
+    pub fn state(&self) -> Option<String> {
+        self.state.clone()
     }
 
     /// Sets state
-    pub fn set_state(&mut self, value: Weak<RefCell<State>>) {
+    pub fn set_state(&mut self, value: String) {
         self.state = Some(value);
     }
 
     /// Takes state, leaving None in its place
-    pub fn take_state(&mut self) -> Option<Weak<RefCell<State>>> {
+    pub fn take_state(&mut self) -> Option<String> {
         self.state.take()
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ConnectionPointReference".to_string()
     }
 
 }

@@ -1,7 +1,29 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           EClassifier (struct)
+// Source Package: ecore
+// Package URI:    http://www.eclipse.org/emf/2002/Ecore
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct EClassifier {
     e_annotations: Vec<EAnnotation>,
     name: Option<String>,
@@ -9,6 +31,7 @@ pub struct EClassifier {
     instance_type_name: Option<String>,
 }
 
+#[wasm_bindgen]
 impl EClassifier {
     pub fn new() -> Self {
         Self {
@@ -19,34 +42,9 @@ impl EClassifier {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -59,14 +57,9 @@ impl EClassifier {
         self.name.take()
     }
 
-    /// Returns a reference to instance_class_name if present
-    pub fn instance_class_name(&self) -> Option<&String> {
-        self.instance_class_name.as_ref()
-    }
-
-    /// Returns a mutable reference to instance_class_name if present
-    pub fn instance_class_name_mut(&mut self) -> Option<&mut String> {
-        self.instance_class_name.as_mut()
+    /// Returns a clone of instance_class_name if present
+    pub fn instance_class_name(&self) -> Option<String> {
+        self.instance_class_name.clone()
     }
 
     /// Sets instance_class_name
@@ -79,14 +72,9 @@ impl EClassifier {
         self.instance_class_name.take()
     }
 
-    /// Returns a reference to instance_type_name if present
-    pub fn instance_type_name(&self) -> Option<&String> {
-        self.instance_type_name.as_ref()
-    }
-
-    /// Returns a mutable reference to instance_type_name if present
-    pub fn instance_type_name_mut(&mut self) -> Option<&mut String> {
-        self.instance_type_name.as_mut()
+    /// Returns a clone of instance_type_name if present
+    pub fn instance_type_name(&self) -> Option<String> {
+        self.instance_type_name.clone()
     }
 
     /// Sets instance_type_name
@@ -97,6 +85,33 @@ impl EClassifier {
     /// Takes instance_type_name, leaving None in its place
     pub fn take_instance_type_name(&mut self) -> Option<String> {
         self.instance_type_name.take()
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "EClassifier".to_string()
     }
 
 }

@@ -1,23 +1,41 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           ProfileApplication (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::profile::Profile;
-use crate::package::Package;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct ProfileApplication {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
-    applied_profile: Rc<RefCell<Profile>>,
+    applied_profile: String,
     is_strict: bool,
-    applying_package: Weak<RefCell<Package>>,
+    applying_package: String,
 }
 
+#[wasm_bindgen]
 impl ProfileApplication {
-    pub fn new(applied_profile: Rc<RefCell<Profile>>, is_strict: bool, applying_package: Weak<RefCell<Package>>) -> Self {
+    pub fn new(applied_profile: String, is_strict: bool, applying_package: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -27,59 +45,19 @@ impl ProfileApplication {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to applied_profile
-    pub fn applied_profile(&self) -> &Rc<RefCell<Profile>> {
-        &self.applied_profile
-    }
-
-    /// Returns a mutable reference to applied_profile
-    pub fn applied_profile_mut(&mut self) -> &mut Rc<RefCell<Profile>> {
-        &mut self.applied_profile
+    /// Returns a clone of applied_profile
+    pub fn applied_profile(&self) -> String {
+        self.applied_profile.clone()
     }
 
     /// Sets applied_profile
-    pub fn set_applied_profile(&mut self, value: Rc<RefCell<Profile>>) {
+    pub fn set_applied_profile(&mut self, value: String) {
         self.applied_profile = value;
+    }
+
+    /// Takes ownership of applied_profile, replacing it with an empty string
+    pub fn take_applied_profile(&mut self) -> String {
+        std::mem::take(&mut self.applied_profile)
     }
 
     /// Returns is_strict
@@ -92,19 +70,46 @@ impl ProfileApplication {
         self.is_strict = value;
     }
 
-    /// Returns a reference to applying_package
-    pub fn applying_package(&self) -> &Weak<RefCell<Package>> {
-        &self.applying_package
-    }
-
-    /// Returns a mutable reference to applying_package
-    pub fn applying_package_mut(&mut self) -> &mut Weak<RefCell<Package>> {
-        &mut self.applying_package
+    /// Returns a clone of applying_package
+    pub fn applying_package(&self) -> String {
+        self.applying_package.clone()
     }
 
     /// Sets applying_package
-    pub fn set_applying_package(&mut self, value: Weak<RefCell<Package>>) {
+    pub fn set_applying_package(&mut self, value: String) {
         self.applying_package = value;
+    }
+
+    /// Takes ownership of applying_package, replacing it with an empty string
+    pub fn take_applying_package(&mut self) -> String {
+        std::mem::take(&mut self.applying_package)
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ProfileApplication".to_string()
     }
 
 }

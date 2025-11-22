@@ -1,12 +1,31 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           EClass (struct)
+// Source Package: ecore
+// Package URI:    http://www.eclipse.org/emf/2002/Ecore
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::eoperation::EOperation;
 use crate::estructural_feature::EStructuralFeature;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct EClass {
     e_annotations: Vec<EAnnotation>,
     name: Option<String>,
@@ -14,11 +33,12 @@ pub struct EClass {
     instance_type_name: Option<String>,
     abstract_: Option<bool>,
     interface: Option<bool>,
-    e_super_types: Vec<Rc<RefCell<EClass>>>,
+    e_super_types: Vec<String>,
     e_operations: Vec<EOperation>,
     e_structural_features: Vec<EStructuralFeature>,
 }
 
+#[wasm_bindgen]
 impl EClass {
     pub fn new() -> Self {
         Self {
@@ -34,34 +54,9 @@ impl EClass {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -74,14 +69,9 @@ impl EClass {
         self.name.take()
     }
 
-    /// Returns a reference to instance_class_name if present
-    pub fn instance_class_name(&self) -> Option<&String> {
-        self.instance_class_name.as_ref()
-    }
-
-    /// Returns a mutable reference to instance_class_name if present
-    pub fn instance_class_name_mut(&mut self) -> Option<&mut String> {
-        self.instance_class_name.as_mut()
+    /// Returns a clone of instance_class_name if present
+    pub fn instance_class_name(&self) -> Option<String> {
+        self.instance_class_name.clone()
     }
 
     /// Sets instance_class_name
@@ -94,14 +84,9 @@ impl EClass {
         self.instance_class_name.take()
     }
 
-    /// Returns a reference to instance_type_name if present
-    pub fn instance_type_name(&self) -> Option<&String> {
-        self.instance_type_name.as_ref()
-    }
-
-    /// Returns a mutable reference to instance_type_name if present
-    pub fn instance_type_name_mut(&mut self) -> Option<&mut String> {
-        self.instance_type_name.as_mut()
+    /// Returns a clone of instance_type_name if present
+    pub fn instance_type_name(&self) -> Option<String> {
+        self.instance_type_name.clone()
     }
 
     /// Sets instance_type_name
@@ -114,14 +99,9 @@ impl EClass {
         self.instance_type_name.take()
     }
 
-    /// Returns a reference to abstract_ if present
-    pub fn abstract_(&self) -> Option<&bool> {
-        self.abstract_.as_ref()
-    }
-
-    /// Returns a mutable reference to abstract_ if present
-    pub fn abstract_mut(&mut self) -> Option<&mut bool> {
-        self.abstract_.as_mut()
+    /// Returns a clone of abstract_ if present
+    pub fn abstract_(&self) -> Option<bool> {
+        self.abstract_.clone()
     }
 
     /// Sets abstract_
@@ -134,14 +114,9 @@ impl EClass {
         self.abstract_.take()
     }
 
-    /// Returns a reference to interface if present
-    pub fn interface(&self) -> Option<&bool> {
-        self.interface.as_ref()
-    }
-
-    /// Returns a mutable reference to interface if present
-    pub fn interface_mut(&mut self) -> Option<&mut bool> {
-        self.interface.as_mut()
+    /// Returns a clone of interface if present
+    pub fn interface(&self) -> Option<bool> {
+        self.interface.clone()
     }
 
     /// Sets interface
@@ -154,19 +129,14 @@ impl EClass {
         self.interface.take()
     }
 
-    /// Returns a reference to e_super_types
-    pub fn e_super_types(&self) -> &Vec<Rc<RefCell<EClass>>> {
-        &self.e_super_types
+    /// Returns a clone of e_super_types
+    pub fn e_super_types(&self) -> Vec<String> {
+        self.e_super_types.clone()
     }
 
-    /// Returns a mutable reference to e_super_types
-    pub fn e_super_types_mut(&mut self) -> &mut Vec<Rc<RefCell<EClass>>> {
-        &mut self.e_super_types
-    }
-
-    /// Adds an item to e_super_types
-    pub fn add_e_super_type(&mut self, item: Rc<RefCell<EClass>>) {
-        self.e_super_types.push(item);
+    /// Adds an existing EClass to e_super_types by ID
+    pub fn add_e_super_type_by_id(&mut self, id: String) {
+        self.e_super_types.push(id);
     }
 
     /// Clears all items from e_super_types
@@ -174,44 +144,31 @@ impl EClass {
         self.e_super_types.clear();
     }
 
-    /// Returns a slice of e_operations
-    pub fn e_operations(&self) -> &[EOperation] {
-        &self.e_operations
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
     }
 
-    /// Returns a mutable reference to e_operations
-    pub fn e_operations_mut(&mut self) -> &mut Vec<EOperation> {
-        &mut self.e_operations
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
     }
 
-    /// Adds an item to e_operations
-    pub fn add_e_operation(&mut self, item: EOperation) {
-        self.e_operations.push(item);
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
     }
 
-    /// Clears all items from e_operations
-    pub fn clear_e_operations(&mut self) {
-        self.e_operations.clear();
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
     }
 
-    /// Returns a slice of e_structural_features
-    pub fn e_structural_features(&self) -> &[EStructuralFeature] {
-        &self.e_structural_features
-    }
-
-    /// Returns a mutable reference to e_structural_features
-    pub fn e_structural_features_mut(&mut self) -> &mut Vec<EStructuralFeature> {
-        &mut self.e_structural_features
-    }
-
-    /// Adds an item to e_structural_features
-    pub fn add_e_structural_feature(&mut self, item: EStructuralFeature) {
-        self.e_structural_features.push(item);
-    }
-
-    /// Clears all items from e_structural_features
-    pub fn clear_e_structural_features(&mut self) {
-        self.e_structural_features.clear();
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "EClass".to_string()
     }
 
 }

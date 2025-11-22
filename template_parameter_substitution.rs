@@ -1,25 +1,43 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           TemplateParameterSubstitution (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:06
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::template_parameter::TemplateParameter;
 use crate::parameterable_element::ParameterableElement;
-use crate::template_binding::TemplateBinding;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct TemplateParameterSubstitution {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
-    formal: Rc<RefCell<TemplateParameter>>,
-    actual: Vec<Rc<RefCell<ParameterableElement>>>,
+    formal: String,
+    actual: Vec<String>,
     owned_actual: Vec<ParameterableElement>,
-    template_binding: Weak<RefCell<TemplateBinding>>,
+    template_binding: String,
 }
 
+#[wasm_bindgen]
 impl TemplateParameterSubstitution {
-    pub fn new(formal: Rc<RefCell<TemplateParameter>>, actual: Vec<Rc<RefCell<ParameterableElement>>>, template_binding: Weak<RefCell<TemplateBinding>>) -> Self {
+    pub fn new(formal: String, actual: Vec<String>, template_binding: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -30,74 +48,29 @@ impl TemplateParameterSubstitution {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to formal
-    pub fn formal(&self) -> &Rc<RefCell<TemplateParameter>> {
-        &self.formal
-    }
-
-    /// Returns a mutable reference to formal
-    pub fn formal_mut(&mut self) -> &mut Rc<RefCell<TemplateParameter>> {
-        &mut self.formal
+    /// Returns a clone of formal
+    pub fn formal(&self) -> String {
+        self.formal.clone()
     }
 
     /// Sets formal
-    pub fn set_formal(&mut self, value: Rc<RefCell<TemplateParameter>>) {
+    pub fn set_formal(&mut self, value: String) {
         self.formal = value;
     }
 
-    /// Returns a reference to actual
-    pub fn actual(&self) -> &Vec<Rc<RefCell<ParameterableElement>>> {
-        &self.actual
+    /// Takes ownership of formal, replacing it with an empty string
+    pub fn take_formal(&mut self) -> String {
+        std::mem::take(&mut self.formal)
     }
 
-    /// Returns a mutable reference to actual
-    pub fn actual_mut(&mut self) -> &mut Vec<Rc<RefCell<ParameterableElement>>> {
-        &mut self.actual
+    /// Returns a clone of actual
+    pub fn actual(&self) -> Vec<String> {
+        self.actual.clone()
     }
 
-    /// Adds an item to actual
-    pub fn add_actual(&mut self, item: Rc<RefCell<ParameterableElement>>) {
-        self.actual.push(item);
+    /// Adds an existing ParameterableElement to actual by ID
+    pub fn add_actual_by_id(&mut self, id: String) {
+        self.actual.push(id);
     }
 
     /// Clears all items from actual
@@ -105,39 +78,46 @@ impl TemplateParameterSubstitution {
         self.actual.clear();
     }
 
-    /// Returns a slice of owned_actual
-    pub fn owned_actual(&self) -> &[ParameterableElement] {
-        &self.owned_actual
-    }
-
-    /// Returns a mutable reference to owned_actual
-    pub fn owned_actual_mut(&mut self) -> &mut Vec<ParameterableElement> {
-        &mut self.owned_actual
-    }
-
-    /// Adds an item to owned_actual
-    pub fn add_owned_actual(&mut self, item: ParameterableElement) {
-        self.owned_actual.push(item);
-    }
-
-    /// Clears all items from owned_actual
-    pub fn clear_owned_actual(&mut self) {
-        self.owned_actual.clear();
-    }
-
-    /// Returns a reference to template_binding
-    pub fn template_binding(&self) -> &Weak<RefCell<TemplateBinding>> {
-        &self.template_binding
-    }
-
-    /// Returns a mutable reference to template_binding
-    pub fn template_binding_mut(&mut self) -> &mut Weak<RefCell<TemplateBinding>> {
-        &mut self.template_binding
+    /// Returns a clone of template_binding
+    pub fn template_binding(&self) -> String {
+        self.template_binding.clone()
     }
 
     /// Sets template_binding
-    pub fn set_template_binding(&mut self, value: Weak<RefCell<TemplateBinding>>) {
+    pub fn set_template_binding(&mut self, value: String) {
         self.template_binding = value;
+    }
+
+    /// Takes ownership of template_binding, replacing it with an empty string
+    pub fn take_template_binding(&mut self) -> String {
+        std::mem::take(&mut self.template_binding)
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "TemplateParameterSubstitution".to_string()
     }
 
 }

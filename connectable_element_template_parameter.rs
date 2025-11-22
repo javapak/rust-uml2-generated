@@ -1,25 +1,44 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           ConnectableElementTemplateParameter (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:06
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::template_signature::TemplateSignature;
 use crate::parameterable_element::ParameterableElement;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct ConnectableElementTemplateParameter {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
-    signature: Weak<RefCell<TemplateSignature>>,
-    parametered_element: Rc<RefCell<ParameterableElement>>,
+    signature: String,
+    parametered_element: String,
     owned_parametered_element: Option<ParameterableElement>,
-    default: Option<Rc<RefCell<ParameterableElement>>>,
+    default: Option<String>,
     owned_default: Option<ParameterableElement>,
 }
 
+#[wasm_bindgen]
 impl ConnectableElementTemplateParameter {
-    pub fn new(signature: Weak<RefCell<TemplateSignature>>, parametered_element: Rc<RefCell<ParameterableElement>>) -> Self {
+    pub fn new(signature: String, parametered_element: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -31,134 +50,76 @@ impl ConnectableElementTemplateParameter {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to signature
-    pub fn signature(&self) -> &Weak<RefCell<TemplateSignature>> {
-        &self.signature
-    }
-
-    /// Returns a mutable reference to signature
-    pub fn signature_mut(&mut self) -> &mut Weak<RefCell<TemplateSignature>> {
-        &mut self.signature
+    /// Returns a clone of signature
+    pub fn signature(&self) -> String {
+        self.signature.clone()
     }
 
     /// Sets signature
-    pub fn set_signature(&mut self, value: Weak<RefCell<TemplateSignature>>) {
+    pub fn set_signature(&mut self, value: String) {
         self.signature = value;
     }
 
-    /// Returns a reference to parametered_element
-    pub fn parametered_element(&self) -> &Rc<RefCell<ParameterableElement>> {
-        &self.parametered_element
+    /// Takes ownership of signature, replacing it with an empty string
+    pub fn take_signature(&mut self) -> String {
+        std::mem::take(&mut self.signature)
     }
 
-    /// Returns a mutable reference to parametered_element
-    pub fn parametered_element_mut(&mut self) -> &mut Rc<RefCell<ParameterableElement>> {
-        &mut self.parametered_element
+    /// Returns a clone of parametered_element
+    pub fn parametered_element(&self) -> String {
+        self.parametered_element.clone()
     }
 
     /// Sets parametered_element
-    pub fn set_parametered_element(&mut self, value: Rc<RefCell<ParameterableElement>>) {
+    pub fn set_parametered_element(&mut self, value: String) {
         self.parametered_element = value;
     }
 
-    /// Returns a reference to owned_parametered_element if present
-    pub fn owned_parametered_element(&self) -> Option<&ParameterableElement> {
-        self.owned_parametered_element.as_ref()
+    /// Takes ownership of parametered_element, replacing it with an empty string
+    pub fn take_parametered_element(&mut self) -> String {
+        std::mem::take(&mut self.parametered_element)
     }
 
-    /// Returns a mutable reference to owned_parametered_element if present
-    pub fn owned_parametered_element_mut(&mut self) -> Option<&mut ParameterableElement> {
-        self.owned_parametered_element.as_mut()
-    }
-
-    /// Sets owned_parametered_element
-    pub fn set_owned_parametered_element(&mut self, value: ParameterableElement) {
-        self.owned_parametered_element = Some(value);
-    }
-
-    /// Takes owned_parametered_element, leaving None in its place
-    pub fn take_owned_parametered_element(&mut self) -> Option<ParameterableElement> {
-        self.owned_parametered_element.take()
-    }
-
-    /// Returns a reference to default if present
-    pub fn default(&self) -> Option<&Rc<RefCell<ParameterableElement>>> {
-        self.default.as_ref()
-    }
-
-    /// Returns a mutable reference to default if present
-    pub fn default_mut(&mut self) -> Option<&mut Rc<RefCell<ParameterableElement>>> {
-        self.default.as_mut()
+    /// Returns a clone of default if present
+    pub fn default(&self) -> Option<String> {
+        self.default.clone()
     }
 
     /// Sets default
-    pub fn set_default(&mut self, value: Rc<RefCell<ParameterableElement>>) {
+    pub fn set_default(&mut self, value: String) {
         self.default = Some(value);
     }
 
     /// Takes default, leaving None in its place
-    pub fn take_default(&mut self) -> Option<Rc<RefCell<ParameterableElement>>> {
+    pub fn take_default(&mut self) -> Option<String> {
         self.default.take()
     }
 
-    /// Returns a reference to owned_default if present
-    pub fn owned_default(&self) -> Option<&ParameterableElement> {
-        self.owned_default.as_ref()
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
     }
 
-    /// Returns a mutable reference to owned_default if present
-    pub fn owned_default_mut(&mut self) -> Option<&mut ParameterableElement> {
-        self.owned_default.as_mut()
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
     }
 
-    /// Sets owned_default
-    pub fn set_owned_default(&mut self, value: ParameterableElement) {
-        self.owned_default = Some(value);
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
     }
 
-    /// Takes owned_default, leaving None in its place
-    pub fn take_owned_default(&mut self) -> Option<ParameterableElement> {
-        self.owned_default.take()
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ConnectableElementTemplateParameter".to_string()
     }
 
 }

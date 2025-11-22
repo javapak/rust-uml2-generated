@@ -1,23 +1,42 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           LinkEndData (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::input_pin::InputPin;
-use crate::property::Property;
 use crate::qualifier_value::QualifierValue;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct LinkEndData {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
-    value: Option<Rc<RefCell<InputPin>>>,
-    end: Rc<RefCell<Property>>,
+    value: Option<String>,
+    end: String,
     qualifier: Vec<QualifierValue>,
 }
 
+#[wasm_bindgen]
 impl LinkEndData {
-    pub fn new(end: Rc<RefCell<Property>>) -> Self {
+    pub fn new(end: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -27,99 +46,61 @@ impl LinkEndData {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to value if present
-    pub fn value(&self) -> Option<&Rc<RefCell<InputPin>>> {
-        self.value.as_ref()
-    }
-
-    /// Returns a mutable reference to value if present
-    pub fn value_mut(&mut self) -> Option<&mut Rc<RefCell<InputPin>>> {
-        self.value.as_mut()
+    /// Returns a clone of value if present
+    pub fn value(&self) -> Option<String> {
+        self.value.clone()
     }
 
     /// Sets value
-    pub fn set_value(&mut self, value: Rc<RefCell<InputPin>>) {
+    pub fn set_value(&mut self, value: String) {
         self.value = Some(value);
     }
 
     /// Takes value, leaving None in its place
-    pub fn take_value(&mut self) -> Option<Rc<RefCell<InputPin>>> {
+    pub fn take_value(&mut self) -> Option<String> {
         self.value.take()
     }
 
-    /// Returns a reference to end
-    pub fn end(&self) -> &Rc<RefCell<Property>> {
-        &self.end
-    }
-
-    /// Returns a mutable reference to end
-    pub fn end_mut(&mut self) -> &mut Rc<RefCell<Property>> {
-        &mut self.end
+    /// Returns a clone of end
+    pub fn end(&self) -> String {
+        self.end.clone()
     }
 
     /// Sets end
-    pub fn set_end(&mut self, value: Rc<RefCell<Property>>) {
+    pub fn set_end(&mut self, value: String) {
         self.end = value;
     }
 
-    /// Returns a slice of qualifier
-    pub fn qualifier(&self) -> &[QualifierValue] {
-        &self.qualifier
+    /// Takes ownership of end, replacing it with an empty string
+    pub fn take_end(&mut self) -> String {
+        std::mem::take(&mut self.end)
     }
 
-    /// Returns a mutable reference to qualifier
-    pub fn qualifier_mut(&mut self) -> &mut Vec<QualifierValue> {
-        &mut self.qualifier
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
     }
 
-    /// Adds an item to qualifier
-    pub fn add_qualifier(&mut self, item: QualifierValue) {
-        self.qualifier.push(item);
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
     }
 
-    /// Clears all items from qualifier
-    pub fn clear_qualifier(&mut self) {
-        self.qualifier.clear();
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        false
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        true
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "LinkEndData".to_string()
     }
 
 }

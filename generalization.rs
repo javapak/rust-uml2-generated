@@ -1,24 +1,42 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           Generalization (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:06
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::classifier::Classifier;
-use crate::generalization_set::GeneralizationSet;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct Generalization {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
     is_substitutable: Option<bool>,
-    general: Rc<RefCell<Classifier>>,
-    generalization_set: Vec<Rc<RefCell<GeneralizationSet>>>,
-    specific: Weak<RefCell<Classifier>>,
+    general: String,
+    generalization_set: Vec<String>,
+    specific: String,
 }
 
+#[wasm_bindgen]
 impl Generalization {
-    pub fn new(general: Rc<RefCell<Classifier>>, specific: Weak<RefCell<Classifier>>) -> Self {
+    pub fn new(general: String, specific: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -29,54 +47,9 @@ impl Generalization {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to is_substitutable if present
-    pub fn is_substitutable(&self) -> Option<&bool> {
-        self.is_substitutable.as_ref()
-    }
-
-    /// Returns a mutable reference to is_substitutable if present
-    pub fn is_substitutable_mut(&mut self) -> Option<&mut bool> {
-        self.is_substitutable.as_mut()
+    /// Returns a clone of is_substitutable if present
+    pub fn is_substitutable(&self) -> Option<bool> {
+        self.is_substitutable.clone()
     }
 
     /// Sets is_substitutable
@@ -89,34 +62,29 @@ impl Generalization {
         self.is_substitutable.take()
     }
 
-    /// Returns a reference to general
-    pub fn general(&self) -> &Rc<RefCell<Classifier>> {
-        &self.general
-    }
-
-    /// Returns a mutable reference to general
-    pub fn general_mut(&mut self) -> &mut Rc<RefCell<Classifier>> {
-        &mut self.general
+    /// Returns a clone of general
+    pub fn general(&self) -> String {
+        self.general.clone()
     }
 
     /// Sets general
-    pub fn set_general(&mut self, value: Rc<RefCell<Classifier>>) {
+    pub fn set_general(&mut self, value: String) {
         self.general = value;
     }
 
-    /// Returns a reference to generalization_set
-    pub fn generalization_set(&self) -> &Vec<Rc<RefCell<GeneralizationSet>>> {
-        &self.generalization_set
+    /// Takes ownership of general, replacing it with an empty string
+    pub fn take_general(&mut self) -> String {
+        std::mem::take(&mut self.general)
     }
 
-    /// Returns a mutable reference to generalization_set
-    pub fn generalization_set_mut(&mut self) -> &mut Vec<Rc<RefCell<GeneralizationSet>>> {
-        &mut self.generalization_set
+    /// Returns a clone of generalization_set
+    pub fn generalization_set(&self) -> Vec<String> {
+        self.generalization_set.clone()
     }
 
-    /// Adds an item to generalization_set
-    pub fn add_generalization_set(&mut self, item: Rc<RefCell<GeneralizationSet>>) {
-        self.generalization_set.push(item);
+    /// Adds an existing GeneralizationSet to generalization_set by ID
+    pub fn add_generalization_set_by_id(&mut self, id: String) {
+        self.generalization_set.push(id);
     }
 
     /// Clears all items from generalization_set
@@ -124,19 +92,46 @@ impl Generalization {
         self.generalization_set.clear();
     }
 
-    /// Returns a reference to specific
-    pub fn specific(&self) -> &Weak<RefCell<Classifier>> {
-        &self.specific
-    }
-
-    /// Returns a mutable reference to specific
-    pub fn specific_mut(&mut self) -> &mut Weak<RefCell<Classifier>> {
-        &mut self.specific
+    /// Returns a clone of specific
+    pub fn specific(&self) -> String {
+        self.specific.clone()
     }
 
     /// Sets specific
-    pub fn set_specific(&mut self, value: Weak<RefCell<Classifier>>) {
+    pub fn set_specific(&mut self, value: String) {
         self.specific = value;
+    }
+
+    /// Takes ownership of specific, replacing it with an empty string
+    pub fn take_specific(&mut self) -> String {
+        std::mem::take(&mut self.specific)
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "Generalization".to_string()
     }
 
 }

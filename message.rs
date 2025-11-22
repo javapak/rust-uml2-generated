@@ -1,36 +1,50 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           Message (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
 use crate::string_expression::StringExpression;
-use crate::message_sort::MessageSort;
-use crate::message_end::MessageEnd;
-use crate::connector::Connector;
-use crate::interaction::Interaction;
 use crate::value_specification::ValueSpecification;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct Message {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
     name: Option<String>,
     visibility: Option<String>,
-    client_dependency: Vec<Rc<RefCell<Dependency>>>,
+    client_dependency: Vec<String>,
     name_expression: Option<StringExpression>,
     message_sort: String,
-    receive_event: Option<Rc<RefCell<MessageEnd>>>,
-    send_event: Option<Rc<RefCell<MessageEnd>>>,
-    connector: Option<Rc<RefCell<Connector>>>,
-    interaction: Weak<RefCell<Interaction>>,
+    receive_event: Option<String>,
+    send_event: Option<String>,
+    connector: Option<String>,
+    interaction: String,
     argument: Vec<ValueSpecification>,
 }
 
+#[wasm_bindgen]
 impl Message {
-    pub fn new(message_sort: String, interaction: Weak<RefCell<Interaction>>) -> Self {
+    pub fn new(message_sort: String, interaction: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -47,54 +61,9 @@ impl Message {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -107,14 +76,9 @@ impl Message {
         self.name.take()
     }
 
-    /// Returns a reference to visibility if present
-    pub fn visibility(&self) -> Option<&String> {
-        self.visibility.as_ref()
-    }
-
-    /// Returns a mutable reference to visibility if present
-    pub fn visibility_mut(&mut self) -> Option<&mut String> {
-        self.visibility.as_mut()
+    /// Returns a clone of visibility if present
+    pub fn visibility(&self) -> Option<String> {
+        self.visibility.clone()
     }
 
     /// Sets visibility
@@ -127,19 +91,14 @@ impl Message {
         self.visibility.take()
     }
 
-    /// Returns a reference to client_dependency
-    pub fn client_dependency(&self) -> &Vec<Rc<RefCell<Dependency>>> {
-        &self.client_dependency
+    /// Returns a clone of client_dependency
+    pub fn client_dependency(&self) -> Vec<String> {
+        self.client_dependency.clone()
     }
 
-    /// Returns a mutable reference to client_dependency
-    pub fn client_dependency_mut(&mut self) -> &mut Vec<Rc<RefCell<Dependency>>> {
-        &mut self.client_dependency
-    }
-
-    /// Adds an item to client_dependency
-    pub fn add_client_dependency(&mut self, item: Rc<RefCell<Dependency>>) {
-        self.client_dependency.push(item);
+    /// Adds an existing Dependency to client_dependency by ID
+    pub fn add_client_dependency_by_id(&mut self, id: String) {
+        self.client_dependency.push(id);
     }
 
     /// Clears all items from client_dependency
@@ -147,34 +106,14 @@ impl Message {
         self.client_dependency.clear();
     }
 
-    /// Returns a reference to name_expression if present
-    pub fn name_expression(&self) -> Option<&StringExpression> {
-        self.name_expression.as_ref()
-    }
-
-    /// Returns a mutable reference to name_expression if present
-    pub fn name_expression_mut(&mut self) -> Option<&mut StringExpression> {
-        self.name_expression.as_mut()
-    }
-
-    /// Sets name_expression
-    pub fn set_name_expression(&mut self, value: StringExpression) {
-        self.name_expression = Some(value);
-    }
-
-    /// Takes name_expression, leaving None in its place
-    pub fn take_name_expression(&mut self) -> Option<StringExpression> {
-        self.name_expression.take()
-    }
-
-    /// Returns message_sort as a string slice
-    pub fn message_sort(&self) -> &str {
-        &self.message_sort
+    /// Returns a clone of message_sort
+    pub fn message_sort(&self) -> String {
+        self.message_sort.clone()
     }
 
     /// Sets message_sort
-    pub fn set_message_sort(&mut self, value: impl Into<String>) {
-        self.message_sort = value.into();
+    pub fn set_message_sort(&mut self, value: String) {
+        self.message_sort = value;
     }
 
     /// Takes ownership of message_sort, replacing it with an empty string
@@ -182,99 +121,91 @@ impl Message {
         std::mem::take(&mut self.message_sort)
     }
 
-    /// Returns a reference to receive_event if present
-    pub fn receive_event(&self) -> Option<&Rc<RefCell<MessageEnd>>> {
-        self.receive_event.as_ref()
-    }
-
-    /// Returns a mutable reference to receive_event if present
-    pub fn receive_event_mut(&mut self) -> Option<&mut Rc<RefCell<MessageEnd>>> {
-        self.receive_event.as_mut()
+    /// Returns a clone of receive_event if present
+    pub fn receive_event(&self) -> Option<String> {
+        self.receive_event.clone()
     }
 
     /// Sets receive_event
-    pub fn set_receive_event(&mut self, value: Rc<RefCell<MessageEnd>>) {
+    pub fn set_receive_event(&mut self, value: String) {
         self.receive_event = Some(value);
     }
 
     /// Takes receive_event, leaving None in its place
-    pub fn take_receive_event(&mut self) -> Option<Rc<RefCell<MessageEnd>>> {
+    pub fn take_receive_event(&mut self) -> Option<String> {
         self.receive_event.take()
     }
 
-    /// Returns a reference to send_event if present
-    pub fn send_event(&self) -> Option<&Rc<RefCell<MessageEnd>>> {
-        self.send_event.as_ref()
-    }
-
-    /// Returns a mutable reference to send_event if present
-    pub fn send_event_mut(&mut self) -> Option<&mut Rc<RefCell<MessageEnd>>> {
-        self.send_event.as_mut()
+    /// Returns a clone of send_event if present
+    pub fn send_event(&self) -> Option<String> {
+        self.send_event.clone()
     }
 
     /// Sets send_event
-    pub fn set_send_event(&mut self, value: Rc<RefCell<MessageEnd>>) {
+    pub fn set_send_event(&mut self, value: String) {
         self.send_event = Some(value);
     }
 
     /// Takes send_event, leaving None in its place
-    pub fn take_send_event(&mut self) -> Option<Rc<RefCell<MessageEnd>>> {
+    pub fn take_send_event(&mut self) -> Option<String> {
         self.send_event.take()
     }
 
-    /// Returns a reference to connector if present
-    pub fn connector(&self) -> Option<&Rc<RefCell<Connector>>> {
-        self.connector.as_ref()
-    }
-
-    /// Returns a mutable reference to connector if present
-    pub fn connector_mut(&mut self) -> Option<&mut Rc<RefCell<Connector>>> {
-        self.connector.as_mut()
+    /// Returns a clone of connector if present
+    pub fn connector(&self) -> Option<String> {
+        self.connector.clone()
     }
 
     /// Sets connector
-    pub fn set_connector(&mut self, value: Rc<RefCell<Connector>>) {
+    pub fn set_connector(&mut self, value: String) {
         self.connector = Some(value);
     }
 
     /// Takes connector, leaving None in its place
-    pub fn take_connector(&mut self) -> Option<Rc<RefCell<Connector>>> {
+    pub fn take_connector(&mut self) -> Option<String> {
         self.connector.take()
     }
 
-    /// Returns a reference to interaction
-    pub fn interaction(&self) -> &Weak<RefCell<Interaction>> {
-        &self.interaction
-    }
-
-    /// Returns a mutable reference to interaction
-    pub fn interaction_mut(&mut self) -> &mut Weak<RefCell<Interaction>> {
-        &mut self.interaction
+    /// Returns a clone of interaction
+    pub fn interaction(&self) -> String {
+        self.interaction.clone()
     }
 
     /// Sets interaction
-    pub fn set_interaction(&mut self, value: Weak<RefCell<Interaction>>) {
+    pub fn set_interaction(&mut self, value: String) {
         self.interaction = value;
     }
 
-    /// Returns a slice of argument
-    pub fn argument(&self) -> &[ValueSpecification] {
-        &self.argument
+    /// Takes ownership of interaction, replacing it with an empty string
+    pub fn take_interaction(&mut self) -> String {
+        std::mem::take(&mut self.interaction)
     }
 
-    /// Returns a mutable reference to argument
-    pub fn argument_mut(&mut self) -> &mut Vec<ValueSpecification> {
-        &mut self.argument
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
     }
 
-    /// Adds an item to argument
-    pub fn add_argument(&mut self, item: ValueSpecification) {
-        self.argument.push(item);
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
     }
 
-    /// Clears all items from argument
-    pub fn clear_argument(&mut self) {
-        self.argument.clear();
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "Message".to_string()
     }
 
 }

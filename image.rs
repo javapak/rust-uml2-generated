@@ -1,8 +1,30 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           Image (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct Image {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
@@ -11,6 +33,7 @@ pub struct Image {
     format: Option<String>,
 }
 
+#[wasm_bindgen]
 impl Image {
     pub fn new() -> Self {
         Self {
@@ -22,54 +45,9 @@ impl Image {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to content if present
-    pub fn content(&self) -> Option<&String> {
-        self.content.as_ref()
-    }
-
-    /// Returns a mutable reference to content if present
-    pub fn content_mut(&mut self) -> Option<&mut String> {
-        self.content.as_mut()
+    /// Returns a clone of content if present
+    pub fn content(&self) -> Option<String> {
+        self.content.clone()
     }
 
     /// Sets content
@@ -82,14 +60,9 @@ impl Image {
         self.content.take()
     }
 
-    /// Returns a reference to location if present
-    pub fn location(&self) -> Option<&String> {
-        self.location.as_ref()
-    }
-
-    /// Returns a mutable reference to location if present
-    pub fn location_mut(&mut self) -> Option<&mut String> {
-        self.location.as_mut()
+    /// Returns a clone of location if present
+    pub fn location(&self) -> Option<String> {
+        self.location.clone()
     }
 
     /// Sets location
@@ -102,14 +75,9 @@ impl Image {
         self.location.take()
     }
 
-    /// Returns a reference to format if present
-    pub fn format(&self) -> Option<&String> {
-        self.format.as_ref()
-    }
-
-    /// Returns a mutable reference to format if present
-    pub fn format_mut(&mut self) -> Option<&mut String> {
-        self.format.as_mut()
+    /// Returns a clone of format if present
+    pub fn format(&self) -> Option<String> {
+        self.format.clone()
     }
 
     /// Sets format
@@ -120,6 +88,33 @@ impl Image {
     /// Takes format, leaving None in its place
     pub fn take_format(&mut self) -> Option<String> {
         self.format.take()
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "Image".to_string()
     }
 
 }

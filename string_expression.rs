@@ -1,36 +1,52 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           StringExpression (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
-use crate::template_parameter::TemplateParameter;
-use crate::type_::Type;
 use crate::value_specification::ValueSpecification;
 use crate::template_binding::TemplateBinding;
 use crate::template_signature::TemplateSignature;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct StringExpression {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
     name: Option<String>,
     visibility: Option<String>,
-    client_dependency: Vec<Rc<RefCell<Dependency>>>,
+    client_dependency: Vec<String>,
     name_expression: Option<Box<StringExpression>>,
-    owning_template_parameter: Option<Weak<RefCell<TemplateParameter>>>,
-    template_parameter: Option<Rc<RefCell<TemplateParameter>>>,
-    type_: Option<Rc<RefCell<Type>>>,
+    owning_template_parameter: Option<String>,
+    template_parameter: Option<String>,
+    type_: Option<String>,
     symbol: Option<String>,
     operand: Vec<ValueSpecification>,
     template_binding: Vec<TemplateBinding>,
     owned_template_signature: Option<TemplateSignature>,
     sub_expression: Vec<Box<StringExpression>>,
-    owning_expression: Option<Weak<RefCell<StringExpression>>>,
+    owning_expression: Option<String>,
 }
 
+#[wasm_bindgen]
 impl StringExpression {
     pub fn new() -> Self {
         Self {
@@ -52,54 +68,9 @@ impl StringExpression {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -112,14 +83,9 @@ impl StringExpression {
         self.name.take()
     }
 
-    /// Returns a reference to visibility if present
-    pub fn visibility(&self) -> Option<&String> {
-        self.visibility.as_ref()
-    }
-
-    /// Returns a mutable reference to visibility if present
-    pub fn visibility_mut(&mut self) -> Option<&mut String> {
-        self.visibility.as_mut()
+    /// Returns a clone of visibility if present
+    pub fn visibility(&self) -> Option<String> {
+        self.visibility.clone()
     }
 
     /// Sets visibility
@@ -132,19 +98,14 @@ impl StringExpression {
         self.visibility.take()
     }
 
-    /// Returns a reference to client_dependency
-    pub fn client_dependency(&self) -> &Vec<Rc<RefCell<Dependency>>> {
-        &self.client_dependency
+    /// Returns a clone of client_dependency
+    pub fn client_dependency(&self) -> Vec<String> {
+        self.client_dependency.clone()
     }
 
-    /// Returns a mutable reference to client_dependency
-    pub fn client_dependency_mut(&mut self) -> &mut Vec<Rc<RefCell<Dependency>>> {
-        &mut self.client_dependency
-    }
-
-    /// Adds an item to client_dependency
-    pub fn add_client_dependency(&mut self, item: Rc<RefCell<Dependency>>) {
-        self.client_dependency.push(item);
+    /// Adds an existing Dependency to client_dependency by ID
+    pub fn add_client_dependency_by_id(&mut self, id: String) {
+        self.client_dependency.push(id);
     }
 
     /// Clears all items from client_dependency
@@ -152,94 +113,54 @@ impl StringExpression {
         self.client_dependency.clear();
     }
 
-    /// Returns a reference to name_expression if present
-    pub fn name_expression(&self) -> Option<&Box<StringExpression>> {
-        self.name_expression.as_ref()
-    }
-
-    /// Returns a mutable reference to name_expression if present
-    pub fn name_expression_mut(&mut self) -> Option<&mut Box<StringExpression>> {
-        self.name_expression.as_mut()
-    }
-
-    /// Sets name_expression
-    pub fn set_name_expression(&mut self, value: StringExpression) {
-        self.name_expression = Some(Box::new(value));
-    }
-
-    /// Takes name_expression, leaving None in its place
-    pub fn take_name_expression(&mut self) -> Option<Box<StringExpression>> {
-        self.name_expression.take()
-    }
-
-    /// Returns a reference to owning_template_parameter if present
-    pub fn owning_template_parameter(&self) -> Option<&Weak<RefCell<TemplateParameter>>> {
-        self.owning_template_parameter.as_ref()
-    }
-
-    /// Returns a mutable reference to owning_template_parameter if present
-    pub fn owning_template_parameter_mut(&mut self) -> Option<&mut Weak<RefCell<TemplateParameter>>> {
-        self.owning_template_parameter.as_mut()
+    /// Returns a clone of owning_template_parameter if present
+    pub fn owning_template_parameter(&self) -> Option<String> {
+        self.owning_template_parameter.clone()
     }
 
     /// Sets owning_template_parameter
-    pub fn set_owning_template_parameter(&mut self, value: Weak<RefCell<TemplateParameter>>) {
+    pub fn set_owning_template_parameter(&mut self, value: String) {
         self.owning_template_parameter = Some(value);
     }
 
     /// Takes owning_template_parameter, leaving None in its place
-    pub fn take_owning_template_parameter(&mut self) -> Option<Weak<RefCell<TemplateParameter>>> {
+    pub fn take_owning_template_parameter(&mut self) -> Option<String> {
         self.owning_template_parameter.take()
     }
 
-    /// Returns a reference to template_parameter if present
-    pub fn template_parameter(&self) -> Option<&Rc<RefCell<TemplateParameter>>> {
-        self.template_parameter.as_ref()
-    }
-
-    /// Returns a mutable reference to template_parameter if present
-    pub fn template_parameter_mut(&mut self) -> Option<&mut Rc<RefCell<TemplateParameter>>> {
-        self.template_parameter.as_mut()
+    /// Returns a clone of template_parameter if present
+    pub fn template_parameter(&self) -> Option<String> {
+        self.template_parameter.clone()
     }
 
     /// Sets template_parameter
-    pub fn set_template_parameter(&mut self, value: Rc<RefCell<TemplateParameter>>) {
+    pub fn set_template_parameter(&mut self, value: String) {
         self.template_parameter = Some(value);
     }
 
     /// Takes template_parameter, leaving None in its place
-    pub fn take_template_parameter(&mut self) -> Option<Rc<RefCell<TemplateParameter>>> {
+    pub fn take_template_parameter(&mut self) -> Option<String> {
         self.template_parameter.take()
     }
 
-    /// Returns a reference to type_ if present
-    pub fn type_(&self) -> Option<&Rc<RefCell<Type>>> {
-        self.type_.as_ref()
-    }
-
-    /// Returns a mutable reference to type_ if present
-    pub fn type_mut(&mut self) -> Option<&mut Rc<RefCell<Type>>> {
-        self.type_.as_mut()
+    /// Returns a clone of type_ if present
+    pub fn type_(&self) -> Option<String> {
+        self.type_.clone()
     }
 
     /// Sets type_
-    pub fn set_type_(&mut self, value: Rc<RefCell<Type>>) {
+    pub fn set_type_(&mut self, value: String) {
         self.type_ = Some(value);
     }
 
     /// Takes type_, leaving None in its place
-    pub fn take_type(&mut self) -> Option<Rc<RefCell<Type>>> {
+    pub fn take_type(&mut self) -> Option<String> {
         self.type_.take()
     }
 
-    /// Returns a reference to symbol if present
-    pub fn symbol(&self) -> Option<&String> {
-        self.symbol.as_ref()
-    }
-
-    /// Returns a mutable reference to symbol if present
-    pub fn symbol_mut(&mut self) -> Option<&mut String> {
-        self.symbol.as_mut()
+    /// Returns a clone of symbol if present
+    pub fn symbol(&self) -> Option<String> {
+        self.symbol.clone()
     }
 
     /// Sets symbol
@@ -252,104 +173,46 @@ impl StringExpression {
         self.symbol.take()
     }
 
-    /// Returns a slice of operand
-    pub fn operand(&self) -> &[ValueSpecification] {
-        &self.operand
-    }
-
-    /// Returns a mutable reference to operand
-    pub fn operand_mut(&mut self) -> &mut Vec<ValueSpecification> {
-        &mut self.operand
-    }
-
-    /// Adds an item to operand
-    pub fn add_operand(&mut self, item: ValueSpecification) {
-        self.operand.push(item);
-    }
-
-    /// Clears all items from operand
-    pub fn clear_operand(&mut self) {
-        self.operand.clear();
-    }
-
-    /// Returns a slice of template_binding
-    pub fn template_binding(&self) -> &[TemplateBinding] {
-        &self.template_binding
-    }
-
-    /// Returns a mutable reference to template_binding
-    pub fn template_binding_mut(&mut self) -> &mut Vec<TemplateBinding> {
-        &mut self.template_binding
-    }
-
-    /// Adds an item to template_binding
-    pub fn add_template_binding(&mut self, item: TemplateBinding) {
-        self.template_binding.push(item);
-    }
-
-    /// Clears all items from template_binding
-    pub fn clear_template_binding(&mut self) {
-        self.template_binding.clear();
-    }
-
-    /// Returns a reference to owned_template_signature if present
-    pub fn owned_template_signature(&self) -> Option<&TemplateSignature> {
-        self.owned_template_signature.as_ref()
-    }
-
-    /// Returns a mutable reference to owned_template_signature if present
-    pub fn owned_template_signature_mut(&mut self) -> Option<&mut TemplateSignature> {
-        self.owned_template_signature.as_mut()
-    }
-
-    /// Sets owned_template_signature
-    pub fn set_owned_template_signature(&mut self, value: TemplateSignature) {
-        self.owned_template_signature = Some(value);
-    }
-
-    /// Takes owned_template_signature, leaving None in its place
-    pub fn take_owned_template_signature(&mut self) -> Option<TemplateSignature> {
-        self.owned_template_signature.take()
-    }
-
-    /// Returns a reference to sub_expression
-    pub fn sub_expression(&self) -> &Vec<Box<StringExpression>> {
-        &self.sub_expression
-    }
-
-    /// Returns a mutable reference to sub_expression
-    pub fn sub_expression_mut(&mut self) -> &mut Vec<Box<StringExpression>> {
-        &mut self.sub_expression
-    }
-
-    /// Adds an item to sub_expression
-    pub fn add_sub_expression(&mut self, item: StringExpression) {
-        self.sub_expression.push(Box::new(item));
-    }
-
-    /// Clears all items from sub_expression
-    pub fn clear_sub_expression(&mut self) {
-        self.sub_expression.clear();
-    }
-
-    /// Returns a reference to owning_expression if present
-    pub fn owning_expression(&self) -> Option<&Weak<RefCell<StringExpression>>> {
-        self.owning_expression.as_ref()
-    }
-
-    /// Returns a mutable reference to owning_expression if present
-    pub fn owning_expression_mut(&mut self) -> Option<&mut Weak<RefCell<StringExpression>>> {
-        self.owning_expression.as_mut()
+    /// Returns a clone of owning_expression if present
+    pub fn owning_expression(&self) -> Option<String> {
+        self.owning_expression.clone()
     }
 
     /// Sets owning_expression
-    pub fn set_owning_expression(&mut self, value: Weak<RefCell<StringExpression>>) {
+    pub fn set_owning_expression(&mut self, value: String) {
         self.owning_expression = Some(value);
     }
 
     /// Takes owning_expression, leaving None in its place
-    pub fn take_owning_expression(&mut self) -> Option<Weak<RefCell<StringExpression>>> {
+    pub fn take_owning_expression(&mut self) -> Option<String> {
         self.owning_expression.take()
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "StringExpression".to_string()
     }
 
 }

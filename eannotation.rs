@@ -1,16 +1,37 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           EAnnotation (struct)
+// Source Package: ecore
+// Package URI:    http://www.eclipse.org/emf/2002/Ecore
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eobject::EObject;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct EAnnotation {
     e_annotations: Vec<Box<EAnnotation>>,
     source: Option<String>,
     contents: Vec<EObject>,
-    references: Vec<Rc<RefCell<EObject>>>,
+    references: Vec<String>,
 }
 
+#[wasm_bindgen]
 impl EAnnotation {
     pub fn new() -> Self {
         Self {
@@ -21,34 +42,9 @@ impl EAnnotation {
         }
     }
 
-    /// Returns a reference to e_annotations
-    pub fn e_annotations(&self) -> &Vec<Box<EAnnotation>> {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<Box<EAnnotation>> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(Box::new(item));
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a reference to source if present
-    pub fn source(&self) -> Option<&String> {
-        self.source.as_ref()
-    }
-
-    /// Returns a mutable reference to source if present
-    pub fn source_mut(&mut self) -> Option<&mut String> {
-        self.source.as_mut()
+    /// Returns a clone of source if present
+    pub fn source(&self) -> Option<String> {
+        self.source.clone()
     }
 
     /// Sets source
@@ -61,44 +57,46 @@ impl EAnnotation {
         self.source.take()
     }
 
-    /// Returns a slice of contents
-    pub fn contents(&self) -> &[EObject] {
-        &self.contents
+    /// Returns a clone of references
+    pub fn references(&self) -> Vec<String> {
+        self.references.clone()
     }
 
-    /// Returns a mutable reference to contents
-    pub fn contents_mut(&mut self) -> &mut Vec<EObject> {
-        &mut self.contents
-    }
-
-    /// Adds an item to contents
-    pub fn add_content(&mut self, item: EObject) {
-        self.contents.push(item);
-    }
-
-    /// Clears all items from contents
-    pub fn clear_contents(&mut self) {
-        self.contents.clear();
-    }
-
-    /// Returns a reference to references
-    pub fn references(&self) -> &Vec<Rc<RefCell<EObject>>> {
-        &self.references
-    }
-
-    /// Returns a mutable reference to references
-    pub fn references_mut(&mut self) -> &mut Vec<Rc<RefCell<EObject>>> {
-        &mut self.references
-    }
-
-    /// Adds an item to references
-    pub fn add_reference(&mut self, item: Rc<RefCell<EObject>>) {
-        self.references.push(item);
+    /// Adds an existing EObject to references by ID
+    pub fn add_reference_by_id(&mut self, id: String) {
+        self.references.push(id);
     }
 
     /// Clears all items from references
     pub fn clear_references(&mut self) {
         self.references.clear();
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "EAnnotation".to_string()
     }
 
 }

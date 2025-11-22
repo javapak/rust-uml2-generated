@@ -1,35 +1,49 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           ActivityPartition (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
 use crate::string_expression::StringExpression;
-use crate::activity::Activity;
-use crate::activity_node::ActivityNode;
-use crate::element::Element;
-use crate::activity_edge::ActivityEdge;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct ActivityPartition {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
     name: Option<String>,
     visibility: Option<String>,
-    client_dependency: Vec<Rc<RefCell<Dependency>>>,
+    client_dependency: Vec<String>,
     name_expression: Option<StringExpression>,
-    in_activity: Option<Weak<RefCell<Activity>>>,
+    in_activity: Option<String>,
     is_dimension: bool,
     is_external: bool,
-    node: Vec<Rc<RefCell<ActivityNode>>>,
+    node: Vec<String>,
     subpartition: Vec<Box<ActivityPartition>>,
-    super_partition: Option<Weak<RefCell<ActivityPartition>>>,
-    represents: Option<Rc<RefCell<Element>>>,
-    edge: Vec<Rc<RefCell<ActivityEdge>>>,
+    super_partition: Option<String>,
+    represents: Option<String>,
+    edge: Vec<String>,
 }
 
+#[wasm_bindgen]
 impl ActivityPartition {
     pub fn new(is_dimension: bool, is_external: bool) -> Self {
         Self {
@@ -50,54 +64,9 @@ impl ActivityPartition {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to name if present
-    pub fn name(&self) -> Option<&String> {
-        self.name.as_ref()
-    }
-
-    /// Returns a mutable reference to name if present
-    pub fn name_mut(&mut self) -> Option<&mut String> {
-        self.name.as_mut()
+    /// Returns a clone of name if present
+    pub fn name(&self) -> Option<String> {
+        self.name.clone()
     }
 
     /// Sets name
@@ -110,14 +79,9 @@ impl ActivityPartition {
         self.name.take()
     }
 
-    /// Returns a reference to visibility if present
-    pub fn visibility(&self) -> Option<&String> {
-        self.visibility.as_ref()
-    }
-
-    /// Returns a mutable reference to visibility if present
-    pub fn visibility_mut(&mut self) -> Option<&mut String> {
-        self.visibility.as_mut()
+    /// Returns a clone of visibility if present
+    pub fn visibility(&self) -> Option<String> {
+        self.visibility.clone()
     }
 
     /// Sets visibility
@@ -130,19 +94,14 @@ impl ActivityPartition {
         self.visibility.take()
     }
 
-    /// Returns a reference to client_dependency
-    pub fn client_dependency(&self) -> &Vec<Rc<RefCell<Dependency>>> {
-        &self.client_dependency
+    /// Returns a clone of client_dependency
+    pub fn client_dependency(&self) -> Vec<String> {
+        self.client_dependency.clone()
     }
 
-    /// Returns a mutable reference to client_dependency
-    pub fn client_dependency_mut(&mut self) -> &mut Vec<Rc<RefCell<Dependency>>> {
-        &mut self.client_dependency
-    }
-
-    /// Adds an item to client_dependency
-    pub fn add_client_dependency(&mut self, item: Rc<RefCell<Dependency>>) {
-        self.client_dependency.push(item);
+    /// Adds an existing Dependency to client_dependency by ID
+    pub fn add_client_dependency_by_id(&mut self, id: String) {
+        self.client_dependency.push(id);
     }
 
     /// Clears all items from client_dependency
@@ -150,43 +109,18 @@ impl ActivityPartition {
         self.client_dependency.clear();
     }
 
-    /// Returns a reference to name_expression if present
-    pub fn name_expression(&self) -> Option<&StringExpression> {
-        self.name_expression.as_ref()
-    }
-
-    /// Returns a mutable reference to name_expression if present
-    pub fn name_expression_mut(&mut self) -> Option<&mut StringExpression> {
-        self.name_expression.as_mut()
-    }
-
-    /// Sets name_expression
-    pub fn set_name_expression(&mut self, value: StringExpression) {
-        self.name_expression = Some(value);
-    }
-
-    /// Takes name_expression, leaving None in its place
-    pub fn take_name_expression(&mut self) -> Option<StringExpression> {
-        self.name_expression.take()
-    }
-
-    /// Returns a reference to in_activity if present
-    pub fn in_activity(&self) -> Option<&Weak<RefCell<Activity>>> {
-        self.in_activity.as_ref()
-    }
-
-    /// Returns a mutable reference to in_activity if present
-    pub fn in_activity_mut(&mut self) -> Option<&mut Weak<RefCell<Activity>>> {
-        self.in_activity.as_mut()
+    /// Returns a clone of in_activity if present
+    pub fn in_activity(&self) -> Option<String> {
+        self.in_activity.clone()
     }
 
     /// Sets in_activity
-    pub fn set_in_activity(&mut self, value: Weak<RefCell<Activity>>) {
+    pub fn set_in_activity(&mut self, value: String) {
         self.in_activity = Some(value);
     }
 
     /// Takes in_activity, leaving None in its place
-    pub fn take_in_activity(&mut self) -> Option<Weak<RefCell<Activity>>> {
+    pub fn take_in_activity(&mut self) -> Option<String> {
         self.in_activity.take()
     }
 
@@ -210,19 +144,14 @@ impl ActivityPartition {
         self.is_external = value;
     }
 
-    /// Returns a reference to node
-    pub fn node(&self) -> &Vec<Rc<RefCell<ActivityNode>>> {
-        &self.node
+    /// Returns a clone of node
+    pub fn node(&self) -> Vec<String> {
+        self.node.clone()
     }
 
-    /// Returns a mutable reference to node
-    pub fn node_mut(&mut self) -> &mut Vec<Rc<RefCell<ActivityNode>>> {
-        &mut self.node
-    }
-
-    /// Adds an item to node
-    pub fn add_node(&mut self, item: Rc<RefCell<ActivityNode>>) {
-        self.node.push(item);
+    /// Adds an existing ActivityNode to node by ID
+    pub fn add_node_by_id(&mut self, id: String) {
+        self.node.push(id);
     }
 
     /// Clears all items from node
@@ -230,84 +159,76 @@ impl ActivityPartition {
         self.node.clear();
     }
 
-    /// Returns a reference to subpartition
-    pub fn subpartition(&self) -> &Vec<Box<ActivityPartition>> {
-        &self.subpartition
-    }
-
-    /// Returns a mutable reference to subpartition
-    pub fn subpartition_mut(&mut self) -> &mut Vec<Box<ActivityPartition>> {
-        &mut self.subpartition
-    }
-
-    /// Adds an item to subpartition
-    pub fn add_subpartition(&mut self, item: ActivityPartition) {
-        self.subpartition.push(Box::new(item));
-    }
-
-    /// Clears all items from subpartition
-    pub fn clear_subpartition(&mut self) {
-        self.subpartition.clear();
-    }
-
-    /// Returns a reference to super_partition if present
-    pub fn super_partition(&self) -> Option<&Weak<RefCell<ActivityPartition>>> {
-        self.super_partition.as_ref()
-    }
-
-    /// Returns a mutable reference to super_partition if present
-    pub fn super_partition_mut(&mut self) -> Option<&mut Weak<RefCell<ActivityPartition>>> {
-        self.super_partition.as_mut()
+    /// Returns a clone of super_partition if present
+    pub fn super_partition(&self) -> Option<String> {
+        self.super_partition.clone()
     }
 
     /// Sets super_partition
-    pub fn set_super_partition(&mut self, value: Weak<RefCell<ActivityPartition>>) {
+    pub fn set_super_partition(&mut self, value: String) {
         self.super_partition = Some(value);
     }
 
     /// Takes super_partition, leaving None in its place
-    pub fn take_super_partition(&mut self) -> Option<Weak<RefCell<ActivityPartition>>> {
+    pub fn take_super_partition(&mut self) -> Option<String> {
         self.super_partition.take()
     }
 
-    /// Returns a reference to represents if present
-    pub fn represents(&self) -> Option<&Rc<RefCell<Element>>> {
-        self.represents.as_ref()
-    }
-
-    /// Returns a mutable reference to represents if present
-    pub fn represents_mut(&mut self) -> Option<&mut Rc<RefCell<Element>>> {
-        self.represents.as_mut()
+    /// Returns a clone of represents if present
+    pub fn represents(&self) -> Option<String> {
+        self.represents.clone()
     }
 
     /// Sets represents
-    pub fn set_represents(&mut self, value: Rc<RefCell<Element>>) {
+    pub fn set_represents(&mut self, value: String) {
         self.represents = Some(value);
     }
 
     /// Takes represents, leaving None in its place
-    pub fn take_represents(&mut self) -> Option<Rc<RefCell<Element>>> {
+    pub fn take_represents(&mut self) -> Option<String> {
         self.represents.take()
     }
 
-    /// Returns a reference to edge
-    pub fn edge(&self) -> &Vec<Rc<RefCell<ActivityEdge>>> {
-        &self.edge
+    /// Returns a clone of edge
+    pub fn edge(&self) -> Vec<String> {
+        self.edge.clone()
     }
 
-    /// Returns a mutable reference to edge
-    pub fn edge_mut(&mut self) -> &mut Vec<Rc<RefCell<ActivityEdge>>> {
-        &mut self.edge
-    }
-
-    /// Adds an item to edge
-    pub fn add_edge(&mut self, item: Rc<RefCell<ActivityEdge>>) {
-        self.edge.push(item);
+    /// Adds an existing ActivityEdge to edge by ID
+    pub fn add_edge_by_id(&mut self, id: String) {
+        self.edge.push(id);
     }
 
     /// Clears all items from edge
     pub fn clear_edge(&mut self) {
         self.edge.clear();
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ActivityPartition".to_string()
     }
 
 }

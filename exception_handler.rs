@@ -1,25 +1,42 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           ExceptionHandler (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::executable_node::ExecutableNode;
-use crate::object_node::ObjectNode;
-use crate::classifier::Classifier;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct ExceptionHandler {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
-    handler_body: Rc<RefCell<ExecutableNode>>,
-    exception_input: Rc<RefCell<ObjectNode>>,
-    exception_type: Vec<Rc<RefCell<Classifier>>>,
-    protected_node: Weak<RefCell<ExecutableNode>>,
+    handler_body: String,
+    exception_input: String,
+    exception_type: Vec<String>,
+    protected_node: String,
 }
 
+#[wasm_bindgen]
 impl ExceptionHandler {
-    pub fn new(handler_body: Rc<RefCell<ExecutableNode>>, exception_input: Rc<RefCell<ObjectNode>>, exception_type: Vec<Rc<RefCell<Classifier>>>, protected_node: Weak<RefCell<ExecutableNode>>) -> Self {
+    pub fn new(handler_body: String, exception_input: String, exception_type: Vec<String>, protected_node: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -30,89 +47,44 @@ impl ExceptionHandler {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to handler_body
-    pub fn handler_body(&self) -> &Rc<RefCell<ExecutableNode>> {
-        &self.handler_body
-    }
-
-    /// Returns a mutable reference to handler_body
-    pub fn handler_body_mut(&mut self) -> &mut Rc<RefCell<ExecutableNode>> {
-        &mut self.handler_body
+    /// Returns a clone of handler_body
+    pub fn handler_body(&self) -> String {
+        self.handler_body.clone()
     }
 
     /// Sets handler_body
-    pub fn set_handler_body(&mut self, value: Rc<RefCell<ExecutableNode>>) {
+    pub fn set_handler_body(&mut self, value: String) {
         self.handler_body = value;
     }
 
-    /// Returns a reference to exception_input
-    pub fn exception_input(&self) -> &Rc<RefCell<ObjectNode>> {
-        &self.exception_input
+    /// Takes ownership of handler_body, replacing it with an empty string
+    pub fn take_handler_body(&mut self) -> String {
+        std::mem::take(&mut self.handler_body)
     }
 
-    /// Returns a mutable reference to exception_input
-    pub fn exception_input_mut(&mut self) -> &mut Rc<RefCell<ObjectNode>> {
-        &mut self.exception_input
+    /// Returns a clone of exception_input
+    pub fn exception_input(&self) -> String {
+        self.exception_input.clone()
     }
 
     /// Sets exception_input
-    pub fn set_exception_input(&mut self, value: Rc<RefCell<ObjectNode>>) {
+    pub fn set_exception_input(&mut self, value: String) {
         self.exception_input = value;
     }
 
-    /// Returns a reference to exception_type
-    pub fn exception_type(&self) -> &Vec<Rc<RefCell<Classifier>>> {
-        &self.exception_type
+    /// Takes ownership of exception_input, replacing it with an empty string
+    pub fn take_exception_input(&mut self) -> String {
+        std::mem::take(&mut self.exception_input)
     }
 
-    /// Returns a mutable reference to exception_type
-    pub fn exception_type_mut(&mut self) -> &mut Vec<Rc<RefCell<Classifier>>> {
-        &mut self.exception_type
+    /// Returns a clone of exception_type
+    pub fn exception_type(&self) -> Vec<String> {
+        self.exception_type.clone()
     }
 
-    /// Adds an item to exception_type
-    pub fn add_exception_type(&mut self, item: Rc<RefCell<Classifier>>) {
-        self.exception_type.push(item);
+    /// Adds an existing Classifier to exception_type by ID
+    pub fn add_exception_type_by_id(&mut self, id: String) {
+        self.exception_type.push(id);
     }
 
     /// Clears all items from exception_type
@@ -120,19 +92,46 @@ impl ExceptionHandler {
         self.exception_type.clear();
     }
 
-    /// Returns a reference to protected_node
-    pub fn protected_node(&self) -> &Weak<RefCell<ExecutableNode>> {
-        &self.protected_node
-    }
-
-    /// Returns a mutable reference to protected_node
-    pub fn protected_node_mut(&mut self) -> &mut Weak<RefCell<ExecutableNode>> {
-        &mut self.protected_node
+    /// Returns a clone of protected_node
+    pub fn protected_node(&self) -> String {
+        self.protected_node.clone()
     }
 
     /// Sets protected_node
-    pub fn set_protected_node(&mut self, value: Weak<RefCell<ExecutableNode>>) {
+    pub fn set_protected_node(&mut self, value: String) {
         self.protected_node = value;
+    }
+
+    /// Takes ownership of protected_node, replacing it with an empty string
+    pub fn take_protected_node(&mut self) -> String {
+        std::mem::take(&mut self.protected_node)
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ExceptionHandler".to_string()
     }
 
 }

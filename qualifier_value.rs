@@ -1,21 +1,40 @@
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           QualifierValue (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::property::Property;
-use crate::input_pin::InputPin;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[wasm_bindgen]
 pub struct QualifierValue {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
-    qualifier: Rc<RefCell<Property>>,
-    value: Rc<RefCell<InputPin>>,
+    qualifier: String,
+    value: String,
 }
 
+#[wasm_bindgen]
 impl QualifierValue {
-    pub fn new(qualifier: Rc<RefCell<Property>>, value: Rc<RefCell<InputPin>>) -> Self {
+    pub fn new(qualifier: String, value: String) -> Self {
         Self {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
@@ -24,74 +43,61 @@ impl QualifierValue {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to qualifier
-    pub fn qualifier(&self) -> &Rc<RefCell<Property>> {
-        &self.qualifier
-    }
-
-    /// Returns a mutable reference to qualifier
-    pub fn qualifier_mut(&mut self) -> &mut Rc<RefCell<Property>> {
-        &mut self.qualifier
+    /// Returns a clone of qualifier
+    pub fn qualifier(&self) -> String {
+        self.qualifier.clone()
     }
 
     /// Sets qualifier
-    pub fn set_qualifier(&mut self, value: Rc<RefCell<Property>>) {
+    pub fn set_qualifier(&mut self, value: String) {
         self.qualifier = value;
     }
 
-    /// Returns a reference to value
-    pub fn value(&self) -> &Rc<RefCell<InputPin>> {
-        &self.value
+    /// Takes ownership of qualifier, replacing it with an empty string
+    pub fn take_qualifier(&mut self) -> String {
+        std::mem::take(&mut self.qualifier)
     }
 
-    /// Returns a mutable reference to value
-    pub fn value_mut(&mut self) -> &mut Rc<RefCell<InputPin>> {
-        &mut self.value
+    /// Returns a clone of value
+    pub fn value(&self) -> String {
+        self.value.clone()
     }
 
     /// Sets value
-    pub fn set_value(&mut self, value: Rc<RefCell<InputPin>>) {
+    pub fn set_value(&mut self, value: String) {
         self.value = value;
+    }
+
+    /// Takes ownership of value, replacing it with an empty string
+    pub fn take_value(&mut self) -> String {
+        std::mem::take(&mut self.value)
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "QualifierValue".to_string()
     }
 
 }

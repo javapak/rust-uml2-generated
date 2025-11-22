@@ -1,22 +1,39 @@
-use std::rc::Weak;
+// ============================================================================
+// Generated Rust Code
+// ============================================================================
+//
+// Type:           InterruptibleActivityRegion (struct)
+// Source Package: uml
+// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
+// Generated:      2025-11-22 12:14:07
+// Generator:      EcoreToRustGenerator v0.1.0
+//
+// Generation Options:
+//   - WASM:       enabled
+//   - Tsify:      disabled
+//   - Serde:      enabled
+//   - Builders:   disabled
+//   - References: String IDs
+//
+// WARNING: This file is auto-generated. Manual changes will be overwritten.
+// ============================================================================
+
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use crate::activity::Activity;
-use crate::activity_node::ActivityNode;
-use crate::activity_edge::ActivityEdge;
-use std::rc::Rc;
-use std::cell::RefCell;
+use wasm_bindgen::prelude::wasm_bindgen;
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[wasm_bindgen]
 pub struct InterruptibleActivityRegion {
     e_annotations: Vec<EAnnotation>,
     owned_comment: Vec<Comment>,
-    in_activity: Option<Weak<RefCell<Activity>>>,
-    node: Vec<Rc<RefCell<ActivityNode>>>,
-    interrupting_edge: Vec<Rc<RefCell<ActivityEdge>>>,
+    in_activity: Option<String>,
+    node: Vec<String>,
+    interrupting_edge: Vec<String>,
 }
 
+#[wasm_bindgen]
 impl InterruptibleActivityRegion {
     pub fn new() -> Self {
         Self {
@@ -28,79 +45,29 @@ impl InterruptibleActivityRegion {
         }
     }
 
-    /// Returns a slice of e_annotations
-    pub fn e_annotations(&self) -> &[EAnnotation] {
-        &self.e_annotations
-    }
-
-    /// Returns a mutable reference to e_annotations
-    pub fn e_annotations_mut(&mut self) -> &mut Vec<EAnnotation> {
-        &mut self.e_annotations
-    }
-
-    /// Adds an item to e_annotations
-    pub fn add_e_annotation(&mut self, item: EAnnotation) {
-        self.e_annotations.push(item);
-    }
-
-    /// Clears all items from e_annotations
-    pub fn clear_e_annotations(&mut self) {
-        self.e_annotations.clear();
-    }
-
-    /// Returns a slice of owned_comment
-    pub fn owned_comment(&self) -> &[Comment] {
-        &self.owned_comment
-    }
-
-    /// Returns a mutable reference to owned_comment
-    pub fn owned_comment_mut(&mut self) -> &mut Vec<Comment> {
-        &mut self.owned_comment
-    }
-
-    /// Adds an item to owned_comment
-    pub fn add_owned_comment(&mut self, item: Comment) {
-        self.owned_comment.push(item);
-    }
-
-    /// Clears all items from owned_comment
-    pub fn clear_owned_comment(&mut self) {
-        self.owned_comment.clear();
-    }
-
-    /// Returns a reference to in_activity if present
-    pub fn in_activity(&self) -> Option<&Weak<RefCell<Activity>>> {
-        self.in_activity.as_ref()
-    }
-
-    /// Returns a mutable reference to in_activity if present
-    pub fn in_activity_mut(&mut self) -> Option<&mut Weak<RefCell<Activity>>> {
-        self.in_activity.as_mut()
+    /// Returns a clone of in_activity if present
+    pub fn in_activity(&self) -> Option<String> {
+        self.in_activity.clone()
     }
 
     /// Sets in_activity
-    pub fn set_in_activity(&mut self, value: Weak<RefCell<Activity>>) {
+    pub fn set_in_activity(&mut self, value: String) {
         self.in_activity = Some(value);
     }
 
     /// Takes in_activity, leaving None in its place
-    pub fn take_in_activity(&mut self) -> Option<Weak<RefCell<Activity>>> {
+    pub fn take_in_activity(&mut self) -> Option<String> {
         self.in_activity.take()
     }
 
-    /// Returns a reference to node
-    pub fn node(&self) -> &Vec<Rc<RefCell<ActivityNode>>> {
-        &self.node
+    /// Returns a clone of node
+    pub fn node(&self) -> Vec<String> {
+        self.node.clone()
     }
 
-    /// Returns a mutable reference to node
-    pub fn node_mut(&mut self) -> &mut Vec<Rc<RefCell<ActivityNode>>> {
-        &mut self.node
-    }
-
-    /// Adds an item to node
-    pub fn add_node(&mut self, item: Rc<RefCell<ActivityNode>>) {
-        self.node.push(item);
+    /// Adds an existing ActivityNode to node by ID
+    pub fn add_node_by_id(&mut self, id: String) {
+        self.node.push(id);
     }
 
     /// Clears all items from node
@@ -108,24 +75,46 @@ impl InterruptibleActivityRegion {
         self.node.clear();
     }
 
-    /// Returns a reference to interrupting_edge
-    pub fn interrupting_edge(&self) -> &Vec<Rc<RefCell<ActivityEdge>>> {
-        &self.interrupting_edge
+    /// Returns a clone of interrupting_edge
+    pub fn interrupting_edge(&self) -> Vec<String> {
+        self.interrupting_edge.clone()
     }
 
-    /// Returns a mutable reference to interrupting_edge
-    pub fn interrupting_edge_mut(&mut self) -> &mut Vec<Rc<RefCell<ActivityEdge>>> {
-        &mut self.interrupting_edge
-    }
-
-    /// Adds an item to interrupting_edge
-    pub fn add_interrupting_edge(&mut self, item: Rc<RefCell<ActivityEdge>>) {
-        self.interrupting_edge.push(item);
+    /// Adds an existing ActivityEdge to interrupting_edge by ID
+    pub fn add_interrupting_edge_by_id(&mut self, id: String) {
+        self.interrupting_edge.push(id);
     }
 
     /// Clears all items from interrupting_edge
     pub fn clear_interrupting_edge(&mut self) {
         self.interrupting_edge.clear();
+    }
+
+    /// Serialize to JSON string
+    pub fn to_json(&self) -> Result<String, String> {
+        serde_json::to_string(&self)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Deserialize from JSON string
+    pub fn from_json(json: String) -> Result<Self, String> {
+        serde_json::from_str(&json)
+            .map_err(|e| e.to_string())
+    }
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "InterruptibleActivityRegion".to_string()
     }
 
 }
