@@ -5,12 +5,12 @@
 // Type:           ElementImport (struct)
 // Source Package: uml
 // Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-22 12:14:06
+// Generated:      2025-11-24 11:19:15
 // Generator:      EcoreToRustGenerator v0.1.0
 //
 // Generation Options:
 //   - WASM:       enabled
-//   - Tsify:      disabled
+//   - Tsify:      enabled
 //   - Serde:      enabled
 //   - Builders:   disabled
 //   - References: String IDs
@@ -18,140 +18,364 @@
 // WARNING: This file is auto-generated. Manual changes will be overwritten.
 // ============================================================================
 
+use lazy_static::lazy_static;
+use std::cell::RefCell;
+use std::collections::HashMap;
+use std::sync::Mutex;
+use uuid::Uuid;
+use wasm_bindgen::prelude::*;
+use serde::{Serialize, Deserialize};
+use serde_wasm_bindgen;
+use tsify::Tsify;
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use wasm_bindgen::prelude::wasm_bindgen;
-use serde::{Serialize, Deserialize};
+use crate::visibility_kind::VisibilityKind;
+use crate::packageable_element::PackageableElement;
+use crate::namespace::Namespace;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[wasm_bindgen]
+lazy_static! {
+    static ref ELEMENT_IMPORT_REGISTRY: Mutex<RefCell<HashMap<String, ElementImport>>> = 
+        Mutex::new(RefCell::new(HashMap::new()));
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
 pub struct ElementImport {
-    e_annotations: Vec<EAnnotation>,
-    owned_comment: Vec<Comment>,
-    visibility: String,
-    alias: Option<String>,
-    imported_element: String,
-    importing_namespace: String,
+    /// Unique identifier for this instance
+    pub id: String,
+    pub e_annotations: Vec<String>,
+    pub owned_comment: Vec<String>,
+    pub visibility: VisibilityKind,
+    pub alias: Option<String>,
+    pub imported_element: String,
+    pub importing_namespace: String,
 }
 
 #[wasm_bindgen]
 impl ElementImport {
-    pub fn new(visibility: String, imported_element: String, importing_namespace: String) -> Self {
-        Self {
+    /// Creates a new ElementImport and returns its ID
+    #[wasm_bindgen]
+    pub fn create(visibility: VisibilityKind, imported_element: String, importing_namespace: String) -> String {
+        let id = Uuid::new_v4().to_string();
+        let instance = Self {
+            id: id.clone(),
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
             visibility: visibility,
             alias: None,
             imported_element: imported_element,
             importing_namespace: importing_namespace,
+        };
+
+        ELEMENT_IMPORT_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(id.clone(), instance);
+
+        id
+    }
+
+    /// Gets a ElementImport by ID
+    /// Returns the instance as a JavaScript object
+    #[wasm_bindgen]
+    pub fn get(id: String) -> Result<JsValue, JsValue> {
+        ELEMENT_IMPORT_REGISTRY.lock().unwrap()
+            .borrow()
+            .get(&id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))
+            .and_then(|instance| {
+                serde_wasm_bindgen::to_value(instance)
+                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+            })
+    }
+
+    /// Updates a ElementImport instance
+    /// Takes a JavaScript object and updates the registry
+    #[wasm_bindgen]
+    pub fn update(value: JsValue) -> Result<(), JsValue> {
+        let instance: ElementImport = serde_wasm_bindgen::from_value(value)
+            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
+
+        ELEMENT_IMPORT_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(instance.id.clone(), instance);
+
+        Ok(())
+    }
+
+    /// Deletes a ElementImport by ID
+    /// Returns true if deleted, false if not found
+    #[wasm_bindgen]
+    pub fn delete(id: String) -> bool {
+        ELEMENT_IMPORT_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .remove(&id)
+            .is_some()
+    }
+
+    /// Checks if a ElementImport exists by ID
+    #[wasm_bindgen]
+    pub fn exists(id: String) -> bool {
+        ELEMENT_IMPORT_REGISTRY.lock().unwrap()
+            .borrow()
+            .contains_key(&id)
+    }
+
+    /// Gets all ElementImport instances
+    /// Returns an array of JavaScript objects
+    #[wasm_bindgen]
+    pub fn get_all() -> Result<JsValue, JsValue> {
+        let instances: Vec<ElementImport> = ELEMENT_IMPORT_REGISTRY.lock().unwrap()
+            .borrow()
+            .values()
+            .cloned()
+            .collect();
+
+        serde_wasm_bindgen::to_value(&instances)
+            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+    }
+
+    /// Returns the count of ElementImport instances
+    #[wasm_bindgen]
+    pub fn count() -> usize {
+        ELEMENT_IMPORT_REGISTRY.lock().unwrap()
+            .borrow()
+            .len()
+    }
+
+    /// Removes all ElementImport instances
+    #[wasm_bindgen]
+    pub fn clear_all() {
+        ELEMENT_IMPORT_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .clear();
+    }
+
+    /// Adds a EAnnotation to e_annotations
+    #[wasm_bindgen]
+    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ElementImport = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.e_annotations.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.e_annotations.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ElementImport = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
+            instance.e_annotations.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
         }
     }
 
-    /// Returns a clone of visibility
-    pub fn visibility(&self) -> String {
-        self.visibility.clone()
+    /// Clears all EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ElementImport = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.e_annotations.len();
+
+        instance.e_annotations.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Sets visibility
-    pub fn set_visibility(&mut self, value: String) {
-        self.visibility = value;
+    /// Adds a Comment to owned_comment
+    #[wasm_bindgen]
+    pub fn add_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ElementImport = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.owned_comment.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.owned_comment.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Takes ownership of visibility, replacing it with an empty string
-    pub fn take_visibility(&mut self) -> String {
-        std::mem::take(&mut self.visibility)
+    /// Removes a Comment from owned_comment
+    #[wasm_bindgen]
+    pub fn remove_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ElementImport = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.owned_comment.iter().position(|x| x == &ref_id) {
+            instance.owned_comment.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Returns a clone of alias if present
-    pub fn alias(&self) -> Option<String> {
-        self.alias.clone()
+    /// Clears all Comment from owned_comment
+    #[wasm_bindgen]
+    pub fn clear_owned_comment(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ElementImport = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.owned_comment.len();
+
+        instance.owned_comment.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Sets alias
-    pub fn set_alias(&mut self, value: String) {
-        self.alias = Some(value);
+    /// Sets the imported_element reference
+    #[wasm_bindgen]
+    pub fn set_imported_element(instance_id: String, ref_id: String) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ElementImport = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.imported_element = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Takes alias, leaving None in its place
-    pub fn take_alias(&mut self) -> Option<String> {
-        self.alias.take()
+    /// Sets the importing_namespace reference
+    #[wasm_bindgen]
+    pub fn set_importing_namespace(instance_id: String, ref_id: String) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ElementImport = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Ok(target_js) = Namespace::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Namespace>(target_js) {
+                if !target.element_import.contains(&instance_id) {
+                    target.element_import.push(instance_id.clone());
+                }
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Namespace::update(target_js);
+                }
+            }
+        }
+
+        instance.importing_namespace = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Returns a clone of imported_element
-    pub fn imported_element(&self) -> String {
-        self.imported_element.clone()
+    /// Sets the visibility field
+    #[wasm_bindgen]
+    pub fn set_visibility(instance_id: String, value: VisibilityKind) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ElementImport = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.visibility = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Sets imported_element
-    pub fn set_imported_element(&mut self, value: String) {
-        self.imported_element = value;
-    }
+    /// Sets the alias field
+    #[wasm_bindgen]
+    pub fn set_alias(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ElementImport = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-    /// Takes ownership of imported_element, replacing it with an empty string
-    pub fn take_imported_element(&mut self) -> String {
-        std::mem::take(&mut self.imported_element)
-    }
+        instance.alias = value;
 
-    /// Returns a clone of importing_namespace
-    pub fn importing_namespace(&self) -> String {
-        self.importing_namespace.clone()
-    }
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
 
-    /// Sets importing_namespace
-    pub fn set_importing_namespace(&mut self, value: String) {
-        self.importing_namespace = value;
-    }
-
-    /// Takes ownership of importing_namespace, replacing it with an empty string
-    pub fn take_importing_namespace(&mut self) -> String {
-        std::mem::take(&mut self.importing_namespace)
-    }
-
-    /// Serialize to JSON string
-    pub fn to_json(&self) -> Result<String, String> {
-        serde_json::to_string(&self)
-            .map_err(|e| e.to_string())
-    }
-
-    /// Deserialize from JSON string
-    pub fn from_json(json: String) -> Result<Self, String> {
-        serde_json::from_str(&json)
-            .map_err(|e| e.to_string())
-    }
-
-    /// Returns whether this type can be created standalone (not nested)
-    pub fn can_exist_standalone() -> bool {
-        true
-    }
-
-    /// Returns whether this type requires a container
-    pub fn requires_container() -> bool {
-        false
-    }
-
-    /// Returns the type name
-    pub fn type_name() -> String {
-        "ElementImport".to_string()
+        Ok(())
     }
 
 }
 
-impl Default for ElementImport {
-    fn default() -> Self {
-        Self {
-            e_annotations: Vec::new(),
-            owned_comment: Vec::new(),
-            visibility: String::new(),
-            alias: None,
-            imported_element: Default::default(),
-            importing_namespace: Default::default(),
-        }
-    }
-}
+impl ElementImport {
+    /// Validates this instance and all references
+    pub fn validate(&self) -> Result<(), Vec<String>> {
+        let mut errors = Vec::new();
 
-impl std::fmt::Display for ElementImport {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "ElementImport(...)")
+        // Validate all e_annotations references exist
+        for id in &self.e_annotations {
+            if !EAnnotation::exists(id.clone()) {
+                errors.push(format!("EAnnotation {} not found", id));
+            }
+        }
+
+        // Validate all owned_comment references exist
+        for id in &self.owned_comment {
+            if !Comment::exists(id.clone()) {
+                errors.push(format!("Comment {} not found", id));
+            }
+        }
+
+        // Validate imported_element reference exists
+        if !PackageableElement::exists(self.imported_element.clone()) {
+            errors.push(format!("PackageableElement {} not found", self.imported_element));
+        }
+
+        // Validate importing_namespace reference exists
+        if !Namespace::exists(self.importing_namespace.clone()) {
+            errors.push(format!("Namespace {} not found", self.importing_namespace));
+        }
+
+        if errors.is_empty() {
+            Ok(())
+        } else {
+            Err(errors)
+        }
     }
 }
 

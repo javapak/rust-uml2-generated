@@ -5,12 +5,12 @@
 // Type:           Image (struct)
 // Source Package: uml
 // Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-22 12:14:07
+// Generated:      2025-11-24 11:19:15
 // Generator:      EcoreToRustGenerator v0.1.0
 //
 // Generation Options:
 //   - WASM:       enabled
-//   - Tsify:      disabled
+//   - Tsify:      enabled
 //   - Serde:      enabled
 //   - Builders:   disabled
 //   - References: String IDs
@@ -18,110 +18,322 @@
 // WARNING: This file is auto-generated. Manual changes will be overwritten.
 // ============================================================================
 
+use lazy_static::lazy_static;
+use std::cell::RefCell;
+use std::collections::HashMap;
+use std::sync::Mutex;
+use uuid::Uuid;
+use wasm_bindgen::prelude::*;
+use serde::{Serialize, Deserialize};
+use serde_wasm_bindgen;
+use tsify::Tsify;
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
-use wasm_bindgen::prelude::wasm_bindgen;
-use serde::{Serialize, Deserialize};
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
-#[wasm_bindgen]
+lazy_static! {
+    static ref IMAGE_REGISTRY: Mutex<RefCell<HashMap<String, Image>>> = 
+        Mutex::new(RefCell::new(HashMap::new()));
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
 pub struct Image {
-    e_annotations: Vec<EAnnotation>,
-    owned_comment: Vec<Comment>,
-    content: Option<String>,
-    location: Option<String>,
-    format: Option<String>,
+    /// Unique identifier for this instance
+    pub id: String,
+    pub e_annotations: Vec<String>,
+    pub owned_comment: Vec<String>,
+    pub content: Option<String>,
+    pub location: Option<String>,
+    pub format: Option<String>,
 }
 
 #[wasm_bindgen]
 impl Image {
-    pub fn new() -> Self {
-        Self {
+    /// Creates a new Image and returns its ID
+    #[wasm_bindgen]
+    pub fn create() -> String {
+        let id = Uuid::new_v4().to_string();
+        let instance = Self {
+            id: id.clone(),
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
             content: None,
             location: None,
             format: None,
+        };
+
+        IMAGE_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(id.clone(), instance);
+
+        id
+    }
+
+    /// Gets a Image by ID
+    /// Returns the instance as a JavaScript object
+    #[wasm_bindgen]
+    pub fn get(id: String) -> Result<JsValue, JsValue> {
+        IMAGE_REGISTRY.lock().unwrap()
+            .borrow()
+            .get(&id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))
+            .and_then(|instance| {
+                serde_wasm_bindgen::to_value(instance)
+                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+            })
+    }
+
+    /// Updates a Image instance
+    /// Takes a JavaScript object and updates the registry
+    #[wasm_bindgen]
+    pub fn update(value: JsValue) -> Result<(), JsValue> {
+        let instance: Image = serde_wasm_bindgen::from_value(value)
+            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
+
+        IMAGE_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(instance.id.clone(), instance);
+
+        Ok(())
+    }
+
+    /// Deletes a Image by ID
+    /// Returns true if deleted, false if not found
+    #[wasm_bindgen]
+    pub fn delete(id: String) -> bool {
+        IMAGE_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .remove(&id)
+            .is_some()
+    }
+
+    /// Checks if a Image exists by ID
+    #[wasm_bindgen]
+    pub fn exists(id: String) -> bool {
+        IMAGE_REGISTRY.lock().unwrap()
+            .borrow()
+            .contains_key(&id)
+    }
+
+    /// Gets all Image instances
+    /// Returns an array of JavaScript objects
+    #[wasm_bindgen]
+    pub fn get_all() -> Result<JsValue, JsValue> {
+        let instances: Vec<Image> = IMAGE_REGISTRY.lock().unwrap()
+            .borrow()
+            .values()
+            .cloned()
+            .collect();
+
+        serde_wasm_bindgen::to_value(&instances)
+            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+    }
+
+    /// Returns the count of Image instances
+    #[wasm_bindgen]
+    pub fn count() -> usize {
+        IMAGE_REGISTRY.lock().unwrap()
+            .borrow()
+            .len()
+    }
+
+    /// Removes all Image instances
+    #[wasm_bindgen]
+    pub fn clear_all() {
+        IMAGE_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .clear();
+    }
+
+    /// Adds a EAnnotation to e_annotations
+    #[wasm_bindgen]
+    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: Image = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.e_annotations.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.e_annotations.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: Image = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
+            instance.e_annotations.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
         }
     }
 
-    /// Returns a clone of content if present
-    pub fn content(&self) -> Option<String> {
-        self.content.clone()
+    /// Clears all EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: Image = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.e_annotations.len();
+
+        instance.e_annotations.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Sets content
-    pub fn set_content(&mut self, value: String) {
-        self.content = Some(value);
+    /// Adds a Comment to owned_comment
+    #[wasm_bindgen]
+    pub fn add_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: Image = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.owned_comment.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.owned_comment.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Takes content, leaving None in its place
-    pub fn take_content(&mut self) -> Option<String> {
-        self.content.take()
+    /// Removes a Comment from owned_comment
+    #[wasm_bindgen]
+    pub fn remove_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: Image = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.owned_comment.iter().position(|x| x == &ref_id) {
+            instance.owned_comment.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Returns a clone of location if present
-    pub fn location(&self) -> Option<String> {
-        self.location.clone()
+    /// Clears all Comment from owned_comment
+    #[wasm_bindgen]
+    pub fn clear_owned_comment(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: Image = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.owned_comment.len();
+
+        instance.owned_comment.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Sets location
-    pub fn set_location(&mut self, value: String) {
-        self.location = Some(value);
+    /// Sets the content field
+    #[wasm_bindgen]
+    pub fn set_content(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: Image = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.content = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Takes location, leaving None in its place
-    pub fn take_location(&mut self) -> Option<String> {
-        self.location.take()
+    /// Sets the location field
+    #[wasm_bindgen]
+    pub fn set_location(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: Image = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.location = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Returns a clone of format if present
-    pub fn format(&self) -> Option<String> {
-        self.format.clone()
-    }
+    /// Sets the format field
+    #[wasm_bindgen]
+    pub fn set_format(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: Image = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-    /// Sets format
-    pub fn set_format(&mut self, value: String) {
-        self.format = Some(value);
-    }
+        instance.format = value;
 
-    /// Takes format, leaving None in its place
-    pub fn take_format(&mut self) -> Option<String> {
-        self.format.take()
-    }
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
 
-    /// Serialize to JSON string
-    pub fn to_json(&self) -> Result<String, String> {
-        serde_json::to_string(&self)
-            .map_err(|e| e.to_string())
-    }
-
-    /// Deserialize from JSON string
-    pub fn from_json(json: String) -> Result<Self, String> {
-        serde_json::from_str(&json)
-            .map_err(|e| e.to_string())
-    }
-
-    /// Returns whether this type can be created standalone (not nested)
-    pub fn can_exist_standalone() -> bool {
-        true
-    }
-
-    /// Returns whether this type requires a container
-    pub fn requires_container() -> bool {
-        false
-    }
-
-    /// Returns the type name
-    pub fn type_name() -> String {
-        "Image".to_string()
+        Ok(())
     }
 
 }
 
-impl std::fmt::Display for Image {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Image(...)")
+impl Image {
+    /// Validates this instance and all references
+    pub fn validate(&self) -> Result<(), Vec<String>> {
+        let mut errors = Vec::new();
+
+        // Validate all e_annotations references exist
+        for id in &self.e_annotations {
+            if !EAnnotation::exists(id.clone()) {
+                errors.push(format!("EAnnotation {} not found", id));
+            }
+        }
+
+        // Validate all owned_comment references exist
+        for id in &self.owned_comment {
+            if !Comment::exists(id.clone()) {
+                errors.push(format!("Comment {} not found", id));
+            }
+        }
+
+        if errors.is_empty() {
+            Ok(())
+        } else {
+            Err(errors)
+        }
     }
 }
 

@@ -5,12 +5,12 @@
 // Type:           TemplateParameterSubstitution (struct)
 // Source Package: uml
 // Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-22 12:14:06
+// Generated:      2025-11-24 11:19:15
 // Generator:      EcoreToRustGenerator v0.1.0
 //
 // Generation Options:
 //   - WASM:       enabled
-//   - Tsify:      disabled
+//   - Tsify:      enabled
 //   - Serde:      enabled
 //   - Builders:   disabled
 //   - References: String IDs
@@ -18,126 +18,462 @@
 // WARNING: This file is auto-generated. Manual changes will be overwritten.
 // ============================================================================
 
+use lazy_static::lazy_static;
+use std::cell::RefCell;
+use std::collections::HashMap;
+use std::sync::Mutex;
+use uuid::Uuid;
+use wasm_bindgen::prelude::*;
+use serde::{Serialize, Deserialize};
+use serde_wasm_bindgen;
+use tsify::Tsify;
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
+use crate::template_parameter::TemplateParameter;
 use crate::parameterable_element::ParameterableElement;
-use wasm_bindgen::prelude::wasm_bindgen;
-use serde::{Serialize, Deserialize};
+use crate::template_binding::TemplateBinding;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[wasm_bindgen]
+lazy_static! {
+    static ref TEMPLATE_PARAMETER_SUBSTITUTION_REGISTRY: Mutex<RefCell<HashMap<String, TemplateParameterSubstitution>>> = 
+        Mutex::new(RefCell::new(HashMap::new()));
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
 pub struct TemplateParameterSubstitution {
-    e_annotations: Vec<EAnnotation>,
-    owned_comment: Vec<Comment>,
-    formal: String,
-    actual: Vec<String>,
-    owned_actual: Vec<ParameterableElement>,
-    template_binding: String,
+    /// Unique identifier for this instance
+    pub id: String,
+    pub e_annotations: Vec<String>,
+    pub owned_comment: Vec<String>,
+    pub formal: String,
+    pub actual: Vec<String>,
+    pub owned_actual: Vec<String>,
+    pub template_binding: String,
 }
 
 #[wasm_bindgen]
 impl TemplateParameterSubstitution {
-    pub fn new(formal: String, actual: Vec<String>, template_binding: String) -> Self {
-        Self {
+    /// Creates a new TemplateParameterSubstitution and returns its ID
+    #[wasm_bindgen]
+    pub fn create(formal: String, template_binding: String) -> String {
+        let id = Uuid::new_v4().to_string();
+        let instance = Self {
+            id: id.clone(),
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
             formal: formal,
-            actual: actual,
-            owned_actual: Vec::new(),
-            template_binding: template_binding,
-        }
-    }
-
-    /// Returns a clone of formal
-    pub fn formal(&self) -> String {
-        self.formal.clone()
-    }
-
-    /// Sets formal
-    pub fn set_formal(&mut self, value: String) {
-        self.formal = value;
-    }
-
-    /// Takes ownership of formal, replacing it with an empty string
-    pub fn take_formal(&mut self) -> String {
-        std::mem::take(&mut self.formal)
-    }
-
-    /// Returns a clone of actual
-    pub fn actual(&self) -> Vec<String> {
-        self.actual.clone()
-    }
-
-    /// Adds an existing ParameterableElement to actual by ID
-    pub fn add_actual_by_id(&mut self, id: String) {
-        self.actual.push(id);
-    }
-
-    /// Clears all items from actual
-    pub fn clear_actual(&mut self) {
-        self.actual.clear();
-    }
-
-    /// Returns a clone of template_binding
-    pub fn template_binding(&self) -> String {
-        self.template_binding.clone()
-    }
-
-    /// Sets template_binding
-    pub fn set_template_binding(&mut self, value: String) {
-        self.template_binding = value;
-    }
-
-    /// Takes ownership of template_binding, replacing it with an empty string
-    pub fn take_template_binding(&mut self) -> String {
-        std::mem::take(&mut self.template_binding)
-    }
-
-    /// Serialize to JSON string
-    pub fn to_json(&self) -> Result<String, String> {
-        serde_json::to_string(&self)
-            .map_err(|e| e.to_string())
-    }
-
-    /// Deserialize from JSON string
-    pub fn from_json(json: String) -> Result<Self, String> {
-        serde_json::from_str(&json)
-            .map_err(|e| e.to_string())
-    }
-
-    /// Returns whether this type can be created standalone (not nested)
-    pub fn can_exist_standalone() -> bool {
-        true
-    }
-
-    /// Returns whether this type requires a container
-    pub fn requires_container() -> bool {
-        false
-    }
-
-    /// Returns the type name
-    pub fn type_name() -> String {
-        "TemplateParameterSubstitution".to_string()
-    }
-
-}
-
-impl Default for TemplateParameterSubstitution {
-    fn default() -> Self {
-        Self {
-            e_annotations: Vec::new(),
-            owned_comment: Vec::new(),
-            formal: Default::default(),
             actual: Vec::new(),
             owned_actual: Vec::new(),
-            template_binding: Default::default(),
+            template_binding: template_binding,
+        };
+
+        TEMPLATE_PARAMETER_SUBSTITUTION_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(id.clone(), instance);
+
+        id
+    }
+
+    /// Gets a TemplateParameterSubstitution by ID
+    /// Returns the instance as a JavaScript object
+    #[wasm_bindgen]
+    pub fn get(id: String) -> Result<JsValue, JsValue> {
+        TEMPLATE_PARAMETER_SUBSTITUTION_REGISTRY.lock().unwrap()
+            .borrow()
+            .get(&id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))
+            .and_then(|instance| {
+                serde_wasm_bindgen::to_value(instance)
+                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+            })
+    }
+
+    /// Updates a TemplateParameterSubstitution instance
+    /// Takes a JavaScript object and updates the registry
+    #[wasm_bindgen]
+    pub fn update(value: JsValue) -> Result<(), JsValue> {
+        let instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(value)
+            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
+
+        TEMPLATE_PARAMETER_SUBSTITUTION_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(instance.id.clone(), instance);
+
+        Ok(())
+    }
+
+    /// Deletes a TemplateParameterSubstitution by ID
+    /// Returns true if deleted, false if not found
+    #[wasm_bindgen]
+    pub fn delete(id: String) -> bool {
+        TEMPLATE_PARAMETER_SUBSTITUTION_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .remove(&id)
+            .is_some()
+    }
+
+    /// Checks if a TemplateParameterSubstitution exists by ID
+    #[wasm_bindgen]
+    pub fn exists(id: String) -> bool {
+        TEMPLATE_PARAMETER_SUBSTITUTION_REGISTRY.lock().unwrap()
+            .borrow()
+            .contains_key(&id)
+    }
+
+    /// Gets all TemplateParameterSubstitution instances
+    /// Returns an array of JavaScript objects
+    #[wasm_bindgen]
+    pub fn get_all() -> Result<JsValue, JsValue> {
+        let instances: Vec<TemplateParameterSubstitution> = TEMPLATE_PARAMETER_SUBSTITUTION_REGISTRY.lock().unwrap()
+            .borrow()
+            .values()
+            .cloned()
+            .collect();
+
+        serde_wasm_bindgen::to_value(&instances)
+            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+    }
+
+    /// Returns the count of TemplateParameterSubstitution instances
+    #[wasm_bindgen]
+    pub fn count() -> usize {
+        TEMPLATE_PARAMETER_SUBSTITUTION_REGISTRY.lock().unwrap()
+            .borrow()
+            .len()
+    }
+
+    /// Removes all TemplateParameterSubstitution instances
+    #[wasm_bindgen]
+    pub fn clear_all() {
+        TEMPLATE_PARAMETER_SUBSTITUTION_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .clear();
+    }
+
+    /// Adds a EAnnotation to e_annotations
+    #[wasm_bindgen]
+    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.e_annotations.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.e_annotations.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
+            instance.e_annotations.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
         }
     }
+
+    /// Clears all EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.e_annotations.len();
+
+        instance.e_annotations.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
+    }
+
+    /// Adds a Comment to owned_comment
+    #[wasm_bindgen]
+    pub fn add_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.owned_comment.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.owned_comment.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a Comment from owned_comment
+    #[wasm_bindgen]
+    pub fn remove_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.owned_comment.iter().position(|x| x == &ref_id) {
+            instance.owned_comment.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
+    }
+
+    /// Clears all Comment from owned_comment
+    #[wasm_bindgen]
+    pub fn clear_owned_comment(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.owned_comment.len();
+
+        instance.owned_comment.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
+    }
+
+    /// Sets the formal reference
+    #[wasm_bindgen]
+    pub fn set_formal(instance_id: String, ref_id: String) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.formal = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
+    }
+
+    /// Adds a ParameterableElement to actual
+    #[wasm_bindgen]
+    pub fn add_actual(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.actual.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.actual.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a ParameterableElement from actual
+    #[wasm_bindgen]
+    pub fn remove_actual(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.actual.iter().position(|x| x == &ref_id) {
+            instance.actual.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
+    }
+
+    /// Clears all ParameterableElement from actual
+    #[wasm_bindgen]
+    pub fn clear_actual(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.actual.len();
+
+        instance.actual.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
+    }
+
+    /// Adds a ParameterableElement to owned_actual
+    #[wasm_bindgen]
+    pub fn add_owned_actual(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.owned_actual.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.owned_actual.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a ParameterableElement from owned_actual
+    #[wasm_bindgen]
+    pub fn remove_owned_actual(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.owned_actual.iter().position(|x| x == &ref_id) {
+            instance.owned_actual.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
+    }
+
+    /// Clears all ParameterableElement from owned_actual
+    #[wasm_bindgen]
+    pub fn clear_owned_actual(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.owned_actual.len();
+
+        instance.owned_actual.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
+    }
+
+    /// Sets the template_binding reference
+    #[wasm_bindgen]
+    pub fn set_template_binding(instance_id: String, ref_id: String) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: TemplateParameterSubstitution = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Ok(target_js) = TemplateBinding::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<TemplateBinding>(target_js) {
+                if !target.parameter_substitution.contains(&instance_id) {
+                    target.parameter_substitution.push(instance_id.clone());
+                }
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = TemplateBinding::update(target_js);
+                }
+            }
+        }
+
+        instance.template_binding = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
+    }
+
 }
 
-impl std::fmt::Display for TemplateParameterSubstitution {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "TemplateParameterSubstitution(...)")
+impl TemplateParameterSubstitution {
+    /// Validates this instance and all references
+    pub fn validate(&self) -> Result<(), Vec<String>> {
+        let mut errors = Vec::new();
+
+        // Validate all e_annotations references exist
+        for id in &self.e_annotations {
+            if !EAnnotation::exists(id.clone()) {
+                errors.push(format!("EAnnotation {} not found", id));
+            }
+        }
+
+        // Validate all owned_comment references exist
+        for id in &self.owned_comment {
+            if !Comment::exists(id.clone()) {
+                errors.push(format!("Comment {} not found", id));
+            }
+        }
+
+        // Validate formal reference exists
+        if !TemplateParameter::exists(self.formal.clone()) {
+            errors.push(format!("TemplateParameter {} not found", self.formal));
+        }
+
+        // Validate all actual references exist
+        for id in &self.actual {
+            if !ParameterableElement::exists(id.clone()) {
+                errors.push(format!("ParameterableElement {} not found", id));
+            }
+        }
+
+        // Validate all owned_actual references exist
+        for id in &self.owned_actual {
+            if !ParameterableElement::exists(id.clone()) {
+                errors.push(format!("ParameterableElement {} not found", id));
+            }
+        }
+
+        // Validate template_binding reference exists
+        if !TemplateBinding::exists(self.template_binding.clone()) {
+            errors.push(format!("TemplateBinding {} not found", self.template_binding));
+        }
+
+        if errors.is_empty() {
+            Ok(())
+        } else {
+            Err(errors)
+        }
     }
 }
 

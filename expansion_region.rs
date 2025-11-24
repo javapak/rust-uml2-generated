@@ -5,12 +5,12 @@
 // Type:           ExpansionRegion (struct)
 // Source Package: uml
 // Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-22 12:14:07
+// Generated:      2025-11-24 11:19:15
 // Generator:      EcoreToRustGenerator v0.1.0
 //
 // Generation Options:
 //   - WASM:       enabled
-//   - Tsify:      disabled
+//   - Tsify:      enabled
 //   - Serde:      enabled
 //   - Builders:   disabled
 //   - References: String IDs
@@ -18,56 +18,81 @@
 // WARNING: This file is auto-generated. Manual changes will be overwritten.
 // ============================================================================
 
+use lazy_static::lazy_static;
+use std::cell::RefCell;
+use std::collections::HashMap;
+use std::sync::Mutex;
+use uuid::Uuid;
+use wasm_bindgen::prelude::*;
+use serde::{Serialize, Deserialize};
+use serde_wasm_bindgen;
+use tsify::Tsify;
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
+use crate::visibility_kind::VisibilityKind;
+use crate::dependency::Dependency;
 use crate::string_expression::StringExpression;
+use crate::structured_activity_node::StructuredActivityNode;
+use crate::activity::Activity;
 use crate::activity_edge::ActivityEdge;
+use crate::activity_partition::ActivityPartition;
+use crate::interruptible_activity_region::InterruptibleActivityRegion;
 use crate::activity_node::ActivityNode;
 use crate::exception_handler::ExceptionHandler;
 use crate::constraint::Constraint;
 use crate::element_import::ElementImport;
 use crate::package_import::PackageImport;
 use crate::variable::Variable;
-use wasm_bindgen::prelude::wasm_bindgen;
-use serde::{Serialize, Deserialize};
+use crate::expansion_kind::ExpansionKind;
+use crate::expansion_node::ExpansionNode;
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
-#[wasm_bindgen]
+lazy_static! {
+    static ref EXPANSION_REGION_REGISTRY: Mutex<RefCell<HashMap<String, ExpansionRegion>>> = 
+        Mutex::new(RefCell::new(HashMap::new()));
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
 pub struct ExpansionRegion {
-    e_annotations: Vec<EAnnotation>,
-    owned_comment: Vec<Comment>,
-    name: Option<String>,
-    visibility: Option<String>,
-    client_dependency: Vec<String>,
-    name_expression: Option<StringExpression>,
-    is_leaf: bool,
-    in_structured_node: Option<String>,
-    activity: Option<String>,
-    outgoing: Vec<String>,
-    incoming: Vec<String>,
-    in_partition: Vec<String>,
-    in_interruptible_region: Vec<String>,
-    redefined_node: Vec<String>,
-    handler: Vec<ExceptionHandler>,
-    local_precondition: Vec<Constraint>,
-    local_postcondition: Vec<Constraint>,
-    element_import: Vec<ElementImport>,
-    package_import: Vec<PackageImport>,
-    owned_rule: Vec<Constraint>,
-    in_activity: Option<String>,
-    variable: Vec<Variable>,
-    edge: Vec<ActivityEdge>,
-    must_isolate: bool,
-    node: Vec<ActivityNode>,
-    mode: String,
-    input_element: Vec<String>,
-    output_element: Vec<String>,
+    /// Unique identifier for this instance
+    pub id: String,
+    pub e_annotations: Vec<String>,
+    pub owned_comment: Vec<String>,
+    pub name: Option<String>,
+    pub visibility: Option<VisibilityKind>,
+    pub client_dependency: Vec<String>,
+    pub name_expression: Option<String>,
+    pub is_leaf: String,
+    pub in_structured_node: Option<String>,
+    pub activity: Option<String>,
+    pub outgoing: Vec<String>,
+    pub incoming: Vec<String>,
+    pub in_partition: Vec<String>,
+    pub in_interruptible_region: Vec<String>,
+    pub redefined_node: Vec<String>,
+    pub handler: Vec<String>,
+    pub local_precondition: Vec<String>,
+    pub local_postcondition: Vec<String>,
+    pub element_import: Vec<String>,
+    pub package_import: Vec<String>,
+    pub owned_rule: Vec<String>,
+    pub in_activity: Option<String>,
+    pub variable: Vec<String>,
+    pub edge: Vec<String>,
+    pub must_isolate: String,
+    pub node: Vec<String>,
+    pub mode: ExpansionKind,
+    pub input_element: Vec<String>,
+    pub output_element: Vec<String>,
 }
 
 #[wasm_bindgen]
 impl ExpansionRegion {
-    pub fn new(is_leaf: bool, must_isolate: bool, mode: String, input_element: Vec<String>) -> Self {
-        Self {
+    /// Creates a new ExpansionRegion and returns its ID
+    #[wasm_bindgen]
+    pub fn create(is_leaf: String, must_isolate: String, mode: ExpansionKind) -> String {
+        let id = Uuid::new_v4().to_string();
+        let instance = Self {
+            id: id.clone(),
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
             name: None,
@@ -94,275 +119,2027 @@ impl ExpansionRegion {
             must_isolate: must_isolate,
             node: Vec::new(),
             mode: mode,
-            input_element: input_element,
+            input_element: Vec::new(),
             output_element: Vec::new(),
+        };
+
+        EXPANSION_REGION_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(id.clone(), instance);
+
+        id
+    }
+
+    /// Gets a ExpansionRegion by ID
+    /// Returns the instance as a JavaScript object
+    #[wasm_bindgen]
+    pub fn get(id: String) -> Result<JsValue, JsValue> {
+        EXPANSION_REGION_REGISTRY.lock().unwrap()
+            .borrow()
+            .get(&id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))
+            .and_then(|instance| {
+                serde_wasm_bindgen::to_value(instance)
+                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+            })
+    }
+
+    /// Updates a ExpansionRegion instance
+    /// Takes a JavaScript object and updates the registry
+    #[wasm_bindgen]
+    pub fn update(value: JsValue) -> Result<(), JsValue> {
+        let instance: ExpansionRegion = serde_wasm_bindgen::from_value(value)
+            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
+
+        EXPANSION_REGION_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(instance.id.clone(), instance);
+
+        Ok(())
+    }
+
+    /// Deletes a ExpansionRegion by ID
+    /// Returns true if deleted, false if not found
+    #[wasm_bindgen]
+    pub fn delete(id: String) -> bool {
+        EXPANSION_REGION_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .remove(&id)
+            .is_some()
+    }
+
+    /// Checks if a ExpansionRegion exists by ID
+    #[wasm_bindgen]
+    pub fn exists(id: String) -> bool {
+        EXPANSION_REGION_REGISTRY.lock().unwrap()
+            .borrow()
+            .contains_key(&id)
+    }
+
+    /// Gets all ExpansionRegion instances
+    /// Returns an array of JavaScript objects
+    #[wasm_bindgen]
+    pub fn get_all() -> Result<JsValue, JsValue> {
+        let instances: Vec<ExpansionRegion> = EXPANSION_REGION_REGISTRY.lock().unwrap()
+            .borrow()
+            .values()
+            .cloned()
+            .collect();
+
+        serde_wasm_bindgen::to_value(&instances)
+            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+    }
+
+    /// Returns the count of ExpansionRegion instances
+    #[wasm_bindgen]
+    pub fn count() -> usize {
+        EXPANSION_REGION_REGISTRY.lock().unwrap()
+            .borrow()
+            .len()
+    }
+
+    /// Removes all ExpansionRegion instances
+    #[wasm_bindgen]
+    pub fn clear_all() {
+        EXPANSION_REGION_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .clear();
+    }
+
+    /// Finds ExpansionRegion instances by name pattern
+    /// Returns an array of matching JavaScript objects
+    #[wasm_bindgen]
+    pub fn find_by_name(pattern: String) -> Result<JsValue, JsValue> {
+        let instances: Vec<ExpansionRegion> = EXPANSION_REGION_REGISTRY.lock().unwrap()
+            .borrow()
+            .values()
+            .filter(|item| {
+                item.name.as_ref()
+                    .map(|n| n.contains(&pattern))
+                    .unwrap_or(false)
+            })
+            .cloned()
+            .collect();
+
+        serde_wasm_bindgen::to_value(&instances)
+            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+    }
+
+    /// Adds a EAnnotation to e_annotations
+    #[wasm_bindgen]
+    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.e_annotations.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.e_annotations.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
+            instance.e_annotations.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
         }
     }
 
-    /// Returns a clone of name if present
-    pub fn name(&self) -> Option<String> {
-        self.name.clone()
+    /// Clears all EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.e_annotations.len();
+
+        instance.e_annotations.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Sets name
-    pub fn set_name(&mut self, value: String) {
-        self.name = Some(value);
+    /// Adds a Comment to owned_comment
+    #[wasm_bindgen]
+    pub fn add_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.owned_comment.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.owned_comment.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Takes name, leaving None in its place
-    pub fn take_name(&mut self) -> Option<String> {
-        self.name.take()
+    /// Removes a Comment from owned_comment
+    #[wasm_bindgen]
+    pub fn remove_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.owned_comment.iter().position(|x| x == &ref_id) {
+            instance.owned_comment.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Returns a clone of visibility if present
-    pub fn visibility(&self) -> Option<String> {
-        self.visibility.clone()
+    /// Clears all Comment from owned_comment
+    #[wasm_bindgen]
+    pub fn clear_owned_comment(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.owned_comment.len();
+
+        instance.owned_comment.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Sets visibility
-    pub fn set_visibility(&mut self, value: String) {
-        self.visibility = Some(value);
+    /// Adds a Dependency to client_dependency
+    #[wasm_bindgen]
+    pub fn add_client_dependency(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.client_dependency.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.client_dependency.push(ref_id.clone());
+
+        if let Ok(target_js) = Dependency::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
+                if !target.client.contains(&instance_id) {
+                    target.client.push(instance_id);
+                }
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Dependency::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Takes visibility, leaving None in its place
-    pub fn take_visibility(&mut self) -> Option<String> {
-        self.visibility.take()
+    /// Removes a Dependency from client_dependency
+    #[wasm_bindgen]
+    pub fn remove_client_dependency(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.client_dependency.iter().position(|x| x == &ref_id) {
+            instance.client_dependency.remove(pos);
+
+        if let Ok(target_js) = Dependency::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
+                target.client.retain(|x| x != &instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Dependency::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Returns a clone of client_dependency
-    pub fn client_dependency(&self) -> Vec<String> {
-        self.client_dependency.clone()
+    /// Clears all Dependency from client_dependency
+    #[wasm_bindgen]
+    pub fn clear_client_dependency(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.client_dependency.len();
+
+        // Update all opposite references
+        for ref_id in &instance.client_dependency {
+            if let Ok(target_js) = Dependency::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
+                target.client.retain(|x| x != &instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Dependency::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.client_dependency.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Adds an existing Dependency to client_dependency by ID
-    pub fn add_client_dependency_by_id(&mut self, id: String) {
-        self.client_dependency.push(id);
+    /// Sets the name_expression reference
+    #[wasm_bindgen]
+    pub fn set_name_expression(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.name_expression = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Clears all items from client_dependency
-    pub fn clear_client_dependency(&mut self) {
-        self.client_dependency.clear();
+    /// Sets the in_structured_node reference
+    #[wasm_bindgen]
+    pub fn set_in_structured_node(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        // Remove from old opposite
+        if let Some(old_ref_id) = &instance.in_structured_node {
+            if let Ok(target_js) = StructuredActivityNode::get(old_ref_id.clone()) {
+                if let Ok(mut target) = serde_wasm_bindgen::from_value::<StructuredActivityNode>(target_js) {
+                    target.node.retain(|x| x != &instance_id);
+                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                        let _ = StructuredActivityNode::update(target_js);
+                    }
+                }
+            }
+        }
+
+        // Add to new opposite
+        if let Some(new_ref_id) = &ref_id {
+        if let Ok(target_js) = StructuredActivityNode::get(new_ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<StructuredActivityNode>(target_js) {
+                if !target.node.contains(&instance_id) {
+                    target.node.push(instance_id.clone());
+                }
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = StructuredActivityNode::update(target_js);
+                }
+            }
+        }
+
+        }
+
+        instance.in_structured_node = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Returns is_leaf
-    pub fn is_leaf(&self) -> bool {
-        self.is_leaf
+    /// Sets the activity reference
+    #[wasm_bindgen]
+    pub fn set_activity(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        // Remove from old opposite
+        if let Some(old_ref_id) = &instance.activity {
+            if let Ok(target_js) = Activity::get(old_ref_id.clone()) {
+                if let Ok(mut target) = serde_wasm_bindgen::from_value::<Activity>(target_js) {
+                    target.node.retain(|x| x != &instance_id);
+                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                        let _ = Activity::update(target_js);
+                    }
+                }
+            }
+        }
+
+        // Add to new opposite
+        if let Some(new_ref_id) = &ref_id {
+        if let Ok(target_js) = Activity::get(new_ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Activity>(target_js) {
+                if !target.node.contains(&instance_id) {
+                    target.node.push(instance_id.clone());
+                }
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Activity::update(target_js);
+                }
+            }
+        }
+
+        }
+
+        instance.activity = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Sets is_leaf
-    pub fn set_is_leaf(&mut self, value: bool) {
-        self.is_leaf = value;
+    /// Adds a ActivityEdge to outgoing
+    #[wasm_bindgen]
+    pub fn add_outgoing(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.outgoing.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.outgoing.push(ref_id.clone());
+
+        if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
+                target.source = instance_id;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityEdge::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Returns a clone of in_structured_node if present
-    pub fn in_structured_node(&self) -> Option<String> {
-        self.in_structured_node.clone()
+    /// Removes a ActivityEdge from outgoing
+    #[wasm_bindgen]
+    pub fn remove_outgoing(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.outgoing.iter().position(|x| x == &ref_id) {
+            instance.outgoing.remove(pos);
+
+        if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityEdge::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Sets in_structured_node
-    pub fn set_in_structured_node(&mut self, value: String) {
-        self.in_structured_node = Some(value);
+    /// Clears all ActivityEdge from outgoing
+    #[wasm_bindgen]
+    pub fn clear_outgoing(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.outgoing.len();
+
+        // Update all opposite references
+        for ref_id in &instance.outgoing {
+            if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityEdge::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.outgoing.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Takes in_structured_node, leaving None in its place
-    pub fn take_in_structured_node(&mut self) -> Option<String> {
-        self.in_structured_node.take()
+    /// Adds a ActivityEdge to incoming
+    #[wasm_bindgen]
+    pub fn add_incoming(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.incoming.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.incoming.push(ref_id.clone());
+
+        if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
+                target.target = instance_id;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityEdge::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Returns a clone of activity if present
-    pub fn activity(&self) -> Option<String> {
-        self.activity.clone()
+    /// Removes a ActivityEdge from incoming
+    #[wasm_bindgen]
+    pub fn remove_incoming(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.incoming.iter().position(|x| x == &ref_id) {
+            instance.incoming.remove(pos);
+
+        if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityEdge::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Sets activity
-    pub fn set_activity(&mut self, value: String) {
-        self.activity = Some(value);
+    /// Clears all ActivityEdge from incoming
+    #[wasm_bindgen]
+    pub fn clear_incoming(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.incoming.len();
+
+        // Update all opposite references
+        for ref_id in &instance.incoming {
+            if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityEdge::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.incoming.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Takes activity, leaving None in its place
-    pub fn take_activity(&mut self) -> Option<String> {
-        self.activity.take()
+    /// Adds a ActivityPartition to in_partition
+    #[wasm_bindgen]
+    pub fn add_in_partition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.in_partition.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.in_partition.push(ref_id.clone());
+
+        if let Ok(target_js) = ActivityPartition::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityPartition>(target_js) {
+                if !target.node.contains(&instance_id) {
+                    target.node.push(instance_id);
+                }
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityPartition::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Returns a clone of outgoing
-    pub fn outgoing(&self) -> Vec<String> {
-        self.outgoing.clone()
+    /// Removes a ActivityPartition from in_partition
+    #[wasm_bindgen]
+    pub fn remove_in_partition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.in_partition.iter().position(|x| x == &ref_id) {
+            instance.in_partition.remove(pos);
+
+        if let Ok(target_js) = ActivityPartition::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityPartition>(target_js) {
+                target.node.retain(|x| x != &instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityPartition::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Adds an existing ActivityEdge to outgoing by ID
-    pub fn add_outgoing_by_id(&mut self, id: String) {
-        self.outgoing.push(id);
+    /// Clears all ActivityPartition from in_partition
+    #[wasm_bindgen]
+    pub fn clear_in_partition(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.in_partition.len();
+
+        // Update all opposite references
+        for ref_id in &instance.in_partition {
+            if let Ok(target_js) = ActivityPartition::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityPartition>(target_js) {
+                target.node.retain(|x| x != &instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityPartition::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.in_partition.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Clears all items from outgoing
-    pub fn clear_outgoing(&mut self) {
-        self.outgoing.clear();
+    /// Adds a InterruptibleActivityRegion to in_interruptible_region
+    #[wasm_bindgen]
+    pub fn add_in_interruptible_region(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.in_interruptible_region.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.in_interruptible_region.push(ref_id.clone());
+
+        if let Ok(target_js) = InterruptibleActivityRegion::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<InterruptibleActivityRegion>(target_js) {
+                if !target.node.contains(&instance_id) {
+                    target.node.push(instance_id);
+                }
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = InterruptibleActivityRegion::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Returns a clone of incoming
-    pub fn incoming(&self) -> Vec<String> {
-        self.incoming.clone()
+    /// Removes a InterruptibleActivityRegion from in_interruptible_region
+    #[wasm_bindgen]
+    pub fn remove_in_interruptible_region(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.in_interruptible_region.iter().position(|x| x == &ref_id) {
+            instance.in_interruptible_region.remove(pos);
+
+        if let Ok(target_js) = InterruptibleActivityRegion::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<InterruptibleActivityRegion>(target_js) {
+                target.node.retain(|x| x != &instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = InterruptibleActivityRegion::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Adds an existing ActivityEdge to incoming by ID
-    pub fn add_incoming_by_id(&mut self, id: String) {
-        self.incoming.push(id);
+    /// Clears all InterruptibleActivityRegion from in_interruptible_region
+    #[wasm_bindgen]
+    pub fn clear_in_interruptible_region(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.in_interruptible_region.len();
+
+        // Update all opposite references
+        for ref_id in &instance.in_interruptible_region {
+            if let Ok(target_js) = InterruptibleActivityRegion::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<InterruptibleActivityRegion>(target_js) {
+                target.node.retain(|x| x != &instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = InterruptibleActivityRegion::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.in_interruptible_region.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Clears all items from incoming
-    pub fn clear_incoming(&mut self) {
-        self.incoming.clear();
+    /// Adds a ActivityNode to redefined_node
+    #[wasm_bindgen]
+    pub fn add_redefined_node(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.redefined_node.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.redefined_node.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Returns a clone of in_partition
-    pub fn in_partition(&self) -> Vec<String> {
-        self.in_partition.clone()
+    /// Removes a ActivityNode from redefined_node
+    #[wasm_bindgen]
+    pub fn remove_redefined_node(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.redefined_node.iter().position(|x| x == &ref_id) {
+            instance.redefined_node.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Adds an existing ActivityPartition to in_partition by ID
-    pub fn add_in_partition_by_id(&mut self, id: String) {
-        self.in_partition.push(id);
+    /// Clears all ActivityNode from redefined_node
+    #[wasm_bindgen]
+    pub fn clear_redefined_node(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.redefined_node.len();
+
+        instance.redefined_node.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Clears all items from in_partition
-    pub fn clear_in_partition(&mut self) {
-        self.in_partition.clear();
+    /// Adds a ExceptionHandler to handler
+    #[wasm_bindgen]
+    pub fn add_handler(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.handler.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.handler.push(ref_id.clone());
+
+        if let Ok(target_js) = ExceptionHandler::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ExceptionHandler>(target_js) {
+                target.protected_node = instance_id;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ExceptionHandler::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Returns a clone of in_interruptible_region
-    pub fn in_interruptible_region(&self) -> Vec<String> {
-        self.in_interruptible_region.clone()
+    /// Removes a ExceptionHandler from handler
+    #[wasm_bindgen]
+    pub fn remove_handler(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.handler.iter().position(|x| x == &ref_id) {
+            instance.handler.remove(pos);
+
+        if let Ok(target_js) = ExceptionHandler::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ExceptionHandler>(target_js) {
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ExceptionHandler::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Adds an existing InterruptibleActivityRegion to in_interruptible_region by ID
-    pub fn add_in_interruptible_region_by_id(&mut self, id: String) {
-        self.in_interruptible_region.push(id);
+    /// Clears all ExceptionHandler from handler
+    #[wasm_bindgen]
+    pub fn clear_handler(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.handler.len();
+
+        // Update all opposite references
+        for ref_id in &instance.handler {
+            if let Ok(target_js) = ExceptionHandler::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ExceptionHandler>(target_js) {
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ExceptionHandler::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.handler.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Clears all items from in_interruptible_region
-    pub fn clear_in_interruptible_region(&mut self) {
-        self.in_interruptible_region.clear();
+    /// Adds a Constraint to local_precondition
+    #[wasm_bindgen]
+    pub fn add_local_precondition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.local_precondition.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.local_precondition.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Returns a clone of redefined_node
-    pub fn redefined_node(&self) -> Vec<String> {
-        self.redefined_node.clone()
+    /// Removes a Constraint from local_precondition
+    #[wasm_bindgen]
+    pub fn remove_local_precondition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.local_precondition.iter().position(|x| x == &ref_id) {
+            instance.local_precondition.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Adds an existing ActivityNode to redefined_node by ID
-    pub fn add_redefined_node_by_id(&mut self, id: String) {
-        self.redefined_node.push(id);
+    /// Clears all Constraint from local_precondition
+    #[wasm_bindgen]
+    pub fn clear_local_precondition(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.local_precondition.len();
+
+        instance.local_precondition.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Clears all items from redefined_node
-    pub fn clear_redefined_node(&mut self) {
-        self.redefined_node.clear();
+    /// Adds a Constraint to local_postcondition
+    #[wasm_bindgen]
+    pub fn add_local_postcondition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.local_postcondition.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.local_postcondition.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Returns a clone of in_activity if present
-    pub fn in_activity(&self) -> Option<String> {
-        self.in_activity.clone()
+    /// Removes a Constraint from local_postcondition
+    #[wasm_bindgen]
+    pub fn remove_local_postcondition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.local_postcondition.iter().position(|x| x == &ref_id) {
+            instance.local_postcondition.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Sets in_activity
-    pub fn set_in_activity(&mut self, value: String) {
-        self.in_activity = Some(value);
+    /// Clears all Constraint from local_postcondition
+    #[wasm_bindgen]
+    pub fn clear_local_postcondition(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.local_postcondition.len();
+
+        instance.local_postcondition.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Takes in_activity, leaving None in its place
-    pub fn take_in_activity(&mut self) -> Option<String> {
-        self.in_activity.take()
+    /// Adds a ElementImport to element_import
+    #[wasm_bindgen]
+    pub fn add_element_import(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.element_import.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.element_import.push(ref_id.clone());
+
+        if let Ok(target_js) = ElementImport::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ElementImport>(target_js) {
+                target.importing_namespace = instance_id;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ElementImport::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Returns must_isolate
-    pub fn must_isolate(&self) -> bool {
-        self.must_isolate
+    /// Removes a ElementImport from element_import
+    #[wasm_bindgen]
+    pub fn remove_element_import(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.element_import.iter().position(|x| x == &ref_id) {
+            instance.element_import.remove(pos);
+
+        if let Ok(target_js) = ElementImport::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ElementImport>(target_js) {
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ElementImport::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Sets must_isolate
-    pub fn set_must_isolate(&mut self, value: bool) {
-        self.must_isolate = value;
+    /// Clears all ElementImport from element_import
+    #[wasm_bindgen]
+    pub fn clear_element_import(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.element_import.len();
+
+        // Update all opposite references
+        for ref_id in &instance.element_import {
+            if let Ok(target_js) = ElementImport::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ElementImport>(target_js) {
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ElementImport::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.element_import.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Returns a clone of mode
-    pub fn mode(&self) -> String {
-        self.mode.clone()
+    /// Adds a PackageImport to package_import
+    #[wasm_bindgen]
+    pub fn add_package_import(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.package_import.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.package_import.push(ref_id.clone());
+
+        if let Ok(target_js) = PackageImport::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<PackageImport>(target_js) {
+                target.importing_namespace = instance_id;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = PackageImport::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Sets mode
-    pub fn set_mode(&mut self, value: String) {
-        self.mode = value;
+    /// Removes a PackageImport from package_import
+    #[wasm_bindgen]
+    pub fn remove_package_import(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.package_import.iter().position(|x| x == &ref_id) {
+            instance.package_import.remove(pos);
+
+        if let Ok(target_js) = PackageImport::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<PackageImport>(target_js) {
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = PackageImport::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Takes ownership of mode, replacing it with an empty string
-    pub fn take_mode(&mut self) -> String {
-        std::mem::take(&mut self.mode)
+    /// Clears all PackageImport from package_import
+    #[wasm_bindgen]
+    pub fn clear_package_import(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.package_import.len();
+
+        // Update all opposite references
+        for ref_id in &instance.package_import {
+            if let Ok(target_js) = PackageImport::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<PackageImport>(target_js) {
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = PackageImport::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.package_import.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Returns a clone of input_element
-    pub fn input_element(&self) -> Vec<String> {
-        self.input_element.clone()
+    /// Adds a Constraint to owned_rule
+    #[wasm_bindgen]
+    pub fn add_owned_rule(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.owned_rule.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.owned_rule.push(ref_id.clone());
+
+        if let Ok(target_js) = Constraint::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Constraint>(target_js) {
+                target.context = Some(instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Constraint::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Adds an existing ExpansionNode to input_element by ID
-    pub fn add_input_element_by_id(&mut self, id: String) {
-        self.input_element.push(id);
+    /// Removes a Constraint from owned_rule
+    #[wasm_bindgen]
+    pub fn remove_owned_rule(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.owned_rule.iter().position(|x| x == &ref_id) {
+            instance.owned_rule.remove(pos);
+
+        if let Ok(target_js) = Constraint::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Constraint>(target_js) {
+                target.context = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Constraint::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Clears all items from input_element
-    pub fn clear_input_element(&mut self) {
-        self.input_element.clear();
+    /// Clears all Constraint from owned_rule
+    #[wasm_bindgen]
+    pub fn clear_owned_rule(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.owned_rule.len();
+
+        // Update all opposite references
+        for ref_id in &instance.owned_rule {
+            if let Ok(target_js) = Constraint::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Constraint>(target_js) {
+                target.context = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Constraint::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.owned_rule.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Returns a clone of output_element
-    pub fn output_element(&self) -> Vec<String> {
-        self.output_element.clone()
+    /// Sets the in_activity reference
+    #[wasm_bindgen]
+    pub fn set_in_activity(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        // Remove from old opposite
+        if let Some(old_ref_id) = &instance.in_activity {
+            if let Ok(target_js) = Activity::get(old_ref_id.clone()) {
+                if let Ok(mut target) = serde_wasm_bindgen::from_value::<Activity>(target_js) {
+                    target.group.retain(|x| x != &instance_id);
+                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                        let _ = Activity::update(target_js);
+                    }
+                }
+            }
+        }
+
+        // Add to new opposite
+        if let Some(new_ref_id) = &ref_id {
+        if let Ok(target_js) = Activity::get(new_ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Activity>(target_js) {
+                if !target.group.contains(&instance_id) {
+                    target.group.push(instance_id.clone());
+                }
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Activity::update(target_js);
+                }
+            }
+        }
+
+        }
+
+        instance.in_activity = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Adds an existing ExpansionNode to output_element by ID
-    pub fn add_output_element_by_id(&mut self, id: String) {
-        self.output_element.push(id);
+    /// Adds a Variable to variable
+    #[wasm_bindgen]
+    pub fn add_variable(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.variable.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.variable.push(ref_id.clone());
+
+        if let Ok(target_js) = Variable::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Variable>(target_js) {
+                target.scope = Some(instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Variable::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Clears all items from output_element
-    pub fn clear_output_element(&mut self) {
-        self.output_element.clear();
+    /// Removes a Variable from variable
+    #[wasm_bindgen]
+    pub fn remove_variable(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.variable.iter().position(|x| x == &ref_id) {
+            instance.variable.remove(pos);
+
+        if let Ok(target_js) = Variable::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Variable>(target_js) {
+                target.scope = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Variable::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Serialize to JSON string
-    pub fn to_json(&self) -> Result<String, String> {
-        serde_json::to_string(&self)
-            .map_err(|e| e.to_string())
+    /// Clears all Variable from variable
+    #[wasm_bindgen]
+    pub fn clear_variable(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.variable.len();
+
+        // Update all opposite references
+        for ref_id in &instance.variable {
+            if let Ok(target_js) = Variable::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Variable>(target_js) {
+                target.scope = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = Variable::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.variable.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Deserialize from JSON string
-    pub fn from_json(json: String) -> Result<Self, String> {
-        serde_json::from_str(&json)
-            .map_err(|e| e.to_string())
+    /// Adds a ActivityEdge to edge
+    #[wasm_bindgen]
+    pub fn add_edge(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.edge.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.edge.push(ref_id.clone());
+
+        if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
+                target.in_structured_node = Some(instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityEdge::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Returns whether this type can be created standalone (not nested)
-    pub fn can_exist_standalone() -> bool {
-        true
+    /// Removes a ActivityEdge from edge
+    #[wasm_bindgen]
+    pub fn remove_edge(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.edge.iter().position(|x| x == &ref_id) {
+            instance.edge.remove(pos);
+
+        if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
+                target.in_structured_node = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityEdge::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Returns whether this type requires a container
-    pub fn requires_container() -> bool {
-        false
+    /// Clears all ActivityEdge from edge
+    #[wasm_bindgen]
+    pub fn clear_edge(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.edge.len();
+
+        // Update all opposite references
+        for ref_id in &instance.edge {
+            if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
+                target.in_structured_node = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityEdge::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.edge.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Returns the type name
-    pub fn type_name() -> String {
-        "ExpansionRegion".to_string()
+    /// Adds a ActivityNode to node
+    #[wasm_bindgen]
+    pub fn add_node(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.node.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.node.push(ref_id.clone());
+
+        if let Ok(target_js) = ActivityNode::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityNode>(target_js) {
+                target.in_structured_node = Some(instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityNode::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a ActivityNode from node
+    #[wasm_bindgen]
+    pub fn remove_node(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.node.iter().position(|x| x == &ref_id) {
+            instance.node.remove(pos);
+
+        if let Ok(target_js) = ActivityNode::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityNode>(target_js) {
+                target.in_structured_node = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityNode::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
+    }
+
+    /// Clears all ActivityNode from node
+    #[wasm_bindgen]
+    pub fn clear_node(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.node.len();
+
+        // Update all opposite references
+        for ref_id in &instance.node {
+            if let Ok(target_js) = ActivityNode::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityNode>(target_js) {
+                target.in_structured_node = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ActivityNode::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.node.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
+    }
+
+    /// Adds a ExpansionNode to input_element
+    #[wasm_bindgen]
+    pub fn add_input_element(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.input_element.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.input_element.push(ref_id.clone());
+
+        if let Ok(target_js) = ExpansionNode::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ExpansionNode>(target_js) {
+                target.region_as_input = Some(instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ExpansionNode::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a ExpansionNode from input_element
+    #[wasm_bindgen]
+    pub fn remove_input_element(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.input_element.iter().position(|x| x == &ref_id) {
+            instance.input_element.remove(pos);
+
+        if let Ok(target_js) = ExpansionNode::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ExpansionNode>(target_js) {
+                target.region_as_input = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ExpansionNode::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
+    }
+
+    /// Clears all ExpansionNode from input_element
+    #[wasm_bindgen]
+    pub fn clear_input_element(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.input_element.len();
+
+        // Update all opposite references
+        for ref_id in &instance.input_element {
+            if let Ok(target_js) = ExpansionNode::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ExpansionNode>(target_js) {
+                target.region_as_input = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ExpansionNode::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.input_element.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
+    }
+
+    /// Adds a ExpansionNode to output_element
+    #[wasm_bindgen]
+    pub fn add_output_element(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.output_element.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.output_element.push(ref_id.clone());
+
+        if let Ok(target_js) = ExpansionNode::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ExpansionNode>(target_js) {
+                target.region_as_output = Some(instance_id);
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ExpansionNode::update(target_js);
+                }
+            }
+        }
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a ExpansionNode from output_element
+    #[wasm_bindgen]
+    pub fn remove_output_element(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.output_element.iter().position(|x| x == &ref_id) {
+            instance.output_element.remove(pos);
+
+        if let Ok(target_js) = ExpansionNode::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ExpansionNode>(target_js) {
+                target.region_as_output = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ExpansionNode::update(target_js);
+                }
+            }
+        }
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
+    }
+
+    /// Clears all ExpansionNode from output_element
+    #[wasm_bindgen]
+    pub fn clear_output_element(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.output_element.len();
+
+        // Update all opposite references
+        for ref_id in &instance.output_element {
+            if let Ok(target_js) = ExpansionNode::get(ref_id.clone()) {
+            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ExpansionNode>(target_js) {
+                target.region_as_output = None;
+                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
+                    let _ = ExpansionNode::update(target_js);
+                }
+            }
+        }
+        }
+
+        instance.output_element.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
+    }
+
+    /// Sets the name field
+    #[wasm_bindgen]
+    pub fn set_name(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.name = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
+    }
+
+    /// Sets the visibility field
+    #[wasm_bindgen]
+    pub fn set_visibility(instance_id: String, value: Option<VisibilityKind>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.visibility = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
+    }
+
+    /// Sets the is_leaf field
+    #[wasm_bindgen]
+    pub fn set_is_leaf(instance_id: String, value: String) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.is_leaf = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
+    }
+
+    /// Sets the must_isolate field
+    #[wasm_bindgen]
+    pub fn set_must_isolate(instance_id: String, value: String) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.must_isolate = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
+    }
+
+    /// Sets the mode field
+    #[wasm_bindgen]
+    pub fn set_mode(instance_id: String, value: ExpansionKind) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ExpansionRegion = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.mode = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
 }
 
-impl std::fmt::Display for ExpansionRegion {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match &self.name {
-            Some(val) => write!(f, "{}", val),
-            None => write!(f, "<none>")
+impl ExpansionRegion {
+    /// Validates this instance and all references
+    pub fn validate(&self) -> Result<(), Vec<String>> {
+        let mut errors = Vec::new();
+
+        // Validate all e_annotations references exist
+        for id in &self.e_annotations {
+            if !EAnnotation::exists(id.clone()) {
+                errors.push(format!("EAnnotation {} not found", id));
+            }
+        }
+
+        // Validate all owned_comment references exist
+        for id in &self.owned_comment {
+            if !Comment::exists(id.clone()) {
+                errors.push(format!("Comment {} not found", id));
+            }
+        }
+
+        // Validate all client_dependency references exist
+        for id in &self.client_dependency {
+            if !Dependency::exists(id.clone()) {
+                errors.push(format!("Dependency {} not found", id));
+            }
+        }
+
+        // Validate name_expression reference exists
+        if let Some(id) = &self.name_expression {
+            if !StringExpression::exists(id.clone()) {
+                errors.push(format!("StringExpression {} not found", id));
+            }
+        }
+
+        // Validate in_structured_node reference exists
+        if let Some(id) = &self.in_structured_node {
+            if !StructuredActivityNode::exists(id.clone()) {
+                errors.push(format!("StructuredActivityNode {} not found", id));
+            }
+        }
+
+        // Validate activity reference exists
+        if let Some(id) = &self.activity {
+            if !Activity::exists(id.clone()) {
+                errors.push(format!("Activity {} not found", id));
+            }
+        }
+
+        // Validate all outgoing references exist
+        for id in &self.outgoing {
+            if !ActivityEdge::exists(id.clone()) {
+                errors.push(format!("ActivityEdge {} not found", id));
+            }
+        }
+
+        // Validate all incoming references exist
+        for id in &self.incoming {
+            if !ActivityEdge::exists(id.clone()) {
+                errors.push(format!("ActivityEdge {} not found", id));
+            }
+        }
+
+        // Validate all in_partition references exist
+        for id in &self.in_partition {
+            if !ActivityPartition::exists(id.clone()) {
+                errors.push(format!("ActivityPartition {} not found", id));
+            }
+        }
+
+        // Validate all in_interruptible_region references exist
+        for id in &self.in_interruptible_region {
+            if !InterruptibleActivityRegion::exists(id.clone()) {
+                errors.push(format!("InterruptibleActivityRegion {} not found", id));
+            }
+        }
+
+        // Validate all redefined_node references exist
+        for id in &self.redefined_node {
+            if !ActivityNode::exists(id.clone()) {
+                errors.push(format!("ActivityNode {} not found", id));
+            }
+        }
+
+        // Validate all handler references exist
+        for id in &self.handler {
+            if !ExceptionHandler::exists(id.clone()) {
+                errors.push(format!("ExceptionHandler {} not found", id));
+            }
+        }
+
+        // Validate all local_precondition references exist
+        for id in &self.local_precondition {
+            if !Constraint::exists(id.clone()) {
+                errors.push(format!("Constraint {} not found", id));
+            }
+        }
+
+        // Validate all local_postcondition references exist
+        for id in &self.local_postcondition {
+            if !Constraint::exists(id.clone()) {
+                errors.push(format!("Constraint {} not found", id));
+            }
+        }
+
+        // Validate all element_import references exist
+        for id in &self.element_import {
+            if !ElementImport::exists(id.clone()) {
+                errors.push(format!("ElementImport {} not found", id));
+            }
+        }
+
+        // Validate all package_import references exist
+        for id in &self.package_import {
+            if !PackageImport::exists(id.clone()) {
+                errors.push(format!("PackageImport {} not found", id));
+            }
+        }
+
+        // Validate all owned_rule references exist
+        for id in &self.owned_rule {
+            if !Constraint::exists(id.clone()) {
+                errors.push(format!("Constraint {} not found", id));
+            }
+        }
+
+        // Validate in_activity reference exists
+        if let Some(id) = &self.in_activity {
+            if !Activity::exists(id.clone()) {
+                errors.push(format!("Activity {} not found", id));
+            }
+        }
+
+        // Validate all variable references exist
+        for id in &self.variable {
+            if !Variable::exists(id.clone()) {
+                errors.push(format!("Variable {} not found", id));
+            }
+        }
+
+        // Validate all edge references exist
+        for id in &self.edge {
+            if !ActivityEdge::exists(id.clone()) {
+                errors.push(format!("ActivityEdge {} not found", id));
+            }
+        }
+
+        // Validate all node references exist
+        for id in &self.node {
+            if !ActivityNode::exists(id.clone()) {
+                errors.push(format!("ActivityNode {} not found", id));
+            }
+        }
+
+        // Validate all input_element references exist
+        for id in &self.input_element {
+            if !ExpansionNode::exists(id.clone()) {
+                errors.push(format!("ExpansionNode {} not found", id));
+            }
+        }
+
+        // Validate all output_element references exist
+        for id in &self.output_element {
+            if !ExpansionNode::exists(id.clone()) {
+                errors.push(format!("ExpansionNode {} not found", id));
+            }
+        }
+
+        if errors.is_empty() {
+            Ok(())
+        } else {
+            Err(errors)
         }
     }
 }

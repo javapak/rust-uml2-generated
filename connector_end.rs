@@ -5,12 +5,12 @@
 // Type:           ConnectorEnd (struct)
 // Source Package: uml
 // Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-22 12:14:06
+// Generated:      2025-11-24 11:19:15
 // Generator:      EcoreToRustGenerator v0.1.0
 //
 // Generation Options:
 //   - WASM:       enabled
-//   - Tsify:      disabled
+//   - Tsify:      enabled
 //   - Serde:      enabled
 //   - Builders:   disabled
 //   - References: String IDs
@@ -18,29 +18,48 @@
 // WARNING: This file is auto-generated. Manual changes will be overwritten.
 // ============================================================================
 
+use lazy_static::lazy_static;
+use std::cell::RefCell;
+use std::collections::HashMap;
+use std::sync::Mutex;
+use uuid::Uuid;
+use wasm_bindgen::prelude::*;
+use serde::{Serialize, Deserialize};
+use serde_wasm_bindgen;
+use tsify::Tsify;
 use crate::eannotation::EAnnotation;
 use crate::comment::Comment;
 use crate::value_specification::ValueSpecification;
-use wasm_bindgen::prelude::wasm_bindgen;
-use serde::{Serialize, Deserialize};
+use crate::property::Property;
+use crate::connectable_element::ConnectableElement;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[wasm_bindgen]
+lazy_static! {
+    static ref CONNECTOR_END_REGISTRY: Mutex<RefCell<HashMap<String, ConnectorEnd>>> = 
+        Mutex::new(RefCell::new(HashMap::new()));
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
 pub struct ConnectorEnd {
-    e_annotations: Vec<EAnnotation>,
-    owned_comment: Vec<Comment>,
-    is_ordered: bool,
-    is_unique: bool,
-    upper_value: Option<ValueSpecification>,
-    lower_value: Option<ValueSpecification>,
-    part_with_port: Option<String>,
-    role: String,
+    /// Unique identifier for this instance
+    pub id: String,
+    pub e_annotations: Vec<String>,
+    pub owned_comment: Vec<String>,
+    pub is_ordered: String,
+    pub is_unique: String,
+    pub upper_value: Option<String>,
+    pub lower_value: Option<String>,
+    pub part_with_port: Option<String>,
+    pub role: String,
 }
 
 #[wasm_bindgen]
 impl ConnectorEnd {
-    pub fn new(is_ordered: bool, is_unique: bool, role: String) -> Self {
-        Self {
+    /// Creates a new ConnectorEnd and returns its ID
+    #[wasm_bindgen]
+    pub fn create(is_ordered: String, is_unique: String, role: String) -> String {
+        let id = Uuid::new_v4().to_string();
+        let instance = Self {
+            id: id.clone(),
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
             is_ordered: is_ordered,
@@ -49,106 +68,355 @@ impl ConnectorEnd {
             lower_value: None,
             part_with_port: None,
             role: role,
+        };
+
+        CONNECTOR_END_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(id.clone(), instance);
+
+        id
+    }
+
+    /// Gets a ConnectorEnd by ID
+    /// Returns the instance as a JavaScript object
+    #[wasm_bindgen]
+    pub fn get(id: String) -> Result<JsValue, JsValue> {
+        CONNECTOR_END_REGISTRY.lock().unwrap()
+            .borrow()
+            .get(&id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))
+            .and_then(|instance| {
+                serde_wasm_bindgen::to_value(instance)
+                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+            })
+    }
+
+    /// Updates a ConnectorEnd instance
+    /// Takes a JavaScript object and updates the registry
+    #[wasm_bindgen]
+    pub fn update(value: JsValue) -> Result<(), JsValue> {
+        let instance: ConnectorEnd = serde_wasm_bindgen::from_value(value)
+            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
+
+        CONNECTOR_END_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(instance.id.clone(), instance);
+
+        Ok(())
+    }
+
+    /// Deletes a ConnectorEnd by ID
+    /// Returns true if deleted, false if not found
+    #[wasm_bindgen]
+    pub fn delete(id: String) -> bool {
+        CONNECTOR_END_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .remove(&id)
+            .is_some()
+    }
+
+    /// Checks if a ConnectorEnd exists by ID
+    #[wasm_bindgen]
+    pub fn exists(id: String) -> bool {
+        CONNECTOR_END_REGISTRY.lock().unwrap()
+            .borrow()
+            .contains_key(&id)
+    }
+
+    /// Gets all ConnectorEnd instances
+    /// Returns an array of JavaScript objects
+    #[wasm_bindgen]
+    pub fn get_all() -> Result<JsValue, JsValue> {
+        let instances: Vec<ConnectorEnd> = CONNECTOR_END_REGISTRY.lock().unwrap()
+            .borrow()
+            .values()
+            .cloned()
+            .collect();
+
+        serde_wasm_bindgen::to_value(&instances)
+            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+    }
+
+    /// Returns the count of ConnectorEnd instances
+    #[wasm_bindgen]
+    pub fn count() -> usize {
+        CONNECTOR_END_REGISTRY.lock().unwrap()
+            .borrow()
+            .len()
+    }
+
+    /// Removes all ConnectorEnd instances
+    #[wasm_bindgen]
+    pub fn clear_all() {
+        CONNECTOR_END_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .clear();
+    }
+
+    /// Adds a EAnnotation to e_annotations
+    #[wasm_bindgen]
+    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.e_annotations.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.e_annotations.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
+            instance.e_annotations.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
         }
     }
 
-    /// Returns is_ordered
-    pub fn is_ordered(&self) -> bool {
-        self.is_ordered
+    /// Clears all EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.e_annotations.len();
+
+        instance.e_annotations.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Sets is_ordered
-    pub fn set_is_ordered(&mut self, value: bool) {
-        self.is_ordered = value;
+    /// Adds a Comment to owned_comment
+    #[wasm_bindgen]
+    pub fn add_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.owned_comment.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.owned_comment.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
     }
 
-    /// Returns is_unique
-    pub fn is_unique(&self) -> bool {
-        self.is_unique
+    /// Removes a Comment from owned_comment
+    #[wasm_bindgen]
+    pub fn remove_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.owned_comment.iter().position(|x| x == &ref_id) {
+            instance.owned_comment.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
+        }
     }
 
-    /// Sets is_unique
-    pub fn set_is_unique(&mut self, value: bool) {
-        self.is_unique = value;
+    /// Clears all Comment from owned_comment
+    #[wasm_bindgen]
+    pub fn clear_owned_comment(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.owned_comment.len();
+
+        instance.owned_comment.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Returns a clone of part_with_port if present
-    pub fn part_with_port(&self) -> Option<String> {
-        self.part_with_port.clone()
+    /// Sets the upper_value reference
+    #[wasm_bindgen]
+    pub fn set_upper_value(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.upper_value = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Sets part_with_port
-    pub fn set_part_with_port(&mut self, value: String) {
-        self.part_with_port = Some(value);
+    /// Sets the lower_value reference
+    #[wasm_bindgen]
+    pub fn set_lower_value(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.lower_value = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Takes part_with_port, leaving None in its place
-    pub fn take_part_with_port(&mut self) -> Option<String> {
-        self.part_with_port.take()
+    /// Sets the part_with_port reference
+    #[wasm_bindgen]
+    pub fn set_part_with_port(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.part_with_port = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Returns a clone of role
-    pub fn role(&self) -> String {
-        self.role.clone()
+    /// Sets the role reference
+    #[wasm_bindgen]
+    pub fn set_role(instance_id: String, ref_id: String) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.role = ref_id;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Sets role
-    pub fn set_role(&mut self, value: String) {
-        self.role = value;
+    /// Sets the is_ordered field
+    #[wasm_bindgen]
+    pub fn set_is_ordered(instance_id: String, value: String) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.is_ordered = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Takes ownership of role, replacing it with an empty string
-    pub fn take_role(&mut self) -> String {
-        std::mem::take(&mut self.role)
-    }
+    /// Sets the is_unique field
+    #[wasm_bindgen]
+    pub fn set_is_unique(instance_id: String, value: String) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: ConnectorEnd = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-    /// Serialize to JSON string
-    pub fn to_json(&self) -> Result<String, String> {
-        serde_json::to_string(&self)
-            .map_err(|e| e.to_string())
-    }
+        instance.is_unique = value;
 
-    /// Deserialize from JSON string
-    pub fn from_json(json: String) -> Result<Self, String> {
-        serde_json::from_str(&json)
-            .map_err(|e| e.to_string())
-    }
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
 
-    /// Returns whether this type can be created standalone (not nested)
-    pub fn can_exist_standalone() -> bool {
-        false
-    }
-
-    /// Returns whether this type requires a container
-    pub fn requires_container() -> bool {
-        true
-    }
-
-    /// Returns the type name
-    pub fn type_name() -> String {
-        "ConnectorEnd".to_string()
+        Ok(())
     }
 
 }
 
-impl Default for ConnectorEnd {
-    fn default() -> Self {
-        Self {
-            e_annotations: Vec::new(),
-            owned_comment: Vec::new(),
-            is_ordered: false,
-            is_unique: false,
-            upper_value: None,
-            lower_value: None,
-            part_with_port: None,
-            role: Default::default(),
-        }
-    }
-}
+impl ConnectorEnd {
+    /// Validates this instance and all references
+    pub fn validate(&self) -> Result<(), Vec<String>> {
+        let mut errors = Vec::new();
 
-impl std::fmt::Display for ConnectorEnd {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "ConnectorEnd(...)")
+        // Validate all e_annotations references exist
+        for id in &self.e_annotations {
+            if !EAnnotation::exists(id.clone()) {
+                errors.push(format!("EAnnotation {} not found", id));
+            }
+        }
+
+        // Validate all owned_comment references exist
+        for id in &self.owned_comment {
+            if !Comment::exists(id.clone()) {
+                errors.push(format!("Comment {} not found", id));
+            }
+        }
+
+        // Validate upper_value reference exists
+        if let Some(id) = &self.upper_value {
+            if !ValueSpecification::exists(id.clone()) {
+                errors.push(format!("ValueSpecification {} not found", id));
+            }
+        }
+
+        // Validate lower_value reference exists
+        if let Some(id) = &self.lower_value {
+            if !ValueSpecification::exists(id.clone()) {
+                errors.push(format!("ValueSpecification {} not found", id));
+            }
+        }
+
+        // Validate part_with_port reference exists
+        if let Some(id) = &self.part_with_port {
+            if !Property::exists(id.clone()) {
+                errors.push(format!("Property {} not found", id));
+            }
+        }
+
+        // Validate role reference exists
+        if !ConnectableElement::exists(self.role.clone()) {
+            errors.push(format!("ConnectableElement {} not found", self.role));
+        }
+
+        if errors.is_empty() {
+            Ok(())
+        } else {
+            Err(errors)
+        }
     }
 }
 

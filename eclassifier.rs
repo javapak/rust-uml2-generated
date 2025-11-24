@@ -5,12 +5,12 @@
 // Type:           EClassifier (struct)
 // Source Package: ecore
 // Package URI:    http://www.eclipse.org/emf/2002/Ecore
-// Generated:      2025-11-22 12:14:07
+// Generated:      2025-11-24 11:19:15
 // Generator:      EcoreToRustGenerator v0.1.0
 //
 // Generation Options:
 //   - WASM:       enabled
-//   - Tsify:      disabled
+//   - Tsify:      enabled
 //   - Serde:      enabled
 //   - Builders:   disabled
 //   - References: String IDs
@@ -18,101 +18,273 @@
 // WARNING: This file is auto-generated. Manual changes will be overwritten.
 // ============================================================================
 
-use crate::eannotation::EAnnotation;
-use wasm_bindgen::prelude::wasm_bindgen;
+use lazy_static::lazy_static;
+use std::cell::RefCell;
+use std::collections::HashMap;
+use std::sync::Mutex;
+use uuid::Uuid;
+use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
+use serde_wasm_bindgen;
+use tsify::Tsify;
+use crate::eannotation::EAnnotation;
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
-#[wasm_bindgen]
+lazy_static! {
+    static ref E_CLASSIFIER_REGISTRY: Mutex<RefCell<HashMap<String, EClassifier>>> = 
+        Mutex::new(RefCell::new(HashMap::new()));
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
 pub struct EClassifier {
-    e_annotations: Vec<EAnnotation>,
-    name: Option<String>,
-    instance_class_name: Option<String>,
-    instance_type_name: Option<String>,
+    /// Unique identifier for this instance
+    pub id: String,
+    pub e_annotations: Vec<String>,
+    pub name: Option<String>,
+    pub instance_class_name: Option<String>,
+    pub instance_type_name: Option<String>,
 }
 
 #[wasm_bindgen]
 impl EClassifier {
-    pub fn new() -> Self {
-        Self {
+    /// Creates a new EClassifier and returns its ID
+    #[wasm_bindgen]
+    pub fn create() -> String {
+        let id = Uuid::new_v4().to_string();
+        let instance = Self {
+            id: id.clone(),
             e_annotations: Vec::new(),
             name: None,
             instance_class_name: None,
             instance_type_name: None,
+        };
+
+        E_CLASSIFIER_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(id.clone(), instance);
+
+        id
+    }
+
+    /// Gets a EClassifier by ID
+    /// Returns the instance as a JavaScript object
+    #[wasm_bindgen]
+    pub fn get(id: String) -> Result<JsValue, JsValue> {
+        E_CLASSIFIER_REGISTRY.lock().unwrap()
+            .borrow()
+            .get(&id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))
+            .and_then(|instance| {
+                serde_wasm_bindgen::to_value(instance)
+                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+            })
+    }
+
+    /// Updates a EClassifier instance
+    /// Takes a JavaScript object and updates the registry
+    #[wasm_bindgen]
+    pub fn update(value: JsValue) -> Result<(), JsValue> {
+        let instance: EClassifier = serde_wasm_bindgen::from_value(value)
+            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
+
+        E_CLASSIFIER_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .insert(instance.id.clone(), instance);
+
+        Ok(())
+    }
+
+    /// Deletes a EClassifier by ID
+    /// Returns true if deleted, false if not found
+    #[wasm_bindgen]
+    pub fn delete(id: String) -> bool {
+        E_CLASSIFIER_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .remove(&id)
+            .is_some()
+    }
+
+    /// Checks if a EClassifier exists by ID
+    #[wasm_bindgen]
+    pub fn exists(id: String) -> bool {
+        E_CLASSIFIER_REGISTRY.lock().unwrap()
+            .borrow()
+            .contains_key(&id)
+    }
+
+    /// Gets all EClassifier instances
+    /// Returns an array of JavaScript objects
+    #[wasm_bindgen]
+    pub fn get_all() -> Result<JsValue, JsValue> {
+        let instances: Vec<EClassifier> = E_CLASSIFIER_REGISTRY.lock().unwrap()
+            .borrow()
+            .values()
+            .cloned()
+            .collect();
+
+        serde_wasm_bindgen::to_value(&instances)
+            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+    }
+
+    /// Returns the count of EClassifier instances
+    #[wasm_bindgen]
+    pub fn count() -> usize {
+        E_CLASSIFIER_REGISTRY.lock().unwrap()
+            .borrow()
+            .len()
+    }
+
+    /// Removes all EClassifier instances
+    #[wasm_bindgen]
+    pub fn clear_all() {
+        E_CLASSIFIER_REGISTRY.lock().unwrap()
+            .borrow_mut()
+            .clear();
+    }
+
+    /// Finds EClassifier instances by name pattern
+    /// Returns an array of matching JavaScript objects
+    #[wasm_bindgen]
+    pub fn find_by_name(pattern: String) -> Result<JsValue, JsValue> {
+        let instances: Vec<EClassifier> = E_CLASSIFIER_REGISTRY.lock().unwrap()
+            .borrow()
+            .values()
+            .filter(|item| {
+                item.name.as_ref()
+                    .map(|n| n.contains(&pattern))
+                    .unwrap_or(false)
+            })
+            .cloned()
+            .collect();
+
+        serde_wasm_bindgen::to_value(&instances)
+            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+    }
+
+    /// Adds a EAnnotation to e_annotations
+    #[wasm_bindgen]
+    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: EClassifier = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if instance.e_annotations.contains(&ref_id) {
+            return Ok(false);
+        }
+
+        instance.e_annotations.push(ref_id.clone());
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(true)
+    }
+
+    /// Removes a EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: EClassifier = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
+            instance.e_annotations.remove(pos);
+
+            let updated_js = serde_wasm_bindgen::to_value(&instance)
+                .map_err(|e| JsValue::from_str(&e.to_string()))?;
+            Self::update(updated_js)?;
+
+            Ok(true)
+        } else {
+            Ok(false)
         }
     }
 
-    /// Returns a clone of name if present
-    pub fn name(&self) -> Option<String> {
-        self.name.clone()
+    /// Clears all EAnnotation from e_annotations
+    #[wasm_bindgen]
+    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: EClassifier = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        let count = instance.e_annotations.len();
+
+        instance.e_annotations.clear();
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(count)
     }
 
-    /// Sets name
-    pub fn set_name(&mut self, value: String) {
-        self.name = Some(value);
+    /// Sets the name field
+    #[wasm_bindgen]
+    pub fn set_name(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: EClassifier = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.name = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Takes name, leaving None in its place
-    pub fn take_name(&mut self) -> Option<String> {
-        self.name.take()
+    /// Sets the instance_class_name field
+    #[wasm_bindgen]
+    pub fn set_instance_class_name(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: EClassifier = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.instance_class_name = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Returns a clone of instance_class_name if present
-    pub fn instance_class_name(&self) -> Option<String> {
-        self.instance_class_name.clone()
+    /// Sets the instance_type_name field
+    #[wasm_bindgen]
+    pub fn set_instance_type_name(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
+        let instance_js = Self::get(instance_id.clone())?;
+        let mut instance: EClassifier = serde_wasm_bindgen::from_value(instance_js)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+
+        instance.instance_type_name = value;
+
+        let updated_js = serde_wasm_bindgen::to_value(&instance)
+            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        Self::update(updated_js)?;
+
+        Ok(())
     }
 
-    /// Sets instance_class_name
-    pub fn set_instance_class_name(&mut self, value: String) {
-        self.instance_class_name = Some(value);
-    }
+}
 
-    /// Takes instance_class_name, leaving None in its place
-    pub fn take_instance_class_name(&mut self) -> Option<String> {
-        self.instance_class_name.take()
-    }
+impl EClassifier {
+    /// Validates this instance and all references
+    pub fn validate(&self) -> Result<(), Vec<String>> {
+        let mut errors = Vec::new();
 
-    /// Returns a clone of instance_type_name if present
-    pub fn instance_type_name(&self) -> Option<String> {
-        self.instance_type_name.clone()
-    }
+        // Validate all e_annotations references exist
+        for id in &self.e_annotations {
+            if !EAnnotation::exists(id.clone()) {
+                errors.push(format!("EAnnotation {} not found", id));
+            }
+        }
 
-    /// Sets instance_type_name
-    pub fn set_instance_type_name(&mut self, value: String) {
-        self.instance_type_name = Some(value);
+        if errors.is_empty() {
+            Ok(())
+        } else {
+            Err(errors)
+        }
     }
-
-    /// Takes instance_type_name, leaving None in its place
-    pub fn take_instance_type_name(&mut self) -> Option<String> {
-        self.instance_type_name.take()
-    }
-
-    /// Serialize to JSON string
-    pub fn to_json(&self) -> Result<String, String> {
-        serde_json::to_string(&self)
-            .map_err(|e| e.to_string())
-    }
-
-    /// Deserialize from JSON string
-    pub fn from_json(json: String) -> Result<Self, String> {
-        serde_json::from_str(&json)
-            .map_err(|e| e.to_string())
-    }
-
-    /// Returns whether this type can be created standalone (not nested)
-    pub fn can_exist_standalone() -> bool {
-        true
-    }
-
-    /// Returns whether this type requires a container
-    pub fn requires_container() -> bool {
-        false
-    }
-
-    /// Returns the type name
-    pub fn type_name() -> String {
-        "EClassifier".to_string()
-    }
-
 }
 
