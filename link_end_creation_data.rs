@@ -1,59 +1,42 @@
-// ============================================================================
-// Generated Rust Code
-// ============================================================================
-//
-// Type:           LinkEndCreationData (struct)
-// Source Package: uml
-// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-24 11:19:15
-// Generator:      EcoreToRustGenerator v0.1.0
-//
-// Generation Options:
-//   - WASM:       enabled
-//   - Tsify:      enabled
-//   - Serde:      enabled
-//   - Builders:   disabled
-//   - References: String IDs
-//
-// WARNING: This file is auto-generated. Manual changes will be overwritten.
-// ============================================================================
+// LinkEndCreationData - Generated UML Class
+// Uses unified registry with type filtering
 
-use lazy_static::lazy_static;
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::sync::Mutex;
 use uuid::Uuid;
+use crate::registry;
 use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
 use serde_wasm_bindgen;
 use tsify::Tsify;
-use crate::eannotation::EAnnotation;
-use crate::comment::Comment;
-use crate::input_pin::InputPin;
-use crate::property::Property;
-use crate::qualifier_value::QualifierValue;
 
-lazy_static! {
-    static ref LINK_END_CREATION_DATA_REGISTRY: Mutex<RefCell<HashMap<String, LinkEndCreationData>>> = 
-        Mutex::new(RefCell::new(HashMap::new()));
-}
 
-#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+const TYPE_NAME: &str = "LinkEndCreationData";
+
+#[derive(Clone, Serialize, Deserialize, Tsify)]
+#[serde(rename_all = "camelCase")]
+#[wasm_bindgen]
 pub struct LinkEndCreationData {
     /// Unique identifier for this instance
+    #[wasm_bindgen(skip)]
     pub id: String,
+    #[wasm_bindgen(skip)]
     pub e_annotations: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_comment: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub value: Option<String>,
+    #[wasm_bindgen(skip)]
     pub end: String,
+    #[wasm_bindgen(skip)]
     pub qualifier: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub is_replace_all: String,
+    #[wasm_bindgen(skip)]
     pub insert_at: Option<String>,
 }
 
 #[wasm_bindgen]
 impl LinkEndCreationData {
-    /// Creates a new LinkEndCreationData and returns its ID
+    /// Creates a new LinkEndCreationData instance
     #[wasm_bindgen]
     pub fn create(end: String, is_replace_all: String) -> String {
         let id = Uuid::new_v4().to_string();
@@ -62,385 +45,117 @@ impl LinkEndCreationData {
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
             value: None,
-            end: end,
+            end,
             qualifier: Vec::new(),
-            is_replace_all: is_replace_all,
+            is_replace_all,
             insert_at: None,
         };
-
-        LINK_END_CREATION_DATA_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(id.clone(), instance);
-
+        
+        registry::insert(id.clone(), TYPE_NAME, &instance)
+            .expect("Failed to insert into registry");
+        
         id
     }
 
-    /// Gets a LinkEndCreationData by ID
-    /// Returns the instance as a JavaScript object
+    /// Gets a snapshot of this instance
+    /// Note: Returns a snapshot. Modifications require calling update().
     #[wasm_bindgen]
     pub fn get(id: String) -> Result<JsValue, JsValue> {
-        LINK_END_CREATION_DATA_REGISTRY.lock().unwrap()
-            .borrow()
-            .get(&id)
-            .ok_or_else(|| JsValue::from_str("Instance not found"))
-            .and_then(|instance| {
-                serde_wasm_bindgen::to_value(instance)
-                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-            })
+        registry::get_as_jsvalue(&id)
     }
 
-    /// Updates a LinkEndCreationData instance
-    /// Takes a JavaScript object and updates the registry
+    /// Updates the instance in the registry
     #[wasm_bindgen]
     pub fn update(value: JsValue) -> Result<(), JsValue> {
         let instance: LinkEndCreationData = serde_wasm_bindgen::from_value(value)
-            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
-
-        LINK_END_CREATION_DATA_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(instance.id.clone(), instance);
-
-        Ok(())
+            .map_err(|_| JsValue::from_str("Invalid data"))?;
+        registry::update_from_jsvalue(
+            instance.id.clone(),
+            TYPE_NAME,
+            serde_wasm_bindgen::to_value(&instance)?
+        )
     }
 
-    /// Deletes a LinkEndCreationData by ID
-    /// Returns true if deleted, false if not found
+    /// Deletes this instance from the registry
     #[wasm_bindgen]
     pub fn delete(id: String) -> bool {
-        LINK_END_CREATION_DATA_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .remove(&id)
-            .is_some()
+        registry::delete(&id)
     }
 
-    /// Checks if a LinkEndCreationData exists by ID
+    /// Checks if an instance exists
     #[wasm_bindgen]
     pub fn exists(id: String) -> bool {
-        LINK_END_CREATION_DATA_REGISTRY.lock().unwrap()
-            .borrow()
-            .contains_key(&id)
+        registry::exists(&id)
     }
 
-    /// Gets all LinkEndCreationData instances
-    /// Returns an array of JavaScript objects
+    /// Gets all instances of this type
     #[wasm_bindgen]
     pub fn get_all() -> Result<JsValue, JsValue> {
-        let instances: Vec<LinkEndCreationData> = LINK_END_CREATION_DATA_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .cloned()
-            .collect();
-
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+        registry::get_all_of_type_as_jsvalue(TYPE_NAME)
     }
 
-    /// Returns the count of LinkEndCreationData instances
+    /// Clears all instances of this type
     #[wasm_bindgen]
-    pub fn count() -> usize {
-        LINK_END_CREATION_DATA_REGISTRY.lock().unwrap()
-            .borrow()
-            .len()
+    pub fn clear_all() -> usize {
+        registry::clear_type(TYPE_NAME)
     }
 
-    /// Removes all LinkEndCreationData instances
-    #[wasm_bindgen]
-    pub fn clear_all() {
-        LINK_END_CREATION_DATA_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .clear();
-    }
+#[wasm_bindgen]
+pub fn set_is_replace_all(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.is_replace_all = value;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-    /// Adds a EAnnotation to e_annotations
-    #[wasm_bindgen]
-    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        if instance.e_annotations.contains(&ref_id) {
-            return Ok(false);
-        }
 
-        instance.e_annotations.push(ref_id.clone());
 
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
 
-        Ok(true)
-    }
-
-    /// Removes a EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
-            instance.e_annotations.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.e_annotations.len();
-
-        instance.e_annotations.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Comment to owned_comment
-    #[wasm_bindgen]
-    pub fn add_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_comment.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_comment.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn remove_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_comment.iter().position(|x| x == &ref_id) {
-            instance.owned_comment.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn clear_owned_comment(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_comment.len();
-
-        instance.owned_comment.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the value reference
-    #[wasm_bindgen]
-    pub fn set_value(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.value = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the end reference
-    #[wasm_bindgen]
-    pub fn set_end(instance_id: String, ref_id: String) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.end = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Adds a QualifierValue to qualifier
-    #[wasm_bindgen]
-    pub fn add_qualifier(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.qualifier.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.qualifier.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a QualifierValue from qualifier
-    #[wasm_bindgen]
-    pub fn remove_qualifier(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.qualifier.iter().position(|x| x == &ref_id) {
-            instance.qualifier.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all QualifierValue from qualifier
-    #[wasm_bindgen]
-    pub fn clear_qualifier(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.qualifier.len();
-
-        instance.qualifier.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the insert_at reference
     #[wasm_bindgen]
     pub fn set_insert_at(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.insert_at = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        instance.insert_at = ref_id.clone();
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(())
     }
 
-    /// Sets the is_replace_all field
     #[wasm_bindgen]
-    pub fn set_is_replace_all(instance_id: String, value: String) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: LinkEndCreationData = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.is_replace_all = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    pub fn clear_insert_at(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.insert_at.is_none() {
+            return Ok(false);
+        }
+        
+        instance.insert_at = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
     }
 
-}
 
-impl LinkEndCreationData {
-    /// Validates this instance and all references
-    pub fn validate(&self) -> Result<(), Vec<String>> {
-        let mut errors = Vec::new();
-
-        // Validate all e_annotations references exist
-        for id in &self.e_annotations {
-            if !EAnnotation::exists(id.clone()) {
-                errors.push(format!("EAnnotation {} not found", id));
-            }
-        }
-
-        // Validate all owned_comment references exist
-        for id in &self.owned_comment {
-            if !Comment::exists(id.clone()) {
-                errors.push(format!("Comment {} not found", id));
-            }
-        }
-
-        // Validate value reference exists
-        if let Some(id) = &self.value {
-            if !InputPin::exists(id.clone()) {
-                errors.push(format!("InputPin {} not found", id));
-            }
-        }
-
-        // Validate end reference exists
-        if !Property::exists(self.end.clone()) {
-            errors.push(format!("Property {} not found", self.end));
-        }
-
-        // Validate all qualifier references exist
-        for id in &self.qualifier {
-            if !QualifierValue::exists(id.clone()) {
-                errors.push(format!("QualifierValue {} not found", id));
-            }
-        }
-
-        // Validate insert_at reference exists
-        if let Some(id) = &self.insert_at {
-            if !InputPin::exists(id.clone()) {
-                errors.push(format!("InputPin {} not found", id));
-            }
-        }
-
-        if errors.is_empty() {
-            Ok(())
-        } else {
-            Err(errors)
-        }
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        false
     }
-}
 
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        true
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "LinkEndCreationData".to_string()
+    }
+
+
+}

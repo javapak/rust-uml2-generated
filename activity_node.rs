@@ -1,71 +1,62 @@
-// ============================================================================
-// Generated Rust Code
-// ============================================================================
-//
-// Type:           ActivityNode (struct)
-// Source Package: uml
-// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-24 11:19:15
-// Generator:      EcoreToRustGenerator v0.1.0
-//
-// Generation Options:
-//   - WASM:       enabled
-//   - Tsify:      enabled
-//   - Serde:      enabled
-//   - Builders:   disabled
-//   - References: String IDs
-//
-// WARNING: This file is auto-generated. Manual changes will be overwritten.
-// ============================================================================
+// ActivityNode - Generated UML Class
+// Uses unified registry with type filtering
 
-use lazy_static::lazy_static;
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::sync::Mutex;
 use uuid::Uuid;
+use crate::registry;
 use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
 use serde_wasm_bindgen;
 use tsify::Tsify;
-use crate::eannotation::EAnnotation;
-use crate::comment::Comment;
 use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
-use crate::string_expression::StringExpression;
 use crate::structured_activity_node::StructuredActivityNode;
 use crate::activity::Activity;
 use crate::activity_edge::ActivityEdge;
 use crate::activity_partition::ActivityPartition;
 use crate::interruptible_activity_region::InterruptibleActivityRegion;
 
-lazy_static! {
-    static ref ACTIVITY_NODE_REGISTRY: Mutex<RefCell<HashMap<String, ActivityNode>>> = 
-        Mutex::new(RefCell::new(HashMap::new()));
-}
 
-#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+const TYPE_NAME: &str = "ActivityNode";
+
+#[derive(Clone, Serialize, Deserialize, Tsify)]
+#[serde(rename_all = "camelCase")]
+#[wasm_bindgen]
 pub struct ActivityNode {
     /// Unique identifier for this instance
+    #[wasm_bindgen(skip)]
     pub id: String,
+    #[wasm_bindgen(skip)]
     pub e_annotations: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_comment: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub name: Option<String>,
+    #[wasm_bindgen(skip)]
     pub visibility: Option<VisibilityKind>,
+    #[wasm_bindgen(skip)]
     pub client_dependency: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub name_expression: Option<String>,
+    #[wasm_bindgen(skip)]
     pub is_leaf: String,
+    #[wasm_bindgen(skip)]
     pub in_structured_node: Option<String>,
+    #[wasm_bindgen(skip)]
     pub activity: Option<String>,
+    #[wasm_bindgen(skip)]
     pub outgoing: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub incoming: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub in_partition: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub in_interruptible_region: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub redefined_node: Vec<String>,
 }
 
 #[wasm_bindgen]
 impl ActivityNode {
-    /// Creates a new ActivityNode and returns its ID
+    /// Creates a new ActivityNode instance
     #[wasm_bindgen]
     pub fn create(is_leaf: String) -> String {
         let id = Uuid::new_v4().to_string();
@@ -77,7 +68,7 @@ impl ActivityNode {
             visibility: None,
             client_dependency: Vec::new(),
             name_expression: None,
-            is_leaf: is_leaf,
+            is_leaf,
             in_structured_node: None,
             activity: None,
             outgoing: Vec::new(),
@@ -86,964 +77,562 @@ impl ActivityNode {
             in_interruptible_region: Vec::new(),
             redefined_node: Vec::new(),
         };
-
-        ACTIVITY_NODE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(id.clone(), instance);
-
+        
+        registry::insert(id.clone(), TYPE_NAME, &instance)
+            .expect("Failed to insert into registry");
+        
         id
     }
 
-    /// Gets a ActivityNode by ID
-    /// Returns the instance as a JavaScript object
+    /// Gets a snapshot of this instance
+    /// Note: Returns a snapshot. Modifications require calling update().
     #[wasm_bindgen]
     pub fn get(id: String) -> Result<JsValue, JsValue> {
-        ACTIVITY_NODE_REGISTRY.lock().unwrap()
-            .borrow()
-            .get(&id)
-            .ok_or_else(|| JsValue::from_str("Instance not found"))
-            .and_then(|instance| {
-                serde_wasm_bindgen::to_value(instance)
-                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-            })
+        registry::get_as_jsvalue(&id)
     }
 
-    /// Updates a ActivityNode instance
-    /// Takes a JavaScript object and updates the registry
+    /// Updates the instance in the registry
     #[wasm_bindgen]
     pub fn update(value: JsValue) -> Result<(), JsValue> {
         let instance: ActivityNode = serde_wasm_bindgen::from_value(value)
-            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
-
-        ACTIVITY_NODE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(instance.id.clone(), instance);
-
-        Ok(())
+            .map_err(|_| JsValue::from_str("Invalid data"))?;
+        registry::update_from_jsvalue(
+            instance.id.clone(),
+            TYPE_NAME,
+            serde_wasm_bindgen::to_value(&instance)?
+        )
     }
 
-    /// Deletes a ActivityNode by ID
-    /// Returns true if deleted, false if not found
+    /// Deletes this instance from the registry
     #[wasm_bindgen]
     pub fn delete(id: String) -> bool {
-        ACTIVITY_NODE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .remove(&id)
-            .is_some()
+        registry::delete(&id)
     }
 
-    /// Checks if a ActivityNode exists by ID
+    /// Checks if an instance exists
     #[wasm_bindgen]
     pub fn exists(id: String) -> bool {
-        ACTIVITY_NODE_REGISTRY.lock().unwrap()
-            .borrow()
-            .contains_key(&id)
+        registry::exists(&id)
     }
 
-    /// Gets all ActivityNode instances
-    /// Returns an array of JavaScript objects
+    /// Gets all instances of this type
     #[wasm_bindgen]
     pub fn get_all() -> Result<JsValue, JsValue> {
-        let instances: Vec<ActivityNode> = ACTIVITY_NODE_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .cloned()
-            .collect();
-
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+        registry::get_all_of_type_as_jsvalue(TYPE_NAME)
     }
 
-    /// Returns the count of ActivityNode instances
+    /// Clears all instances of this type
     #[wasm_bindgen]
-    pub fn count() -> usize {
-        ACTIVITY_NODE_REGISTRY.lock().unwrap()
-            .borrow()
-            .len()
+    pub fn clear_all() -> usize {
+        registry::clear_type(TYPE_NAME)
     }
 
-    /// Removes all ActivityNode instances
-    #[wasm_bindgen]
-    pub fn clear_all() {
-        ACTIVITY_NODE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .clear();
-    }
+#[wasm_bindgen]
+pub fn set_name(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-    /// Finds ActivityNode instances by name pattern
-    /// Returns an array of matching JavaScript objects
-    #[wasm_bindgen]
-    pub fn find_by_name(pattern: String) -> Result<JsValue, JsValue> {
-        let instances: Vec<ActivityNode> = ACTIVITY_NODE_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .filter(|item| {
-                item.name.as_ref()
-                    .map(|n| n.contains(&pattern))
-                    .unwrap_or(false)
-            })
-            .cloned()
-            .collect();
+#[wasm_bindgen]
+pub fn clear_name(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-    }
+#[wasm_bindgen]
+pub fn set_visibility(instance_id: String, value: VisibilityKind) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.visibility = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-    /// Adds a EAnnotation to e_annotations
-    #[wasm_bindgen]
-    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+#[wasm_bindgen]
+pub fn clear_visibility(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.visibility = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-        if instance.e_annotations.contains(&ref_id) {
-            return Ok(false);
-        }
+#[wasm_bindgen]
+pub fn set_is_leaf(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.is_leaf = value;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-        instance.e_annotations.push(ref_id.clone());
 
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
 
-        Ok(true)
-    }
 
-    /// Removes a EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
-            instance.e_annotations.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.e_annotations.len();
-
-        instance.e_annotations.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Comment to owned_comment
-    #[wasm_bindgen]
-    pub fn add_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_comment.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_comment.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn remove_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_comment.iter().position(|x| x == &ref_id) {
-            instance.owned_comment.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn clear_owned_comment(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_comment.len();
-
-        instance.owned_comment.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Dependency to client_dependency
-    #[wasm_bindgen]
-    pub fn add_client_dependency(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.client_dependency.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.client_dependency.push(ref_id.clone());
-
-        if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                if !target.client.contains(&instance_id) {
-                    target.client.push(instance_id);
-                }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Dependency from client_dependency
-    #[wasm_bindgen]
-    pub fn remove_client_dependency(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.client_dependency.iter().position(|x| x == &ref_id) {
-            instance.client_dependency.remove(pos);
-
-        if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                target.client.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Dependency from client_dependency
-    #[wasm_bindgen]
-    pub fn clear_client_dependency(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.client_dependency.len();
-
-        // Update all opposite references
-        for ref_id in &instance.client_dependency {
-            if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                target.client.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.client_dependency.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the name_expression reference
-    #[wasm_bindgen]
-    pub fn set_name_expression(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.name_expression = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the in_structured_node reference
     #[wasm_bindgen]
     pub fn set_in_structured_node(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        // Remove from old opposite
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         if let Some(old_ref_id) = &instance.in_structured_node {
-            if let Ok(target_js) = StructuredActivityNode::get(old_ref_id.clone()) {
-                if let Ok(mut target) = serde_wasm_bindgen::from_value::<StructuredActivityNode>(target_js) {
-                    target.node.retain(|x| x != &instance_id);
-                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                        let _ = StructuredActivityNode::update(target_js);
-                    }
-                }
+            if let Some(mut old_target) = registry::get::<StructuredActivityNode>(&old_ref_id) {
+                old_target.node.retain(|id| id != &instance_id);
+                let _ = registry::insert(old_ref_id.clone(), "StructuredActivityNode", &old_target);
             }
         }
-
-        // Add to new opposite
+        
+        instance.in_structured_node = ref_id.clone();
+        
         if let Some(new_ref_id) = &ref_id {
-        if let Ok(target_js) = StructuredActivityNode::get(new_ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<StructuredActivityNode>(target_js) {
-                if !target.node.contains(&instance_id) {
-                    target.node.push(instance_id.clone());
+            if let Some(mut new_target) = registry::get::<StructuredActivityNode>(&new_ref_id) {
+                if !new_target.node.contains(&instance_id) {
+                    new_target.node.push(instance_id.clone());
                 }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = StructuredActivityNode::update(target_js);
-                }
+                let _ = registry::insert(new_ref_id.clone(), "StructuredActivityNode", &new_target);
             }
         }
-
-        }
-
-        instance.in_structured_node = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(())
     }
 
-    /// Sets the activity reference
+    #[wasm_bindgen]
+    pub fn clear_in_structured_node(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.in_structured_node.is_none() {
+            return Ok(false);
+        }
+        
+        if let Some(old_ref_id) = &instance.in_structured_node {
+            if let Some(mut old_target) = registry::get::<StructuredActivityNode>(&old_ref_id) {
+                old_target.node.retain(|id| id != &instance_id);
+                let _ = registry::insert(old_ref_id.clone(), "StructuredActivityNode", &old_target);
+            }
+        }
+        
+        instance.in_structured_node = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
+    }
+
     #[wasm_bindgen]
     pub fn set_activity(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        // Remove from old opposite
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         if let Some(old_ref_id) = &instance.activity {
-            if let Ok(target_js) = Activity::get(old_ref_id.clone()) {
-                if let Ok(mut target) = serde_wasm_bindgen::from_value::<Activity>(target_js) {
-                    target.node.retain(|x| x != &instance_id);
-                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                        let _ = Activity::update(target_js);
-                    }
-                }
+            if let Some(mut old_target) = registry::get::<Activity>(&old_ref_id) {
+                old_target.node.retain(|id| id != &instance_id);
+                let _ = registry::insert(old_ref_id.clone(), "Activity", &old_target);
             }
         }
-
-        // Add to new opposite
+        
+        instance.activity = ref_id.clone();
+        
         if let Some(new_ref_id) = &ref_id {
-        if let Ok(target_js) = Activity::get(new_ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Activity>(target_js) {
-                if !target.node.contains(&instance_id) {
-                    target.node.push(instance_id.clone());
+            if let Some(mut new_target) = registry::get::<Activity>(&new_ref_id) {
+                if !new_target.node.contains(&instance_id) {
+                    new_target.node.push(instance_id.clone());
                 }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Activity::update(target_js);
-                }
+                let _ = registry::insert(new_ref_id.clone(), "Activity", &new_target);
             }
         }
-
-        }
-
-        instance.activity = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(())
     }
 
-    /// Adds a ActivityEdge to outgoing
+    #[wasm_bindgen]
+    pub fn clear_activity(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.activity.is_none() {
+            return Ok(false);
+        }
+        
+        if let Some(old_ref_id) = &instance.activity {
+            if let Some(mut old_target) = registry::get::<Activity>(&old_ref_id) {
+                old_target.node.retain(|id| id != &instance_id);
+                let _ = registry::insert(old_ref_id.clone(), "Activity", &old_target);
+            }
+        }
+        
+        instance.activity = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
+    }
+
     #[wasm_bindgen]
     pub fn add_outgoing(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         if instance.outgoing.contains(&ref_id) {
             return Ok(false);
         }
-
+        
         instance.outgoing.push(ref_id.clone());
-
-        if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
-                target.source = instance_id;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ActivityEdge::update(target_js);
-                }
-            }
+        
+        // Update opposite reference
+        if let Some(mut target) = registry::get::<ActivityEdge>(&ref_id) {
+            target.source = instance_id.clone();
+            let _ = registry::insert(ref_id.clone(), "ActivityEdge", &target);
         }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(true)
     }
 
-    /// Removes a ActivityEdge from outgoing
     #[wasm_bindgen]
     pub fn remove_outgoing(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.outgoing.iter().position(|x| x == &ref_id) {
-            instance.outgoing.remove(pos);
-
-        if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ActivityEdge::update(target_js);
-                }
-            }
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        let initial_len = instance.outgoing.len();
+        instance.outgoing.retain(|id| id != &ref_id);
+        let removed = instance.outgoing.len() < initial_len;
+        
+        if !removed {
+            return Ok(false);
         }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
+        
+        // Update opposite reference
+        if let Some(target) = registry::get::<ActivityEdge>(&ref_id) {
+            let _ = registry::insert(ref_id.clone(), "ActivityEdge", &target);
         }
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
     }
 
-    /// Clears all ActivityEdge from outgoing
     #[wasm_bindgen]
     pub fn clear_outgoing(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         let count = instance.outgoing.len();
-
-        // Update all opposite references
+        
+        if count == 0 {
+            return Ok(0);
+        }
+        
         for ref_id in &instance.outgoing {
-            if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ActivityEdge::update(target_js);
-                }
-            }
+        // Update opposite reference
+        if let Some(target) = registry::get::<ActivityEdge>(&ref_id) {
+            let _ = registry::insert(ref_id.clone(), "ActivityEdge", &target);
         }
         }
-
+        
         instance.outgoing.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(count)
     }
 
-    /// Adds a ActivityEdge to incoming
     #[wasm_bindgen]
     pub fn add_incoming(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         if instance.incoming.contains(&ref_id) {
             return Ok(false);
         }
-
+        
         instance.incoming.push(ref_id.clone());
-
-        if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
-                target.target = instance_id;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ActivityEdge::update(target_js);
-                }
-            }
+        
+        // Update opposite reference
+        if let Some(mut target) = registry::get::<ActivityEdge>(&ref_id) {
+            target.target = instance_id.clone();
+            let _ = registry::insert(ref_id.clone(), "ActivityEdge", &target);
         }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(true)
     }
 
-    /// Removes a ActivityEdge from incoming
     #[wasm_bindgen]
     pub fn remove_incoming(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.incoming.iter().position(|x| x == &ref_id) {
-            instance.incoming.remove(pos);
-
-        if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ActivityEdge::update(target_js);
-                }
-            }
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        let initial_len = instance.incoming.len();
+        instance.incoming.retain(|id| id != &ref_id);
+        let removed = instance.incoming.len() < initial_len;
+        
+        if !removed {
+            return Ok(false);
         }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
+        
+        // Update opposite reference
+        if let Some(target) = registry::get::<ActivityEdge>(&ref_id) {
+            let _ = registry::insert(ref_id.clone(), "ActivityEdge", &target);
         }
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
     }
 
-    /// Clears all ActivityEdge from incoming
     #[wasm_bindgen]
     pub fn clear_incoming(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         let count = instance.incoming.len();
-
-        // Update all opposite references
+        
+        if count == 0 {
+            return Ok(0);
+        }
+        
         for ref_id in &instance.incoming {
-            if let Ok(target_js) = ActivityEdge::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityEdge>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ActivityEdge::update(target_js);
-                }
-            }
+        // Update opposite reference
+        if let Some(target) = registry::get::<ActivityEdge>(&ref_id) {
+            let _ = registry::insert(ref_id.clone(), "ActivityEdge", &target);
         }
         }
-
+        
         instance.incoming.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(count)
     }
 
-    /// Adds a ActivityPartition to in_partition
     #[wasm_bindgen]
     pub fn add_in_partition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         if instance.in_partition.contains(&ref_id) {
             return Ok(false);
         }
-
+        
         instance.in_partition.push(ref_id.clone());
-
-        if let Ok(target_js) = ActivityPartition::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityPartition>(target_js) {
-                if !target.node.contains(&instance_id) {
-                    target.node.push(instance_id);
-                }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ActivityPartition::update(target_js);
-                }
+        
+        // Update opposite reference
+        if let Some(mut target) = registry::get::<ActivityPartition>(&ref_id) {
+            if !target.node.contains(&instance_id) {
+                target.node.push(instance_id.clone());
             }
+            let _ = registry::insert(ref_id.clone(), "ActivityPartition", &target);
         }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(true)
     }
 
-    /// Removes a ActivityPartition from in_partition
     #[wasm_bindgen]
     pub fn remove_in_partition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.in_partition.iter().position(|x| x == &ref_id) {
-            instance.in_partition.remove(pos);
-
-        if let Ok(target_js) = ActivityPartition::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityPartition>(target_js) {
-                target.node.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ActivityPartition::update(target_js);
-                }
-            }
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        let initial_len = instance.in_partition.len();
+        instance.in_partition.retain(|id| id != &ref_id);
+        let removed = instance.in_partition.len() < initial_len;
+        
+        if !removed {
+            return Ok(false);
         }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
+        
+        // Update opposite reference
+        if let Some(mut target) = registry::get::<ActivityPartition>(&ref_id) {
+            target.node.retain(|id| id != &instance_id);
+            let _ = registry::insert(ref_id.clone(), "ActivityPartition", &target);
         }
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
     }
 
-    /// Clears all ActivityPartition from in_partition
     #[wasm_bindgen]
     pub fn clear_in_partition(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         let count = instance.in_partition.len();
-
-        // Update all opposite references
+        
+        if count == 0 {
+            return Ok(0);
+        }
+        
         for ref_id in &instance.in_partition {
-            if let Ok(target_js) = ActivityPartition::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ActivityPartition>(target_js) {
-                target.node.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ActivityPartition::update(target_js);
-                }
-            }
+        // Update opposite reference
+        if let Some(mut target) = registry::get::<ActivityPartition>(&ref_id) {
+            target.node.retain(|id| id != &instance_id);
+            let _ = registry::insert(ref_id.clone(), "ActivityPartition", &target);
         }
         }
-
+        
         instance.in_partition.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(count)
     }
 
-    /// Adds a InterruptibleActivityRegion to in_interruptible_region
     #[wasm_bindgen]
     pub fn add_in_interruptible_region(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         if instance.in_interruptible_region.contains(&ref_id) {
             return Ok(false);
         }
-
+        
         instance.in_interruptible_region.push(ref_id.clone());
-
-        if let Ok(target_js) = InterruptibleActivityRegion::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<InterruptibleActivityRegion>(target_js) {
-                if !target.node.contains(&instance_id) {
-                    target.node.push(instance_id);
-                }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = InterruptibleActivityRegion::update(target_js);
-                }
+        
+        // Update opposite reference
+        if let Some(mut target) = registry::get::<InterruptibleActivityRegion>(&ref_id) {
+            if !target.node.contains(&instance_id) {
+                target.node.push(instance_id.clone());
             }
+            let _ = registry::insert(ref_id.clone(), "InterruptibleActivityRegion", &target);
         }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(true)
     }
 
-    /// Removes a InterruptibleActivityRegion from in_interruptible_region
     #[wasm_bindgen]
     pub fn remove_in_interruptible_region(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.in_interruptible_region.iter().position(|x| x == &ref_id) {
-            instance.in_interruptible_region.remove(pos);
-
-        if let Ok(target_js) = InterruptibleActivityRegion::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<InterruptibleActivityRegion>(target_js) {
-                target.node.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = InterruptibleActivityRegion::update(target_js);
-                }
-            }
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        let initial_len = instance.in_interruptible_region.len();
+        instance.in_interruptible_region.retain(|id| id != &ref_id);
+        let removed = instance.in_interruptible_region.len() < initial_len;
+        
+        if !removed {
+            return Ok(false);
         }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
+        
+        // Update opposite reference
+        if let Some(mut target) = registry::get::<InterruptibleActivityRegion>(&ref_id) {
+            target.node.retain(|id| id != &instance_id);
+            let _ = registry::insert(ref_id.clone(), "InterruptibleActivityRegion", &target);
         }
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
     }
 
-    /// Clears all InterruptibleActivityRegion from in_interruptible_region
     #[wasm_bindgen]
     pub fn clear_in_interruptible_region(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         let count = instance.in_interruptible_region.len();
-
-        // Update all opposite references
+        
+        if count == 0 {
+            return Ok(0);
+        }
+        
         for ref_id in &instance.in_interruptible_region {
-            if let Ok(target_js) = InterruptibleActivityRegion::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<InterruptibleActivityRegion>(target_js) {
-                target.node.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = InterruptibleActivityRegion::update(target_js);
-                }
-            }
+        // Update opposite reference
+        if let Some(mut target) = registry::get::<InterruptibleActivityRegion>(&ref_id) {
+            target.node.retain(|id| id != &instance_id);
+            let _ = registry::insert(ref_id.clone(), "InterruptibleActivityRegion", &target);
         }
         }
-
+        
         instance.in_interruptible_region.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(count)
     }
 
-    /// Adds a ActivityNode to redefined_node
     #[wasm_bindgen]
     pub fn add_redefined_node(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         if instance.redefined_node.contains(&ref_id) {
             return Ok(false);
         }
-
+        
         instance.redefined_node.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(true)
     }
 
-    /// Removes a ActivityNode from redefined_node
     #[wasm_bindgen]
     pub fn remove_redefined_node(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.redefined_node.iter().position(|x| x == &ref_id) {
-            instance.redefined_node.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        let initial_len = instance.redefined_node.len();
+        instance.redefined_node.retain(|id| id != &ref_id);
+        let removed = instance.redefined_node.len() < initial_len;
+        
+        if !removed {
+            return Ok(false);
         }
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
     }
 
-    /// Clears all ActivityNode from redefined_node
     #[wasm_bindgen]
     pub fn clear_redefined_node(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         let count = instance.redefined_node.len();
-
+        
+        if count == 0 {
+            return Ok(0);
+        }
+        
         instance.redefined_node.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(count)
     }
 
-    /// Sets the name field
-    #[wasm_bindgen]
-    pub fn set_name(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        instance.name = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
     }
 
-    /// Sets the visibility field
-    #[wasm_bindgen]
-    pub fn set_visibility(instance_id: String, value: Option<VisibilityKind>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.visibility = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
     }
 
-    /// Sets the is_leaf field
-    #[wasm_bindgen]
-    pub fn set_is_leaf(instance_id: String, value: String) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ActivityNode = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.is_leaf = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ActivityNode".to_string()
     }
+
 
 }
-
-impl ActivityNode {
-    /// Validates this instance and all references
-    pub fn validate(&self) -> Result<(), Vec<String>> {
-        let mut errors = Vec::new();
-
-        // Validate all e_annotations references exist
-        for id in &self.e_annotations {
-            if !EAnnotation::exists(id.clone()) {
-                errors.push(format!("EAnnotation {} not found", id));
-            }
-        }
-
-        // Validate all owned_comment references exist
-        for id in &self.owned_comment {
-            if !Comment::exists(id.clone()) {
-                errors.push(format!("Comment {} not found", id));
-            }
-        }
-
-        // Validate all client_dependency references exist
-        for id in &self.client_dependency {
-            if !Dependency::exists(id.clone()) {
-                errors.push(format!("Dependency {} not found", id));
-            }
-        }
-
-        // Validate name_expression reference exists
-        if let Some(id) = &self.name_expression {
-            if !StringExpression::exists(id.clone()) {
-                errors.push(format!("StringExpression {} not found", id));
-            }
-        }
-
-        // Validate in_structured_node reference exists
-        if let Some(id) = &self.in_structured_node {
-            if !StructuredActivityNode::exists(id.clone()) {
-                errors.push(format!("StructuredActivityNode {} not found", id));
-            }
-        }
-
-        // Validate activity reference exists
-        if let Some(id) = &self.activity {
-            if !Activity::exists(id.clone()) {
-                errors.push(format!("Activity {} not found", id));
-            }
-        }
-
-        // Validate all outgoing references exist
-        for id in &self.outgoing {
-            if !ActivityEdge::exists(id.clone()) {
-                errors.push(format!("ActivityEdge {} not found", id));
-            }
-        }
-
-        // Validate all incoming references exist
-        for id in &self.incoming {
-            if !ActivityEdge::exists(id.clone()) {
-                errors.push(format!("ActivityEdge {} not found", id));
-            }
-        }
-
-        // Validate all in_partition references exist
-        for id in &self.in_partition {
-            if !ActivityPartition::exists(id.clone()) {
-                errors.push(format!("ActivityPartition {} not found", id));
-            }
-        }
-
-        // Validate all in_interruptible_region references exist
-        for id in &self.in_interruptible_region {
-            if !InterruptibleActivityRegion::exists(id.clone()) {
-                errors.push(format!("InterruptibleActivityRegion {} not found", id));
-            }
-        }
-
-        // Validate all redefined_node references exist
-        for id in &self.redefined_node {
-            if !ActivityNode::exists(id.clone()) {
-                errors.push(format!("ActivityNode {} not found", id));
-            }
-        }
-
-        if errors.is_empty() {
-            Ok(())
-        } else {
-            Err(errors)
-        }
-    }
-}
-

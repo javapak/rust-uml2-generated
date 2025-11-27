@@ -276,6 +276,8 @@ pub mod eparameter;
 pub mod ereference;
 pub mod estructural_feature;
 pub mod etyped_element;
+pub mod egeneric_type;
+pub mod etype_parameter;
 
 // Re-export all types
 pub use visibility_kind::VisibilityKind;
@@ -553,3 +555,46 @@ pub use eparameter::EParameter;
 pub use ereference::EReference;
 pub use estructural_feature::EStructuralFeature;
 pub use etyped_element::ETypedElement;
+pub use egeneric_type::EGenericType;
+pub use etype_parameter::ETypeParameter;
+// Declare the unified registry module
+pub mod registry;
+
+
+use wasm_bindgen::prelude::*;
+
+// ═══════════════════════════════════════════════════════════════
+// Global registry utilities
+// ═══════════════════════════════════════════════════════════════
+
+/// Clear entire registry
+#[wasm_bindgen]
+pub fn registry_clear_all() -> usize {
+    registry::clear_all()
+}
+
+/// Get all type names currently in registry
+#[wasm_bindgen]
+pub fn registry_get_all_types() -> Result<JsValue, JsValue> {
+    let types = registry::get_all_types();
+    serde_wasm_bindgen::to_value(&types)
+            .map_err(|_| JsValue::from_str("Invalid data"))
+}
+
+/// Get any instance by ID (regardless of type)
+#[wasm_bindgen]
+pub fn registry_get(id: String) -> Result<JsValue, JsValue> {
+    registry::get_as_jsvalue(&id)
+}
+
+/// Delete any instance by ID (regardless of type)
+#[wasm_bindgen]
+pub fn registry_delete(id: String) -> bool {
+    registry::delete(&id)
+}
+
+/// Check if any instance exists by ID (regardless of type)
+#[wasm_bindgen]
+pub fn registry_exists(id: String) -> bool {
+    registry::exists(&id)
+}

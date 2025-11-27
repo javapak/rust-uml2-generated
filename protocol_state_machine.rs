@@ -1,124 +1,120 @@
-// ============================================================================
-// Generated Rust Code
-// ============================================================================
-//
-// Type:           ProtocolStateMachine (struct)
-// Source Package: uml
-// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-24 11:19:15
-// Generator:      EcoreToRustGenerator v0.1.0
-//
-// Generation Options:
-//   - WASM:       enabled
-//   - Tsify:      enabled
-//   - Serde:      enabled
-//   - Builders:   disabled
-//   - References: String IDs
-//
-// WARNING: This file is auto-generated. Manual changes will be overwritten.
-// ============================================================================
+// ProtocolStateMachine - Generated UML Class
+// Uses unified registry with type filtering
 
-use lazy_static::lazy_static;
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::sync::Mutex;
 use uuid::Uuid;
+use crate::registry;
 use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
 use serde_wasm_bindgen;
 use tsify::Tsify;
-use crate::eannotation::EAnnotation;
-use crate::comment::Comment;
 use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
-use crate::string_expression::StringExpression;
-use crate::element_import::ElementImport;
-use crate::package_import::PackageImport;
-use crate::constraint::Constraint;
-use crate::template_parameter::TemplateParameter;
-use crate::template_binding::TemplateBinding;
-use crate::template_signature::TemplateSignature;
-use crate::generalization::Generalization;
-use crate::generalization_set::GeneralizationSet;
-use crate::classifier::Classifier;
-use crate::substitution::Substitution;
-use crate::collaboration_use::CollaborationUse;
-use crate::use_case::UseCase;
-use crate::property::Property;
-use crate::connector::Connector;
-use crate::behavior::Behavior;
-use crate::interface_realization::InterfaceRealization;
-use crate::trigger::Trigger;
-use crate::operation::Operation;
-use crate::reception::Reception;
-use crate::parameter::Parameter;
-use crate::parameter_set::ParameterSet;
-use crate::behavioral_feature::BehavioralFeature;
-use crate::region::Region;
-use crate::state::State;
-use crate::pseudostate::Pseudostate;
-use crate::state_machine::StateMachine;
 use crate::protocol_conformance::ProtocolConformance;
 
-lazy_static! {
-    static ref PROTOCOL_STATE_MACHINE_REGISTRY: Mutex<RefCell<HashMap<String, ProtocolStateMachine>>> = 
-        Mutex::new(RefCell::new(HashMap::new()));
-}
 
-#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+const TYPE_NAME: &str = "ProtocolStateMachine";
+
+#[derive(Clone, Serialize, Deserialize, Tsify)]
+#[serde(rename_all = "camelCase")]
+#[wasm_bindgen]
 pub struct ProtocolStateMachine {
     /// Unique identifier for this instance
+    #[wasm_bindgen(skip)]
     pub id: String,
+    #[wasm_bindgen(skip)]
     pub e_annotations: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_comment: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub name: Option<String>,
+    #[wasm_bindgen(skip)]
     pub visibility: Option<VisibilityKind>,
+    #[wasm_bindgen(skip)]
     pub client_dependency: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub name_expression: Option<String>,
+    #[wasm_bindgen(skip)]
     pub element_import: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub package_import: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_rule: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub is_leaf: String,
+    #[wasm_bindgen(skip)]
     pub owning_template_parameter: Option<String>,
+    #[wasm_bindgen(skip)]
     pub template_parameter: Option<String>,
+    #[wasm_bindgen(skip)]
     pub template_binding: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_template_signature: Option<String>,
+    #[wasm_bindgen(skip)]
     pub is_abstract: String,
+    #[wasm_bindgen(skip)]
     pub generalization: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub powertype_extent: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub redefined_classifier: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub substitution: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub representation: Option<String>,
+    #[wasm_bindgen(skip)]
     pub collaboration_use: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_use_case: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub use_case: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_attribute: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_connector: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_behavior: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub classifier_behavior: Option<String>,
+    #[wasm_bindgen(skip)]
     pub interface_realization: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_trigger: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub nested_classifier: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_operation: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub is_active: String,
+    #[wasm_bindgen(skip)]
     pub owned_reception: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub is_reentrant: String,
+    #[wasm_bindgen(skip)]
     pub redefined_behavior: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_parameter: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub precondition: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub postcondition: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_parameter_set: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub specification: Option<String>,
+    #[wasm_bindgen(skip)]
     pub region: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub submachine_state: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub connection_point: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub extended_state_machine: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub conformance: Vec<String>,
 }
 
 #[wasm_bindgen]
 impl ProtocolStateMachine {
-    /// Creates a new ProtocolStateMachine and returns its ID
+    /// Creates a new ProtocolStateMachine instance
     #[wasm_bindgen]
     pub fn create(is_leaf: String, is_abstract: String, is_active: String, is_reentrant: String) -> String {
         let id = Uuid::new_v4().to_string();
@@ -133,12 +129,12 @@ impl ProtocolStateMachine {
             element_import: Vec::new(),
             package_import: Vec::new(),
             owned_rule: Vec::new(),
-            is_leaf: is_leaf,
+            is_leaf,
             owning_template_parameter: None,
             template_parameter: None,
             template_binding: Vec::new(),
             owned_template_signature: None,
-            is_abstract: is_abstract,
+            is_abstract,
             generalization: Vec::new(),
             powertype_extent: Vec::new(),
             redefined_classifier: Vec::new(),
@@ -155,9 +151,9 @@ impl ProtocolStateMachine {
             owned_trigger: Vec::new(),
             nested_classifier: Vec::new(),
             owned_operation: Vec::new(),
-            is_active: is_active,
+            is_active,
             owned_reception: Vec::new(),
-            is_reentrant: is_reentrant,
+            is_reentrant,
             redefined_behavior: Vec::new(),
             owned_parameter: Vec::new(),
             precondition: Vec::new(),
@@ -170,2998 +166,217 @@ impl ProtocolStateMachine {
             extended_state_machine: Vec::new(),
             conformance: Vec::new(),
         };
-
-        PROTOCOL_STATE_MACHINE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(id.clone(), instance);
-
+        
+        registry::insert(id.clone(), TYPE_NAME, &instance)
+            .expect("Failed to insert into registry");
+        
         id
     }
 
-    /// Gets a ProtocolStateMachine by ID
-    /// Returns the instance as a JavaScript object
+    /// Gets a snapshot of this instance
+    /// Note: Returns a snapshot. Modifications require calling update().
     #[wasm_bindgen]
     pub fn get(id: String) -> Result<JsValue, JsValue> {
-        PROTOCOL_STATE_MACHINE_REGISTRY.lock().unwrap()
-            .borrow()
-            .get(&id)
-            .ok_or_else(|| JsValue::from_str("Instance not found"))
-            .and_then(|instance| {
-                serde_wasm_bindgen::to_value(instance)
-                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-            })
+        registry::get_as_jsvalue(&id)
     }
 
-    /// Updates a ProtocolStateMachine instance
-    /// Takes a JavaScript object and updates the registry
+    /// Updates the instance in the registry
     #[wasm_bindgen]
     pub fn update(value: JsValue) -> Result<(), JsValue> {
         let instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(value)
-            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
-
-        PROTOCOL_STATE_MACHINE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(instance.id.clone(), instance);
-
-        Ok(())
+            .map_err(|_| JsValue::from_str("Invalid data"))?;
+        registry::update_from_jsvalue(
+            instance.id.clone(),
+            TYPE_NAME,
+            serde_wasm_bindgen::to_value(&instance)?
+        )
     }
 
-    /// Deletes a ProtocolStateMachine by ID
-    /// Returns true if deleted, false if not found
+    /// Deletes this instance from the registry
     #[wasm_bindgen]
     pub fn delete(id: String) -> bool {
-        PROTOCOL_STATE_MACHINE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .remove(&id)
-            .is_some()
+        registry::delete(&id)
     }
 
-    /// Checks if a ProtocolStateMachine exists by ID
+    /// Checks if an instance exists
     #[wasm_bindgen]
     pub fn exists(id: String) -> bool {
-        PROTOCOL_STATE_MACHINE_REGISTRY.lock().unwrap()
-            .borrow()
-            .contains_key(&id)
+        registry::exists(&id)
     }
 
-    /// Gets all ProtocolStateMachine instances
-    /// Returns an array of JavaScript objects
+    /// Gets all instances of this type
     #[wasm_bindgen]
     pub fn get_all() -> Result<JsValue, JsValue> {
-        let instances: Vec<ProtocolStateMachine> = PROTOCOL_STATE_MACHINE_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .cloned()
-            .collect();
+        registry::get_all_of_type_as_jsvalue(TYPE_NAME)
+    }
+
+    /// Clears all instances of this type
+    #[wasm_bindgen]
+    pub fn clear_all() -> usize {
+        registry::clear_type(TYPE_NAME)
+    }
+
+#[wasm_bindgen]
+pub fn set_name(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn clear_name(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn set_visibility(instance_id: String, value: VisibilityKind) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.visibility = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn clear_visibility(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.visibility = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn set_is_leaf(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.is_leaf = value;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn set_is_abstract(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.is_abstract = value;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn set_is_active(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.is_active = value;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn set_is_reentrant(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.is_reentrant = value;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-    }
-
-    /// Returns the count of ProtocolStateMachine instances
-    #[wasm_bindgen]
-    pub fn count() -> usize {
-        PROTOCOL_STATE_MACHINE_REGISTRY.lock().unwrap()
-            .borrow()
-            .len()
-    }
-
-    /// Removes all ProtocolStateMachine instances
-    #[wasm_bindgen]
-    pub fn clear_all() {
-        PROTOCOL_STATE_MACHINE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .clear();
-    }
-
-    /// Finds ProtocolStateMachine instances by name pattern
-    /// Returns an array of matching JavaScript objects
-    #[wasm_bindgen]
-    pub fn find_by_name(pattern: String) -> Result<JsValue, JsValue> {
-        let instances: Vec<ProtocolStateMachine> = PROTOCOL_STATE_MACHINE_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .filter(|item| {
-                item.name.as_ref()
-                    .map(|n| n.contains(&pattern))
-                    .unwrap_or(false)
-            })
-            .cloned()
-            .collect();
-
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-    }
-
-    /// Adds a EAnnotation to e_annotations
-    #[wasm_bindgen]
-    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.e_annotations.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.e_annotations.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
-            instance.e_annotations.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.e_annotations.len();
-
-        instance.e_annotations.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Comment to owned_comment
-    #[wasm_bindgen]
-    pub fn add_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_comment.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_comment.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn remove_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_comment.iter().position(|x| x == &ref_id) {
-            instance.owned_comment.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn clear_owned_comment(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_comment.len();
-
-        instance.owned_comment.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Dependency to client_dependency
-    #[wasm_bindgen]
-    pub fn add_client_dependency(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.client_dependency.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.client_dependency.push(ref_id.clone());
-
-        if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                if !target.client.contains(&instance_id) {
-                    target.client.push(instance_id);
-                }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Dependency from client_dependency
-    #[wasm_bindgen]
-    pub fn remove_client_dependency(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.client_dependency.iter().position(|x| x == &ref_id) {
-            instance.client_dependency.remove(pos);
-
-        if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                target.client.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Dependency from client_dependency
-    #[wasm_bindgen]
-    pub fn clear_client_dependency(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.client_dependency.len();
-
-        // Update all opposite references
-        for ref_id in &instance.client_dependency {
-            if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                target.client.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.client_dependency.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the name_expression reference
-    #[wasm_bindgen]
-    pub fn set_name_expression(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.name_expression = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Adds a ElementImport to element_import
-    #[wasm_bindgen]
-    pub fn add_element_import(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.element_import.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.element_import.push(ref_id.clone());
-
-        if let Ok(target_js) = ElementImport::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ElementImport>(target_js) {
-                target.importing_namespace = instance_id;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ElementImport::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a ElementImport from element_import
-    #[wasm_bindgen]
-    pub fn remove_element_import(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.element_import.iter().position(|x| x == &ref_id) {
-            instance.element_import.remove(pos);
-
-        if let Ok(target_js) = ElementImport::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ElementImport>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ElementImport::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all ElementImport from element_import
-    #[wasm_bindgen]
-    pub fn clear_element_import(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.element_import.len();
-
-        // Update all opposite references
-        for ref_id in &instance.element_import {
-            if let Ok(target_js) = ElementImport::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ElementImport>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ElementImport::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.element_import.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a PackageImport to package_import
-    #[wasm_bindgen]
-    pub fn add_package_import(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.package_import.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.package_import.push(ref_id.clone());
-
-        if let Ok(target_js) = PackageImport::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<PackageImport>(target_js) {
-                target.importing_namespace = instance_id;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = PackageImport::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a PackageImport from package_import
-    #[wasm_bindgen]
-    pub fn remove_package_import(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.package_import.iter().position(|x| x == &ref_id) {
-            instance.package_import.remove(pos);
-
-        if let Ok(target_js) = PackageImport::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<PackageImport>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = PackageImport::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all PackageImport from package_import
-    #[wasm_bindgen]
-    pub fn clear_package_import(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.package_import.len();
-
-        // Update all opposite references
-        for ref_id in &instance.package_import {
-            if let Ok(target_js) = PackageImport::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<PackageImport>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = PackageImport::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.package_import.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Constraint to owned_rule
-    #[wasm_bindgen]
-    pub fn add_owned_rule(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_rule.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_rule.push(ref_id.clone());
-
-        if let Ok(target_js) = Constraint::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Constraint>(target_js) {
-                target.context = Some(instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Constraint::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Constraint from owned_rule
-    #[wasm_bindgen]
-    pub fn remove_owned_rule(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_rule.iter().position(|x| x == &ref_id) {
-            instance.owned_rule.remove(pos);
-
-        if let Ok(target_js) = Constraint::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Constraint>(target_js) {
-                target.context = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Constraint::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Constraint from owned_rule
-    #[wasm_bindgen]
-    pub fn clear_owned_rule(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_rule.len();
-
-        // Update all opposite references
-        for ref_id in &instance.owned_rule {
-            if let Ok(target_js) = Constraint::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Constraint>(target_js) {
-                target.context = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Constraint::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.owned_rule.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the owning_template_parameter reference
-    #[wasm_bindgen]
-    pub fn set_owning_template_parameter(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        // Remove from old opposite
-        if let Some(old_ref_id) = &instance.owning_template_parameter {
-            if let Ok(target_js) = TemplateParameter::get(old_ref_id.clone()) {
-                if let Ok(mut target) = serde_wasm_bindgen::from_value::<TemplateParameter>(target_js) {
-                    target.owned_parametered_element = None;
-                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                        let _ = TemplateParameter::update(target_js);
-                    }
-                }
-            }
-        }
-
-        // Add to new opposite
-        if let Some(new_ref_id) = &ref_id {
-        if let Ok(target_js) = TemplateParameter::get(new_ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<TemplateParameter>(target_js) {
-                target.owned_parametered_element = Some(instance_id.clone());
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = TemplateParameter::update(target_js);
-                }
-            }
-        }
-
-        }
-
-        instance.owning_template_parameter = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the template_parameter reference
-    #[wasm_bindgen]
-    pub fn set_template_parameter(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        // Remove from old opposite
-        if let Some(old_ref_id) = &instance.template_parameter {
-            if let Ok(target_js) = TemplateParameter::get(old_ref_id.clone()) {
-                if let Ok(mut target) = serde_wasm_bindgen::from_value::<TemplateParameter>(target_js) {
-                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                        let _ = TemplateParameter::update(target_js);
-                    }
-                }
-            }
-        }
-
-        // Add to new opposite
-        if let Some(new_ref_id) = &ref_id {
-        if let Ok(target_js) = TemplateParameter::get(new_ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<TemplateParameter>(target_js) {
-                target.parametered_element = instance_id.clone();
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = TemplateParameter::update(target_js);
-                }
-            }
-        }
-
-        }
-
-        instance.template_parameter = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Adds a TemplateBinding to template_binding
-    #[wasm_bindgen]
-    pub fn add_template_binding(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.template_binding.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.template_binding.push(ref_id.clone());
-
-        if let Ok(target_js) = TemplateBinding::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<TemplateBinding>(target_js) {
-                target.bound_element = instance_id;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = TemplateBinding::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a TemplateBinding from template_binding
-    #[wasm_bindgen]
-    pub fn remove_template_binding(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.template_binding.iter().position(|x| x == &ref_id) {
-            instance.template_binding.remove(pos);
-
-        if let Ok(target_js) = TemplateBinding::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<TemplateBinding>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = TemplateBinding::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all TemplateBinding from template_binding
-    #[wasm_bindgen]
-    pub fn clear_template_binding(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.template_binding.len();
-
-        // Update all opposite references
-        for ref_id in &instance.template_binding {
-            if let Ok(target_js) = TemplateBinding::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<TemplateBinding>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = TemplateBinding::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.template_binding.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the owned_template_signature reference
-    #[wasm_bindgen]
-    pub fn set_owned_template_signature(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        // Remove from old opposite
-        if let Some(old_ref_id) = &instance.owned_template_signature {
-            if let Ok(target_js) = TemplateSignature::get(old_ref_id.clone()) {
-                if let Ok(mut target) = serde_wasm_bindgen::from_value::<TemplateSignature>(target_js) {
-                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                        let _ = TemplateSignature::update(target_js);
-                    }
-                }
-            }
-        }
-
-        // Add to new opposite
-        if let Some(new_ref_id) = &ref_id {
-        if let Ok(target_js) = TemplateSignature::get(new_ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<TemplateSignature>(target_js) {
-                target.template = instance_id.clone();
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = TemplateSignature::update(target_js);
-                }
-            }
-        }
-
-        }
-
-        instance.owned_template_signature = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Adds a Generalization to generalization
-    #[wasm_bindgen]
-    pub fn add_generalization(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.generalization.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.generalization.push(ref_id.clone());
-
-        if let Ok(target_js) = Generalization::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Generalization>(target_js) {
-                target.specific = instance_id;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Generalization::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Generalization from generalization
-    #[wasm_bindgen]
-    pub fn remove_generalization(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.generalization.iter().position(|x| x == &ref_id) {
-            instance.generalization.remove(pos);
-
-        if let Ok(target_js) = Generalization::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Generalization>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Generalization::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Generalization from generalization
-    #[wasm_bindgen]
-    pub fn clear_generalization(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.generalization.len();
-
-        // Update all opposite references
-        for ref_id in &instance.generalization {
-            if let Ok(target_js) = Generalization::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Generalization>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Generalization::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.generalization.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a GeneralizationSet to powertype_extent
-    #[wasm_bindgen]
-    pub fn add_powertype_extent(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.powertype_extent.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.powertype_extent.push(ref_id.clone());
-
-        if let Ok(target_js) = GeneralizationSet::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<GeneralizationSet>(target_js) {
-                target.powertype = Some(instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = GeneralizationSet::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a GeneralizationSet from powertype_extent
-    #[wasm_bindgen]
-    pub fn remove_powertype_extent(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.powertype_extent.iter().position(|x| x == &ref_id) {
-            instance.powertype_extent.remove(pos);
-
-        if let Ok(target_js) = GeneralizationSet::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<GeneralizationSet>(target_js) {
-                target.powertype = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = GeneralizationSet::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all GeneralizationSet from powertype_extent
-    #[wasm_bindgen]
-    pub fn clear_powertype_extent(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.powertype_extent.len();
-
-        // Update all opposite references
-        for ref_id in &instance.powertype_extent {
-            if let Ok(target_js) = GeneralizationSet::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<GeneralizationSet>(target_js) {
-                target.powertype = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = GeneralizationSet::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.powertype_extent.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Classifier to redefined_classifier
-    #[wasm_bindgen]
-    pub fn add_redefined_classifier(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.redefined_classifier.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.redefined_classifier.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Classifier from redefined_classifier
-    #[wasm_bindgen]
-    pub fn remove_redefined_classifier(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.redefined_classifier.iter().position(|x| x == &ref_id) {
-            instance.redefined_classifier.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Classifier from redefined_classifier
-    #[wasm_bindgen]
-    pub fn clear_redefined_classifier(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.redefined_classifier.len();
-
-        instance.redefined_classifier.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Substitution to substitution
-    #[wasm_bindgen]
-    pub fn add_substitution(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.substitution.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.substitution.push(ref_id.clone());
-
-        if let Ok(target_js) = Substitution::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Substitution>(target_js) {
-                target.substituting_classifier = instance_id;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Substitution::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Substitution from substitution
-    #[wasm_bindgen]
-    pub fn remove_substitution(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.substitution.iter().position(|x| x == &ref_id) {
-            instance.substitution.remove(pos);
-
-        if let Ok(target_js) = Substitution::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Substitution>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Substitution::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Substitution from substitution
-    #[wasm_bindgen]
-    pub fn clear_substitution(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.substitution.len();
-
-        // Update all opposite references
-        for ref_id in &instance.substitution {
-            if let Ok(target_js) = Substitution::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Substitution>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Substitution::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.substitution.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the representation reference
-    #[wasm_bindgen]
-    pub fn set_representation(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.representation = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Adds a CollaborationUse to collaboration_use
-    #[wasm_bindgen]
-    pub fn add_collaboration_use(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.collaboration_use.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.collaboration_use.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a CollaborationUse from collaboration_use
-    #[wasm_bindgen]
-    pub fn remove_collaboration_use(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.collaboration_use.iter().position(|x| x == &ref_id) {
-            instance.collaboration_use.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all CollaborationUse from collaboration_use
-    #[wasm_bindgen]
-    pub fn clear_collaboration_use(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.collaboration_use.len();
-
-        instance.collaboration_use.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a UseCase to owned_use_case
-    #[wasm_bindgen]
-    pub fn add_owned_use_case(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_use_case.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_use_case.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a UseCase from owned_use_case
-    #[wasm_bindgen]
-    pub fn remove_owned_use_case(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_use_case.iter().position(|x| x == &ref_id) {
-            instance.owned_use_case.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all UseCase from owned_use_case
-    #[wasm_bindgen]
-    pub fn clear_owned_use_case(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_use_case.len();
-
-        instance.owned_use_case.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a UseCase to use_case
-    #[wasm_bindgen]
-    pub fn add_use_case(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.use_case.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.use_case.push(ref_id.clone());
-
-        if let Ok(target_js) = UseCase::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<UseCase>(target_js) {
-                if !target.subject.contains(&instance_id) {
-                    target.subject.push(instance_id);
-                }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = UseCase::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a UseCase from use_case
-    #[wasm_bindgen]
-    pub fn remove_use_case(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.use_case.iter().position(|x| x == &ref_id) {
-            instance.use_case.remove(pos);
-
-        if let Ok(target_js) = UseCase::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<UseCase>(target_js) {
-                target.subject.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = UseCase::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all UseCase from use_case
-    #[wasm_bindgen]
-    pub fn clear_use_case(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.use_case.len();
-
-        // Update all opposite references
-        for ref_id in &instance.use_case {
-            if let Ok(target_js) = UseCase::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<UseCase>(target_js) {
-                target.subject.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = UseCase::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.use_case.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Property to owned_attribute
-    #[wasm_bindgen]
-    pub fn add_owned_attribute(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_attribute.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_attribute.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Property from owned_attribute
-    #[wasm_bindgen]
-    pub fn remove_owned_attribute(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_attribute.iter().position(|x| x == &ref_id) {
-            instance.owned_attribute.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Property from owned_attribute
-    #[wasm_bindgen]
-    pub fn clear_owned_attribute(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_attribute.len();
-
-        instance.owned_attribute.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Connector to owned_connector
-    #[wasm_bindgen]
-    pub fn add_owned_connector(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_connector.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_connector.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Connector from owned_connector
-    #[wasm_bindgen]
-    pub fn remove_owned_connector(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_connector.iter().position(|x| x == &ref_id) {
-            instance.owned_connector.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Connector from owned_connector
-    #[wasm_bindgen]
-    pub fn clear_owned_connector(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_connector.len();
-
-        instance.owned_connector.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Behavior to owned_behavior
-    #[wasm_bindgen]
-    pub fn add_owned_behavior(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_behavior.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_behavior.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Behavior from owned_behavior
-    #[wasm_bindgen]
-    pub fn remove_owned_behavior(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_behavior.iter().position(|x| x == &ref_id) {
-            instance.owned_behavior.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Behavior from owned_behavior
-    #[wasm_bindgen]
-    pub fn clear_owned_behavior(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_behavior.len();
-
-        instance.owned_behavior.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the classifier_behavior reference
-    #[wasm_bindgen]
-    pub fn set_classifier_behavior(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.classifier_behavior = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Adds a InterfaceRealization to interface_realization
-    #[wasm_bindgen]
-    pub fn add_interface_realization(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.interface_realization.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.interface_realization.push(ref_id.clone());
-
-        if let Ok(target_js) = InterfaceRealization::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<InterfaceRealization>(target_js) {
-                target.implementing_classifier = instance_id;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = InterfaceRealization::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a InterfaceRealization from interface_realization
-    #[wasm_bindgen]
-    pub fn remove_interface_realization(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.interface_realization.iter().position(|x| x == &ref_id) {
-            instance.interface_realization.remove(pos);
-
-        if let Ok(target_js) = InterfaceRealization::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<InterfaceRealization>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = InterfaceRealization::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all InterfaceRealization from interface_realization
-    #[wasm_bindgen]
-    pub fn clear_interface_realization(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.interface_realization.len();
-
-        // Update all opposite references
-        for ref_id in &instance.interface_realization {
-            if let Ok(target_js) = InterfaceRealization::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<InterfaceRealization>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = InterfaceRealization::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.interface_realization.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Trigger to owned_trigger
-    #[wasm_bindgen]
-    pub fn add_owned_trigger(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_trigger.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_trigger.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Trigger from owned_trigger
-    #[wasm_bindgen]
-    pub fn remove_owned_trigger(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_trigger.iter().position(|x| x == &ref_id) {
-            instance.owned_trigger.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Trigger from owned_trigger
-    #[wasm_bindgen]
-    pub fn clear_owned_trigger(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_trigger.len();
-
-        instance.owned_trigger.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Classifier to nested_classifier
-    #[wasm_bindgen]
-    pub fn add_nested_classifier(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.nested_classifier.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.nested_classifier.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Classifier from nested_classifier
-    #[wasm_bindgen]
-    pub fn remove_nested_classifier(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.nested_classifier.iter().position(|x| x == &ref_id) {
-            instance.nested_classifier.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Classifier from nested_classifier
-    #[wasm_bindgen]
-    pub fn clear_nested_classifier(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.nested_classifier.len();
-
-        instance.nested_classifier.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Operation to owned_operation
-    #[wasm_bindgen]
-    pub fn add_owned_operation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_operation.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_operation.push(ref_id.clone());
-
-        if let Ok(target_js) = Operation::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Operation>(target_js) {
-                target.class = Some(instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Operation::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Operation from owned_operation
-    #[wasm_bindgen]
-    pub fn remove_owned_operation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_operation.iter().position(|x| x == &ref_id) {
-            instance.owned_operation.remove(pos);
-
-        if let Ok(target_js) = Operation::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Operation>(target_js) {
-                target.class = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Operation::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Operation from owned_operation
-    #[wasm_bindgen]
-    pub fn clear_owned_operation(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_operation.len();
-
-        // Update all opposite references
-        for ref_id in &instance.owned_operation {
-            if let Ok(target_js) = Operation::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Operation>(target_js) {
-                target.class = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Operation::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.owned_operation.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Reception to owned_reception
-    #[wasm_bindgen]
-    pub fn add_owned_reception(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_reception.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_reception.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Reception from owned_reception
-    #[wasm_bindgen]
-    pub fn remove_owned_reception(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_reception.iter().position(|x| x == &ref_id) {
-            instance.owned_reception.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Reception from owned_reception
-    #[wasm_bindgen]
-    pub fn clear_owned_reception(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_reception.len();
-
-        instance.owned_reception.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Behavior to redefined_behavior
-    #[wasm_bindgen]
-    pub fn add_redefined_behavior(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.redefined_behavior.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.redefined_behavior.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Behavior from redefined_behavior
-    #[wasm_bindgen]
-    pub fn remove_redefined_behavior(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.redefined_behavior.iter().position(|x| x == &ref_id) {
-            instance.redefined_behavior.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Behavior from redefined_behavior
-    #[wasm_bindgen]
-    pub fn clear_redefined_behavior(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.redefined_behavior.len();
-
-        instance.redefined_behavior.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Parameter to owned_parameter
-    #[wasm_bindgen]
-    pub fn add_owned_parameter(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_parameter.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_parameter.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Parameter from owned_parameter
-    #[wasm_bindgen]
-    pub fn remove_owned_parameter(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_parameter.iter().position(|x| x == &ref_id) {
-            instance.owned_parameter.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Parameter from owned_parameter
-    #[wasm_bindgen]
-    pub fn clear_owned_parameter(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_parameter.len();
-
-        instance.owned_parameter.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Constraint to precondition
-    #[wasm_bindgen]
-    pub fn add_precondition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.precondition.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.precondition.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Constraint from precondition
-    #[wasm_bindgen]
-    pub fn remove_precondition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.precondition.iter().position(|x| x == &ref_id) {
-            instance.precondition.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Constraint from precondition
-    #[wasm_bindgen]
-    pub fn clear_precondition(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.precondition.len();
-
-        instance.precondition.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Constraint to postcondition
-    #[wasm_bindgen]
-    pub fn add_postcondition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.postcondition.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.postcondition.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Constraint from postcondition
-    #[wasm_bindgen]
-    pub fn remove_postcondition(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.postcondition.iter().position(|x| x == &ref_id) {
-            instance.postcondition.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Constraint from postcondition
-    #[wasm_bindgen]
-    pub fn clear_postcondition(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.postcondition.len();
-
-        instance.postcondition.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a ParameterSet to owned_parameter_set
-    #[wasm_bindgen]
-    pub fn add_owned_parameter_set(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_parameter_set.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_parameter_set.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a ParameterSet from owned_parameter_set
-    #[wasm_bindgen]
-    pub fn remove_owned_parameter_set(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_parameter_set.iter().position(|x| x == &ref_id) {
-            instance.owned_parameter_set.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all ParameterSet from owned_parameter_set
-    #[wasm_bindgen]
-    pub fn clear_owned_parameter_set(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_parameter_set.len();
-
-        instance.owned_parameter_set.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the specification reference
-    #[wasm_bindgen]
-    pub fn set_specification(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        // Remove from old opposite
-        if let Some(old_ref_id) = &instance.specification {
-            if let Ok(target_js) = BehavioralFeature::get(old_ref_id.clone()) {
-                if let Ok(mut target) = serde_wasm_bindgen::from_value::<BehavioralFeature>(target_js) {
-                    target.method.retain(|x| x != &instance_id);
-                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                        let _ = BehavioralFeature::update(target_js);
-                    }
-                }
-            }
-        }
-
-        // Add to new opposite
-        if let Some(new_ref_id) = &ref_id {
-        if let Ok(target_js) = BehavioralFeature::get(new_ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<BehavioralFeature>(target_js) {
-                if !target.method.contains(&instance_id) {
-                    target.method.push(instance_id.clone());
-                }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = BehavioralFeature::update(target_js);
-                }
-            }
-        }
-
-        }
-
-        instance.specification = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Adds a Region to region
-    #[wasm_bindgen]
-    pub fn add_region(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.region.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.region.push(ref_id.clone());
-
-        if let Ok(target_js) = Region::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Region>(target_js) {
-                target.state_machine = Some(instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Region::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Region from region
-    #[wasm_bindgen]
-    pub fn remove_region(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.region.iter().position(|x| x == &ref_id) {
-            instance.region.remove(pos);
-
-        if let Ok(target_js) = Region::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Region>(target_js) {
-                target.state_machine = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Region::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Region from region
-    #[wasm_bindgen]
-    pub fn clear_region(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.region.len();
-
-        // Update all opposite references
-        for ref_id in &instance.region {
-            if let Ok(target_js) = Region::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Region>(target_js) {
-                target.state_machine = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Region::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.region.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
 
-        Ok(count)
-    }
-
-    /// Adds a State to submachine_state
-    #[wasm_bindgen]
-    pub fn add_submachine_state(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.submachine_state.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.submachine_state.push(ref_id.clone());
-
-        if let Ok(target_js) = State::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<State>(target_js) {
-                target.submachine = Some(instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = State::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a State from submachine_state
-    #[wasm_bindgen]
-    pub fn remove_submachine_state(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.submachine_state.iter().position(|x| x == &ref_id) {
-            instance.submachine_state.remove(pos);
-
-        if let Ok(target_js) = State::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<State>(target_js) {
-                target.submachine = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = State::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all State from submachine_state
-    #[wasm_bindgen]
-    pub fn clear_submachine_state(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.submachine_state.len();
-
-        // Update all opposite references
-        for ref_id in &instance.submachine_state {
-            if let Ok(target_js) = State::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<State>(target_js) {
-                target.submachine = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = State::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.submachine_state.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Pseudostate to connection_point
-    #[wasm_bindgen]
-    pub fn add_connection_point(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.connection_point.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.connection_point.push(ref_id.clone());
-
-        if let Ok(target_js) = Pseudostate::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Pseudostate>(target_js) {
-                target.state_machine = Some(instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Pseudostate::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
 
-    /// Removes a Pseudostate from connection_point
-    #[wasm_bindgen]
-    pub fn remove_connection_point(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.connection_point.iter().position(|x| x == &ref_id) {
-            instance.connection_point.remove(pos);
-
-        if let Ok(target_js) = Pseudostate::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Pseudostate>(target_js) {
-                target.state_machine = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Pseudostate::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Pseudostate from connection_point
-    #[wasm_bindgen]
-    pub fn clear_connection_point(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.connection_point.len();
-
-        // Update all opposite references
-        for ref_id in &instance.connection_point {
-            if let Ok(target_js) = Pseudostate::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Pseudostate>(target_js) {
-                target.state_machine = None;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Pseudostate::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.connection_point.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a StateMachine to extended_state_machine
-    #[wasm_bindgen]
-    pub fn add_extended_state_machine(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        if instance.extended_state_machine.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.extended_state_machine.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a StateMachine from extended_state_machine
-    #[wasm_bindgen]
-    pub fn remove_extended_state_machine(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.extended_state_machine.iter().position(|x| x == &ref_id) {
-            instance.extended_state_machine.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all StateMachine from extended_state_machine
-    #[wasm_bindgen]
-    pub fn clear_extended_state_machine(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.extended_state_machine.len();
-
-        instance.extended_state_machine.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
 
-    /// Adds a ProtocolConformance to conformance
     #[wasm_bindgen]
     pub fn add_conformance(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         if instance.conformance.contains(&ref_id) {
             return Ok(false);
         }
-
+        
         instance.conformance.push(ref_id.clone());
-
-        if let Ok(target_js) = ProtocolConformance::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ProtocolConformance>(target_js) {
-                target.specific_machine = instance_id;
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ProtocolConformance::update(target_js);
-                }
-            }
+        
+        // Update opposite reference
+        if let Some(mut target) = registry::get::<ProtocolConformance>(&ref_id) {
+            target.specific_machine = instance_id.clone();
+            let _ = registry::insert(ref_id.clone(), "ProtocolConformance", &target);
         }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(true)
     }
 
-    /// Removes a ProtocolConformance from conformance
     #[wasm_bindgen]
     pub fn remove_conformance(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.conformance.iter().position(|x| x == &ref_id) {
-            instance.conformance.remove(pos);
-
-        if let Ok(target_js) = ProtocolConformance::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ProtocolConformance>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ProtocolConformance::update(target_js);
-                }
-            }
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        let initial_len = instance.conformance.len();
+        instance.conformance.retain(|id| id != &ref_id);
+        let removed = instance.conformance.len() < initial_len;
+        
+        if !removed {
+            return Ok(false);
         }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
+        
+        // Update opposite reference
+        if let Some(target) = registry::get::<ProtocolConformance>(&ref_id) {
+            let _ = registry::insert(ref_id.clone(), "ProtocolConformance", &target);
         }
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
     }
 
-    /// Clears all ProtocolConformance from conformance
     #[wasm_bindgen]
     pub fn clear_conformance(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         let count = instance.conformance.len();
-
-        // Update all opposite references
+        
+        if count == 0 {
+            return Ok(0);
+        }
+        
         for ref_id in &instance.conformance {
-            if let Ok(target_js) = ProtocolConformance::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ProtocolConformance>(target_js) {
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ProtocolConformance::update(target_js);
-                }
-            }
+        // Update opposite reference
+        if let Some(target) = registry::get::<ProtocolConformance>(&ref_id) {
+            let _ = registry::insert(ref_id.clone(), "ProtocolConformance", &target);
         }
         }
-
+        
         instance.conformance.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(count)
     }
 
-    /// Sets the name field
-    #[wasm_bindgen]
-    pub fn set_name(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        instance.name = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
     }
 
-    /// Sets the visibility field
-    #[wasm_bindgen]
-    pub fn set_visibility(instance_id: String, value: Option<VisibilityKind>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.visibility = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
     }
 
-    /// Sets the is_leaf field
-    #[wasm_bindgen]
-    pub fn set_is_leaf(instance_id: String, value: String) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.is_leaf = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ProtocolStateMachine".to_string()
     }
 
-    /// Sets the is_abstract field
-    #[wasm_bindgen]
-    pub fn set_is_abstract(instance_id: String, value: String) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.is_abstract = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the is_active field
-    #[wasm_bindgen]
-    pub fn set_is_active(instance_id: String, value: String) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.is_active = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the is_reentrant field
-    #[wasm_bindgen]
-    pub fn set_is_reentrant(instance_id: String, value: String) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ProtocolStateMachine = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.is_reentrant = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
 
 }
-
-impl ProtocolStateMachine {
-    /// Validates this instance and all references
-    pub fn validate(&self) -> Result<(), Vec<String>> {
-        let mut errors = Vec::new();
-
-        // Validate all e_annotations references exist
-        for id in &self.e_annotations {
-            if !EAnnotation::exists(id.clone()) {
-                errors.push(format!("EAnnotation {} not found", id));
-            }
-        }
-
-        // Validate all owned_comment references exist
-        for id in &self.owned_comment {
-            if !Comment::exists(id.clone()) {
-                errors.push(format!("Comment {} not found", id));
-            }
-        }
-
-        // Validate all client_dependency references exist
-        for id in &self.client_dependency {
-            if !Dependency::exists(id.clone()) {
-                errors.push(format!("Dependency {} not found", id));
-            }
-        }
-
-        // Validate name_expression reference exists
-        if let Some(id) = &self.name_expression {
-            if !StringExpression::exists(id.clone()) {
-                errors.push(format!("StringExpression {} not found", id));
-            }
-        }
-
-        // Validate all element_import references exist
-        for id in &self.element_import {
-            if !ElementImport::exists(id.clone()) {
-                errors.push(format!("ElementImport {} not found", id));
-            }
-        }
-
-        // Validate all package_import references exist
-        for id in &self.package_import {
-            if !PackageImport::exists(id.clone()) {
-                errors.push(format!("PackageImport {} not found", id));
-            }
-        }
-
-        // Validate all owned_rule references exist
-        for id in &self.owned_rule {
-            if !Constraint::exists(id.clone()) {
-                errors.push(format!("Constraint {} not found", id));
-            }
-        }
-
-        // Validate owning_template_parameter reference exists
-        if let Some(id) = &self.owning_template_parameter {
-            if !TemplateParameter::exists(id.clone()) {
-                errors.push(format!("TemplateParameter {} not found", id));
-            }
-        }
-
-        // Validate template_parameter reference exists
-        if let Some(id) = &self.template_parameter {
-            if !TemplateParameter::exists(id.clone()) {
-                errors.push(format!("TemplateParameter {} not found", id));
-            }
-        }
-
-        // Validate all template_binding references exist
-        for id in &self.template_binding {
-            if !TemplateBinding::exists(id.clone()) {
-                errors.push(format!("TemplateBinding {} not found", id));
-            }
-        }
-
-        // Validate owned_template_signature reference exists
-        if let Some(id) = &self.owned_template_signature {
-            if !TemplateSignature::exists(id.clone()) {
-                errors.push(format!("TemplateSignature {} not found", id));
-            }
-        }
-
-        // Validate all generalization references exist
-        for id in &self.generalization {
-            if !Generalization::exists(id.clone()) {
-                errors.push(format!("Generalization {} not found", id));
-            }
-        }
-
-        // Validate all powertype_extent references exist
-        for id in &self.powertype_extent {
-            if !GeneralizationSet::exists(id.clone()) {
-                errors.push(format!("GeneralizationSet {} not found", id));
-            }
-        }
-
-        // Validate all redefined_classifier references exist
-        for id in &self.redefined_classifier {
-            if !Classifier::exists(id.clone()) {
-                errors.push(format!("Classifier {} not found", id));
-            }
-        }
-
-        // Validate all substitution references exist
-        for id in &self.substitution {
-            if !Substitution::exists(id.clone()) {
-                errors.push(format!("Substitution {} not found", id));
-            }
-        }
-
-        // Validate representation reference exists
-        if let Some(id) = &self.representation {
-            if !CollaborationUse::exists(id.clone()) {
-                errors.push(format!("CollaborationUse {} not found", id));
-            }
-        }
-
-        // Validate all collaboration_use references exist
-        for id in &self.collaboration_use {
-            if !CollaborationUse::exists(id.clone()) {
-                errors.push(format!("CollaborationUse {} not found", id));
-            }
-        }
-
-        // Validate all owned_use_case references exist
-        for id in &self.owned_use_case {
-            if !UseCase::exists(id.clone()) {
-                errors.push(format!("UseCase {} not found", id));
-            }
-        }
-
-        // Validate all use_case references exist
-        for id in &self.use_case {
-            if !UseCase::exists(id.clone()) {
-                errors.push(format!("UseCase {} not found", id));
-            }
-        }
-
-        // Validate all owned_attribute references exist
-        for id in &self.owned_attribute {
-            if !Property::exists(id.clone()) {
-                errors.push(format!("Property {} not found", id));
-            }
-        }
-
-        // Validate all owned_connector references exist
-        for id in &self.owned_connector {
-            if !Connector::exists(id.clone()) {
-                errors.push(format!("Connector {} not found", id));
-            }
-        }
-
-        // Validate all owned_behavior references exist
-        for id in &self.owned_behavior {
-            if !Behavior::exists(id.clone()) {
-                errors.push(format!("Behavior {} not found", id));
-            }
-        }
-
-        // Validate classifier_behavior reference exists
-        if let Some(id) = &self.classifier_behavior {
-            if !Behavior::exists(id.clone()) {
-                errors.push(format!("Behavior {} not found", id));
-            }
-        }
-
-        // Validate all interface_realization references exist
-        for id in &self.interface_realization {
-            if !InterfaceRealization::exists(id.clone()) {
-                errors.push(format!("InterfaceRealization {} not found", id));
-            }
-        }
-
-        // Validate all owned_trigger references exist
-        for id in &self.owned_trigger {
-            if !Trigger::exists(id.clone()) {
-                errors.push(format!("Trigger {} not found", id));
-            }
-        }
-
-        // Validate all nested_classifier references exist
-        for id in &self.nested_classifier {
-            if !Classifier::exists(id.clone()) {
-                errors.push(format!("Classifier {} not found", id));
-            }
-        }
-
-        // Validate all owned_operation references exist
-        for id in &self.owned_operation {
-            if !Operation::exists(id.clone()) {
-                errors.push(format!("Operation {} not found", id));
-            }
-        }
-
-        // Validate all owned_reception references exist
-        for id in &self.owned_reception {
-            if !Reception::exists(id.clone()) {
-                errors.push(format!("Reception {} not found", id));
-            }
-        }
-
-        // Validate all redefined_behavior references exist
-        for id in &self.redefined_behavior {
-            if !Behavior::exists(id.clone()) {
-                errors.push(format!("Behavior {} not found", id));
-            }
-        }
-
-        // Validate all owned_parameter references exist
-        for id in &self.owned_parameter {
-            if !Parameter::exists(id.clone()) {
-                errors.push(format!("Parameter {} not found", id));
-            }
-        }
-
-        // Validate all precondition references exist
-        for id in &self.precondition {
-            if !Constraint::exists(id.clone()) {
-                errors.push(format!("Constraint {} not found", id));
-            }
-        }
-
-        // Validate all postcondition references exist
-        for id in &self.postcondition {
-            if !Constraint::exists(id.clone()) {
-                errors.push(format!("Constraint {} not found", id));
-            }
-        }
-
-        // Validate all owned_parameter_set references exist
-        for id in &self.owned_parameter_set {
-            if !ParameterSet::exists(id.clone()) {
-                errors.push(format!("ParameterSet {} not found", id));
-            }
-        }
-
-        // Validate specification reference exists
-        if let Some(id) = &self.specification {
-            if !BehavioralFeature::exists(id.clone()) {
-                errors.push(format!("BehavioralFeature {} not found", id));
-            }
-        }
-
-        // Validate all region references exist
-        for id in &self.region {
-            if !Region::exists(id.clone()) {
-                errors.push(format!("Region {} not found", id));
-            }
-        }
-
-        // Validate all submachine_state references exist
-        for id in &self.submachine_state {
-            if !State::exists(id.clone()) {
-                errors.push(format!("State {} not found", id));
-            }
-        }
-
-        // Validate all connection_point references exist
-        for id in &self.connection_point {
-            if !Pseudostate::exists(id.clone()) {
-                errors.push(format!("Pseudostate {} not found", id));
-            }
-        }
-
-        // Validate all extended_state_machine references exist
-        for id in &self.extended_state_machine {
-            if !StateMachine::exists(id.clone()) {
-                errors.push(format!("StateMachine {} not found", id));
-            }
-        }
-
-        // Validate all conformance references exist
-        for id in &self.conformance {
-            if !ProtocolConformance::exists(id.clone()) {
-                errors.push(format!("ProtocolConformance {} not found", id));
-            }
-        }
-
-        if errors.is_empty() {
-            Ok(())
-        } else {
-            Err(errors)
-        }
-    }
-}
-

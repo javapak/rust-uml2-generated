@@ -1,50 +1,32 @@
-// ============================================================================
-// Generated Rust Code
-// ============================================================================
-//
-// Type:           ENamedElement (struct)
-// Source Package: ecore
-// Package URI:    http://www.eclipse.org/emf/2002/Ecore
-// Generated:      2025-11-24 11:19:15
-// Generator:      EcoreToRustGenerator v0.1.0
-//
-// Generation Options:
-//   - WASM:       enabled
-//   - Tsify:      enabled
-//   - Serde:      enabled
-//   - Builders:   disabled
-//   - References: String IDs
-//
-// WARNING: This file is auto-generated. Manual changes will be overwritten.
-// ============================================================================
+// ENamedElement - Generated UML Class
+// Uses unified registry with type filtering
 
-use lazy_static::lazy_static;
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::sync::Mutex;
 use uuid::Uuid;
+use crate::registry;
 use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
 use serde_wasm_bindgen;
 use tsify::Tsify;
-use crate::eannotation::EAnnotation;
 
-lazy_static! {
-    static ref E_NAMED_ELEMENT_REGISTRY: Mutex<RefCell<HashMap<String, ENamedElement>>> = 
-        Mutex::new(RefCell::new(HashMap::new()));
-}
 
-#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+const TYPE_NAME: &str = "ENamedElement";
+
+#[derive(Clone, Serialize, Deserialize, Tsify)]
+#[serde(rename_all = "camelCase")]
+#[wasm_bindgen]
 pub struct ENamedElement {
     /// Unique identifier for this instance
+    #[wasm_bindgen(skip)]
     pub id: String,
+    #[wasm_bindgen(skip)]
     pub e_annotations: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub name: Option<String>,
 }
 
 #[wasm_bindgen]
 impl ENamedElement {
-    /// Creates a new ENamedElement and returns its ID
+    /// Creates a new ENamedElement instance
     #[wasm_bindgen]
     pub fn create() -> String {
         let id = Uuid::new_v4().to_string();
@@ -53,202 +35,93 @@ impl ENamedElement {
             e_annotations: Vec::new(),
             name: None,
         };
-
-        E_NAMED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(id.clone(), instance);
-
+        
+        registry::insert(id.clone(), TYPE_NAME, &instance)
+            .expect("Failed to insert into registry");
+        
         id
     }
 
-    /// Gets a ENamedElement by ID
-    /// Returns the instance as a JavaScript object
+    /// Gets a snapshot of this instance
+    /// Note: Returns a snapshot. Modifications require calling update().
     #[wasm_bindgen]
     pub fn get(id: String) -> Result<JsValue, JsValue> {
-        E_NAMED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow()
-            .get(&id)
-            .ok_or_else(|| JsValue::from_str("Instance not found"))
-            .and_then(|instance| {
-                serde_wasm_bindgen::to_value(instance)
-                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-            })
+        registry::get_as_jsvalue(&id)
     }
 
-    /// Updates a ENamedElement instance
-    /// Takes a JavaScript object and updates the registry
+    /// Updates the instance in the registry
     #[wasm_bindgen]
     pub fn update(value: JsValue) -> Result<(), JsValue> {
         let instance: ENamedElement = serde_wasm_bindgen::from_value(value)
-            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
-
-        E_NAMED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(instance.id.clone(), instance);
-
-        Ok(())
+            .map_err(|_| JsValue::from_str("Invalid data"))?;
+        registry::update_from_jsvalue(
+            instance.id.clone(),
+            TYPE_NAME,
+            serde_wasm_bindgen::to_value(&instance)?
+        )
     }
 
-    /// Deletes a ENamedElement by ID
-    /// Returns true if deleted, false if not found
+    /// Deletes this instance from the registry
     #[wasm_bindgen]
     pub fn delete(id: String) -> bool {
-        E_NAMED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .remove(&id)
-            .is_some()
+        registry::delete(&id)
     }
 
-    /// Checks if a ENamedElement exists by ID
+    /// Checks if an instance exists
     #[wasm_bindgen]
     pub fn exists(id: String) -> bool {
-        E_NAMED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow()
-            .contains_key(&id)
+        registry::exists(&id)
     }
 
-    /// Gets all ENamedElement instances
-    /// Returns an array of JavaScript objects
+    /// Gets all instances of this type
     #[wasm_bindgen]
     pub fn get_all() -> Result<JsValue, JsValue> {
-        let instances: Vec<ENamedElement> = E_NAMED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .cloned()
-            .collect();
-
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+        registry::get_all_of_type_as_jsvalue(TYPE_NAME)
     }
 
-    /// Returns the count of ENamedElement instances
+    /// Clears all instances of this type
     #[wasm_bindgen]
-    pub fn count() -> usize {
-        E_NAMED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow()
-            .len()
+    pub fn clear_all() -> usize {
+        registry::clear_type(TYPE_NAME)
     }
 
-    /// Removes all ENamedElement instances
-    #[wasm_bindgen]
-    pub fn clear_all() {
-        E_NAMED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .clear();
-    }
-
-    /// Finds ENamedElement instances by name pattern
-    /// Returns an array of matching JavaScript objects
-    #[wasm_bindgen]
-    pub fn find_by_name(pattern: String) -> Result<JsValue, JsValue> {
-        let instances: Vec<ENamedElement> = E_NAMED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .filter(|item| {
-                item.name.as_ref()
-                    .map(|n| n.contains(&pattern))
-                    .unwrap_or(false)
-            })
-            .cloned()
-            .collect();
-
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-    }
-
-    /// Adds a EAnnotation to e_annotations
-    #[wasm_bindgen]
-    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ENamedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.e_annotations.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.e_annotations.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ENamedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
-            instance.e_annotations.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ENamedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.e_annotations.len();
-
-        instance.e_annotations.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the name field
-    #[wasm_bindgen]
-    pub fn set_name(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ENamedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.name = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
+#[wasm_bindgen]
+pub fn set_name(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
 }
 
-impl ENamedElement {
-    /// Validates this instance and all references
-    pub fn validate(&self) -> Result<(), Vec<String>> {
-        let mut errors = Vec::new();
-
-        // Validate all e_annotations references exist
-        for id in &self.e_annotations {
-            if !EAnnotation::exists(id.clone()) {
-                errors.push(format!("EAnnotation {} not found", id));
-            }
-        }
-
-        if errors.is_empty() {
-            Ok(())
-        } else {
-            Err(errors)
-        }
-    }
+#[wasm_bindgen]
+pub fn clear_name(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
 }
 
+
+
+
+
+
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
+    }
+
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ENamedElement".to_string()
+    }
+
+
+}

@@ -1,69 +1,55 @@
-// ============================================================================
-// Generated Rust Code
-// ============================================================================
-//
-// Type:           Message (struct)
-// Source Package: uml
-// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-24 11:19:15
-// Generator:      EcoreToRustGenerator v0.1.0
-//
-// Generation Options:
-//   - WASM:       enabled
-//   - Tsify:      enabled
-//   - Serde:      enabled
-//   - Builders:   disabled
-//   - References: String IDs
-//
-// WARNING: This file is auto-generated. Manual changes will be overwritten.
-// ============================================================================
+// Message - Generated UML Class
+// Uses unified registry with type filtering
 
-use lazy_static::lazy_static;
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::sync::Mutex;
 use uuid::Uuid;
+use crate::registry;
 use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
 use serde_wasm_bindgen;
 use tsify::Tsify;
-use crate::eannotation::EAnnotation;
-use crate::comment::Comment;
 use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
-use crate::string_expression::StringExpression;
 use crate::message_sort::MessageSort;
-use crate::message_end::MessageEnd;
-use crate::connector::Connector;
 use crate::interaction::Interaction;
-use crate::value_specification::ValueSpecification;
 
-lazy_static! {
-    static ref MESSAGE_REGISTRY: Mutex<RefCell<HashMap<String, Message>>> = 
-        Mutex::new(RefCell::new(HashMap::new()));
-}
 
-#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+const TYPE_NAME: &str = "Message";
+
+#[derive(Clone, Serialize, Deserialize, Tsify)]
+#[serde(rename_all = "camelCase")]
+#[wasm_bindgen]
 pub struct Message {
     /// Unique identifier for this instance
+    #[wasm_bindgen(skip)]
     pub id: String,
+    #[wasm_bindgen(skip)]
     pub e_annotations: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_comment: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub name: Option<String>,
+    #[wasm_bindgen(skip)]
     pub visibility: Option<VisibilityKind>,
+    #[wasm_bindgen(skip)]
     pub client_dependency: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub name_expression: Option<String>,
+    #[wasm_bindgen(skip)]
     pub message_sort: MessageSort,
+    #[wasm_bindgen(skip)]
     pub receive_event: Option<String>,
+    #[wasm_bindgen(skip)]
     pub send_event: Option<String>,
+    #[wasm_bindgen(skip)]
     pub connector: Option<String>,
+    #[wasm_bindgen(skip)]
     pub interaction: String,
+    #[wasm_bindgen(skip)]
     pub argument: Vec<String>,
 }
 
 #[wasm_bindgen]
 impl Message {
-    /// Creates a new Message and returns its ID
+    /// Creates a new Message instance
     #[wasm_bindgen]
     pub fn create(message_sort: MessageSort, interaction: String) -> String {
         let id = Uuid::new_v4().to_string();
@@ -75,592 +61,288 @@ impl Message {
             visibility: None,
             client_dependency: Vec::new(),
             name_expression: None,
-            message_sort: message_sort,
+            message_sort,
             receive_event: None,
             send_event: None,
             connector: None,
-            interaction: interaction,
+            interaction,
             argument: Vec::new(),
         };
-
-        MESSAGE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(id.clone(), instance);
-
+        
+        registry::insert(id.clone(), TYPE_NAME, &instance)
+            .expect("Failed to insert into registry");
+        
         id
     }
 
-    /// Gets a Message by ID
-    /// Returns the instance as a JavaScript object
+    /// Gets a snapshot of this instance
+    /// Note: Returns a snapshot. Modifications require calling update().
     #[wasm_bindgen]
     pub fn get(id: String) -> Result<JsValue, JsValue> {
-        MESSAGE_REGISTRY.lock().unwrap()
-            .borrow()
-            .get(&id)
-            .ok_or_else(|| JsValue::from_str("Instance not found"))
-            .and_then(|instance| {
-                serde_wasm_bindgen::to_value(instance)
-                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-            })
+        registry::get_as_jsvalue(&id)
     }
 
-    /// Updates a Message instance
-    /// Takes a JavaScript object and updates the registry
+    /// Updates the instance in the registry
     #[wasm_bindgen]
     pub fn update(value: JsValue) -> Result<(), JsValue> {
         let instance: Message = serde_wasm_bindgen::from_value(value)
-            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
-
-        MESSAGE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(instance.id.clone(), instance);
-
-        Ok(())
+            .map_err(|_| JsValue::from_str("Invalid data"))?;
+        registry::update_from_jsvalue(
+            instance.id.clone(),
+            TYPE_NAME,
+            serde_wasm_bindgen::to_value(&instance)?
+        )
     }
 
-    /// Deletes a Message by ID
-    /// Returns true if deleted, false if not found
+    /// Deletes this instance from the registry
     #[wasm_bindgen]
     pub fn delete(id: String) -> bool {
-        MESSAGE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .remove(&id)
-            .is_some()
+        registry::delete(&id)
     }
 
-    /// Checks if a Message exists by ID
+    /// Checks if an instance exists
     #[wasm_bindgen]
     pub fn exists(id: String) -> bool {
-        MESSAGE_REGISTRY.lock().unwrap()
-            .borrow()
-            .contains_key(&id)
+        registry::exists(&id)
     }
 
-    /// Gets all Message instances
-    /// Returns an array of JavaScript objects
+    /// Gets all instances of this type
     #[wasm_bindgen]
     pub fn get_all() -> Result<JsValue, JsValue> {
-        let instances: Vec<Message> = MESSAGE_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .cloned()
-            .collect();
-
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+        registry::get_all_of_type_as_jsvalue(TYPE_NAME)
     }
 
-    /// Returns the count of Message instances
+    /// Clears all instances of this type
     #[wasm_bindgen]
-    pub fn count() -> usize {
-        MESSAGE_REGISTRY.lock().unwrap()
-            .borrow()
-            .len()
+    pub fn clear_all() -> usize {
+        registry::clear_type(TYPE_NAME)
     }
 
-    /// Removes all Message instances
-    #[wasm_bindgen]
-    pub fn clear_all() {
-        MESSAGE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .clear();
-    }
+#[wasm_bindgen]
+pub fn set_name(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-    /// Finds Message instances by name pattern
-    /// Returns an array of matching JavaScript objects
-    #[wasm_bindgen]
-    pub fn find_by_name(pattern: String) -> Result<JsValue, JsValue> {
-        let instances: Vec<Message> = MESSAGE_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .filter(|item| {
-                item.name.as_ref()
-                    .map(|n| n.contains(&pattern))
-                    .unwrap_or(false)
-            })
-            .cloned()
-            .collect();
+#[wasm_bindgen]
+pub fn clear_name(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-    }
+#[wasm_bindgen]
+pub fn set_visibility(instance_id: String, value: VisibilityKind) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.visibility = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-    /// Adds a EAnnotation to e_annotations
-    #[wasm_bindgen]
-    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+#[wasm_bindgen]
+pub fn clear_visibility(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.visibility = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-        if instance.e_annotations.contains(&ref_id) {
-            return Ok(false);
-        }
+#[wasm_bindgen]
+pub fn set_message_sort(instance_id: String, value: MessageSort) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.message_sort = value;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-        instance.e_annotations.push(ref_id.clone());
 
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
 
-        Ok(true)
-    }
 
-    /// Removes a EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
-            instance.e_annotations.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.e_annotations.len();
-
-        instance.e_annotations.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Comment to owned_comment
-    #[wasm_bindgen]
-    pub fn add_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_comment.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_comment.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn remove_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_comment.iter().position(|x| x == &ref_id) {
-            instance.owned_comment.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn clear_owned_comment(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_comment.len();
-
-        instance.owned_comment.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Dependency to client_dependency
-    #[wasm_bindgen]
-    pub fn add_client_dependency(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.client_dependency.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.client_dependency.push(ref_id.clone());
-
-        if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                if !target.client.contains(&instance_id) {
-                    target.client.push(instance_id);
-                }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Dependency from client_dependency
-    #[wasm_bindgen]
-    pub fn remove_client_dependency(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.client_dependency.iter().position(|x| x == &ref_id) {
-            instance.client_dependency.remove(pos);
-
-        if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                target.client.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Dependency from client_dependency
-    #[wasm_bindgen]
-    pub fn clear_client_dependency(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.client_dependency.len();
-
-        // Update all opposite references
-        for ref_id in &instance.client_dependency {
-            if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                target.client.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.client_dependency.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the name_expression reference
-    #[wasm_bindgen]
-    pub fn set_name_expression(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.name_expression = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the receive_event reference
     #[wasm_bindgen]
     pub fn set_receive_event(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.receive_event = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        instance.receive_event = ref_id.clone();
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(())
     }
 
-    /// Sets the send_event reference
+    #[wasm_bindgen]
+    pub fn clear_receive_event(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.receive_event.is_none() {
+            return Ok(false);
+        }
+        
+        instance.receive_event = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
+    }
+
     #[wasm_bindgen]
     pub fn set_send_event(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.send_event = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        instance.send_event = ref_id.clone();
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(())
     }
 
-    /// Sets the connector reference
+    #[wasm_bindgen]
+    pub fn clear_send_event(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.send_event.is_none() {
+            return Ok(false);
+        }
+        
+        instance.send_event = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
+    }
+
     #[wasm_bindgen]
     pub fn set_connector(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.connector = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        instance.connector = ref_id.clone();
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(())
     }
 
-    /// Sets the interaction reference
+    #[wasm_bindgen]
+    pub fn clear_connector(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.connector.is_none() {
+            return Ok(false);
+        }
+        
+        instance.connector = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
+    }
+
     #[wasm_bindgen]
     pub fn set_interaction(instance_id: String, ref_id: String) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Ok(target_js) = Interaction::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Interaction>(target_js) {
-                if !target.message.contains(&instance_id) {
-                    target.message.push(instance_id.clone());
-                }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Interaction::update(target_js);
-                }
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        let old_ref_id = instance.interaction.clone();
+            if let Some(mut old_target) = registry::get::<Interaction>(&old_ref_id) {
+                old_target.message.retain(|id| id != &instance_id);
+                let _ = registry::insert(old_ref_id.clone(), "Interaction", &old_target);
             }
-        }
-
-        instance.interaction = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        instance.interaction = ref_id.clone();
+        
+            if let Some(mut new_target) = registry::get::<Interaction>(&ref_id) {
+                if !new_target.message.contains(&instance_id) {
+                    new_target.message.push(instance_id.clone());
+                }
+                let _ = registry::insert(ref_id.clone(), "Interaction", &new_target);
+            }
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(())
     }
 
-    /// Adds a ValueSpecification to argument
     #[wasm_bindgen]
     pub fn add_argument(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         if instance.argument.contains(&ref_id) {
             return Ok(false);
         }
-
+        
         instance.argument.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(true)
     }
 
-    /// Removes a ValueSpecification from argument
     #[wasm_bindgen]
     pub fn remove_argument(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.argument.iter().position(|x| x == &ref_id) {
-            instance.argument.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        let initial_len = instance.argument.len();
+        instance.argument.retain(|id| id != &ref_id);
+        let removed = instance.argument.len() < initial_len;
+        
+        if !removed {
+            return Ok(false);
         }
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
     }
 
-    /// Clears all ValueSpecification from argument
     #[wasm_bindgen]
     pub fn clear_argument(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         let count = instance.argument.len();
-
+        
+        if count == 0 {
+            return Ok(0);
+        }
+        
         instance.argument.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(count)
     }
 
-    /// Sets the name field
-    #[wasm_bindgen]
-    pub fn set_name(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        instance.name = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
     }
 
-    /// Sets the visibility field
-    #[wasm_bindgen]
-    pub fn set_visibility(instance_id: String, value: Option<VisibilityKind>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.visibility = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
     }
 
-    /// Sets the message_sort field
-    #[wasm_bindgen]
-    pub fn set_message_sort(instance_id: String, value: MessageSort) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Message = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.message_sort = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "Message".to_string()
     }
+
 
 }
-
-impl Message {
-    /// Validates this instance and all references
-    pub fn validate(&self) -> Result<(), Vec<String>> {
-        let mut errors = Vec::new();
-
-        // Validate all e_annotations references exist
-        for id in &self.e_annotations {
-            if !EAnnotation::exists(id.clone()) {
-                errors.push(format!("EAnnotation {} not found", id));
-            }
-        }
-
-        // Validate all owned_comment references exist
-        for id in &self.owned_comment {
-            if !Comment::exists(id.clone()) {
-                errors.push(format!("Comment {} not found", id));
-            }
-        }
-
-        // Validate all client_dependency references exist
-        for id in &self.client_dependency {
-            if !Dependency::exists(id.clone()) {
-                errors.push(format!("Dependency {} not found", id));
-            }
-        }
-
-        // Validate name_expression reference exists
-        if let Some(id) = &self.name_expression {
-            if !StringExpression::exists(id.clone()) {
-                errors.push(format!("StringExpression {} not found", id));
-            }
-        }
-
-        // Validate receive_event reference exists
-        if let Some(id) = &self.receive_event {
-            if !MessageEnd::exists(id.clone()) {
-                errors.push(format!("MessageEnd {} not found", id));
-            }
-        }
-
-        // Validate send_event reference exists
-        if let Some(id) = &self.send_event {
-            if !MessageEnd::exists(id.clone()) {
-                errors.push(format!("MessageEnd {} not found", id));
-            }
-        }
-
-        // Validate connector reference exists
-        if let Some(id) = &self.connector {
-            if !Connector::exists(id.clone()) {
-                errors.push(format!("Connector {} not found", id));
-            }
-        }
-
-        // Validate interaction reference exists
-        if !Interaction::exists(self.interaction.clone()) {
-            errors.push(format!("Interaction {} not found", self.interaction));
-        }
-
-        // Validate all argument references exist
-        for id in &self.argument {
-            if !ValueSpecification::exists(id.clone()) {
-                errors.push(format!("ValueSpecification {} not found", id));
-            }
-        }
-
-        if errors.is_empty() {
-            Ok(())
-        } else {
-            Err(errors)
-        }
-    }
-}
-

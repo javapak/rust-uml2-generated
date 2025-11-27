@@ -1,66 +1,52 @@
-// ============================================================================
-// Generated Rust Code
-// ============================================================================
-//
-// Type:           Pseudostate (struct)
-// Source Package: uml
-// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-24 11:19:15
-// Generator:      EcoreToRustGenerator v0.1.0
-//
-// Generation Options:
-//   - WASM:       enabled
-//   - Tsify:      enabled
-//   - Serde:      enabled
-//   - Builders:   disabled
-//   - References: String IDs
-//
-// WARNING: This file is auto-generated. Manual changes will be overwritten.
-// ============================================================================
+// Pseudostate - Generated UML Class
+// Uses unified registry with type filtering
 
-use lazy_static::lazy_static;
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::sync::Mutex;
 use uuid::Uuid;
+use crate::registry;
 use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
 use serde_wasm_bindgen;
 use tsify::Tsify;
-use crate::eannotation::EAnnotation;
-use crate::comment::Comment;
 use crate::visibility_kind::VisibilityKind;
-use crate::dependency::Dependency;
-use crate::string_expression::StringExpression;
-use crate::region::Region;
 use crate::pseudostate_kind::PseudostateKind;
 use crate::state_machine::StateMachine;
 use crate::state::State;
 
-lazy_static! {
-    static ref PSEUDOSTATE_REGISTRY: Mutex<RefCell<HashMap<String, Pseudostate>>> = 
-        Mutex::new(RefCell::new(HashMap::new()));
-}
 
-#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+const TYPE_NAME: &str = "Pseudostate";
+
+#[derive(Clone, Serialize, Deserialize, Tsify)]
+#[serde(rename_all = "camelCase")]
+#[wasm_bindgen]
 pub struct Pseudostate {
     /// Unique identifier for this instance
+    #[wasm_bindgen(skip)]
     pub id: String,
+    #[wasm_bindgen(skip)]
     pub e_annotations: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_comment: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub name: Option<String>,
+    #[wasm_bindgen(skip)]
     pub visibility: Option<VisibilityKind>,
+    #[wasm_bindgen(skip)]
     pub client_dependency: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub name_expression: Option<String>,
+    #[wasm_bindgen(skip)]
     pub container: Option<String>,
+    #[wasm_bindgen(skip)]
     pub kind: PseudostateKind,
+    #[wasm_bindgen(skip)]
     pub state_machine: Option<String>,
+    #[wasm_bindgen(skip)]
     pub state: Option<String>,
 }
 
 #[wasm_bindgen]
 impl Pseudostate {
-    /// Creates a new Pseudostate and returns its ID
+    /// Creates a new Pseudostate instance
     #[wasm_bindgen]
     pub fn create(kind: PseudostateKind) -> String {
         let id = Uuid::new_v4().to_string();
@@ -73,573 +59,226 @@ impl Pseudostate {
             client_dependency: Vec::new(),
             name_expression: None,
             container: None,
-            kind: kind,
+            kind,
             state_machine: None,
             state: None,
         };
-
-        PSEUDOSTATE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(id.clone(), instance);
-
+        
+        registry::insert(id.clone(), TYPE_NAME, &instance)
+            .expect("Failed to insert into registry");
+        
         id
     }
 
-    /// Gets a Pseudostate by ID
-    /// Returns the instance as a JavaScript object
+    /// Gets a snapshot of this instance
+    /// Note: Returns a snapshot. Modifications require calling update().
     #[wasm_bindgen]
     pub fn get(id: String) -> Result<JsValue, JsValue> {
-        PSEUDOSTATE_REGISTRY.lock().unwrap()
-            .borrow()
-            .get(&id)
-            .ok_or_else(|| JsValue::from_str("Instance not found"))
-            .and_then(|instance| {
-                serde_wasm_bindgen::to_value(instance)
-                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-            })
+        registry::get_as_jsvalue(&id)
     }
 
-    /// Updates a Pseudostate instance
-    /// Takes a JavaScript object and updates the registry
+    /// Updates the instance in the registry
     #[wasm_bindgen]
     pub fn update(value: JsValue) -> Result<(), JsValue> {
         let instance: Pseudostate = serde_wasm_bindgen::from_value(value)
-            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
-
-        PSEUDOSTATE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(instance.id.clone(), instance);
-
-        Ok(())
+            .map_err(|_| JsValue::from_str("Invalid data"))?;
+        registry::update_from_jsvalue(
+            instance.id.clone(),
+            TYPE_NAME,
+            serde_wasm_bindgen::to_value(&instance)?
+        )
     }
 
-    /// Deletes a Pseudostate by ID
-    /// Returns true if deleted, false if not found
+    /// Deletes this instance from the registry
     #[wasm_bindgen]
     pub fn delete(id: String) -> bool {
-        PSEUDOSTATE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .remove(&id)
-            .is_some()
+        registry::delete(&id)
     }
 
-    /// Checks if a Pseudostate exists by ID
+    /// Checks if an instance exists
     #[wasm_bindgen]
     pub fn exists(id: String) -> bool {
-        PSEUDOSTATE_REGISTRY.lock().unwrap()
-            .borrow()
-            .contains_key(&id)
+        registry::exists(&id)
     }
 
-    /// Gets all Pseudostate instances
-    /// Returns an array of JavaScript objects
+    /// Gets all instances of this type
     #[wasm_bindgen]
     pub fn get_all() -> Result<JsValue, JsValue> {
-        let instances: Vec<Pseudostate> = PSEUDOSTATE_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .cloned()
-            .collect();
-
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+        registry::get_all_of_type_as_jsvalue(TYPE_NAME)
     }
 
-    /// Returns the count of Pseudostate instances
+    /// Clears all instances of this type
     #[wasm_bindgen]
-    pub fn count() -> usize {
-        PSEUDOSTATE_REGISTRY.lock().unwrap()
-            .borrow()
-            .len()
+    pub fn clear_all() -> usize {
+        registry::clear_type(TYPE_NAME)
     }
 
-    /// Removes all Pseudostate instances
-    #[wasm_bindgen]
-    pub fn clear_all() {
-        PSEUDOSTATE_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .clear();
-    }
+#[wasm_bindgen]
+pub fn set_name(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-    /// Finds Pseudostate instances by name pattern
-    /// Returns an array of matching JavaScript objects
-    #[wasm_bindgen]
-    pub fn find_by_name(pattern: String) -> Result<JsValue, JsValue> {
-        let instances: Vec<Pseudostate> = PSEUDOSTATE_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .filter(|item| {
-                item.name.as_ref()
-                    .map(|n| n.contains(&pattern))
-                    .unwrap_or(false)
-            })
-            .cloned()
-            .collect();
+#[wasm_bindgen]
+pub fn clear_name(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-    }
+#[wasm_bindgen]
+pub fn set_visibility(instance_id: String, value: VisibilityKind) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.visibility = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-    /// Adds a EAnnotation to e_annotations
-    #[wasm_bindgen]
-    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+#[wasm_bindgen]
+pub fn clear_visibility(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.visibility = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-        if instance.e_annotations.contains(&ref_id) {
-            return Ok(false);
-        }
+#[wasm_bindgen]
+pub fn set_kind(instance_id: String, value: PseudostateKind) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.kind = value;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-        instance.e_annotations.push(ref_id.clone());
 
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
 
-        Ok(true)
-    }
 
-    /// Removes a EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
-            instance.e_annotations.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.e_annotations.len();
-
-        instance.e_annotations.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Comment to owned_comment
-    #[wasm_bindgen]
-    pub fn add_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_comment.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_comment.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn remove_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_comment.iter().position(|x| x == &ref_id) {
-            instance.owned_comment.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn clear_owned_comment(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_comment.len();
-
-        instance.owned_comment.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Dependency to client_dependency
-    #[wasm_bindgen]
-    pub fn add_client_dependency(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.client_dependency.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.client_dependency.push(ref_id.clone());
-
-        if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                if !target.client.contains(&instance_id) {
-                    target.client.push(instance_id);
-                }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Dependency from client_dependency
-    #[wasm_bindgen]
-    pub fn remove_client_dependency(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.client_dependency.iter().position(|x| x == &ref_id) {
-            instance.client_dependency.remove(pos);
-
-        if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                target.client.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Dependency from client_dependency
-    #[wasm_bindgen]
-    pub fn clear_client_dependency(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.client_dependency.len();
-
-        // Update all opposite references
-        for ref_id in &instance.client_dependency {
-            if let Ok(target_js) = Dependency::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Dependency>(target_js) {
-                target.client.retain(|x| x != &instance_id);
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Dependency::update(target_js);
-                }
-            }
-        }
-        }
-
-        instance.client_dependency.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the name_expression reference
-    #[wasm_bindgen]
-    pub fn set_name_expression(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.name_expression = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the container reference
-    #[wasm_bindgen]
-    pub fn set_container(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        // Remove from old opposite
-        if let Some(old_ref_id) = &instance.container {
-            if let Ok(target_js) = Region::get(old_ref_id.clone()) {
-                if let Ok(mut target) = serde_wasm_bindgen::from_value::<Region>(target_js) {
-                    target.subvertex.retain(|x| x != &instance_id);
-                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                        let _ = Region::update(target_js);
-                    }
-                }
-            }
-        }
-
-        // Add to new opposite
-        if let Some(new_ref_id) = &ref_id {
-        if let Ok(target_js) = Region::get(new_ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<Region>(target_js) {
-                if !target.subvertex.contains(&instance_id) {
-                    target.subvertex.push(instance_id.clone());
-                }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = Region::update(target_js);
-                }
-            }
-        }
-
-        }
-
-        instance.container = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the state_machine reference
     #[wasm_bindgen]
     pub fn set_state_machine(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        // Remove from old opposite
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         if let Some(old_ref_id) = &instance.state_machine {
-            if let Ok(target_js) = StateMachine::get(old_ref_id.clone()) {
-                if let Ok(mut target) = serde_wasm_bindgen::from_value::<StateMachine>(target_js) {
-                    target.connection_point.retain(|x| x != &instance_id);
-                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                        let _ = StateMachine::update(target_js);
-                    }
-                }
+            if let Some(mut old_target) = registry::get::<StateMachine>(&old_ref_id) {
+                old_target.connection_point.retain(|id| id != &instance_id);
+                let _ = registry::insert(old_ref_id.clone(), "StateMachine", &old_target);
             }
         }
-
-        // Add to new opposite
+        
+        instance.state_machine = ref_id.clone();
+        
         if let Some(new_ref_id) = &ref_id {
-        if let Ok(target_js) = StateMachine::get(new_ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<StateMachine>(target_js) {
-                if !target.connection_point.contains(&instance_id) {
-                    target.connection_point.push(instance_id.clone());
+            if let Some(mut new_target) = registry::get::<StateMachine>(&new_ref_id) {
+                if !new_target.connection_point.contains(&instance_id) {
+                    new_target.connection_point.push(instance_id.clone());
                 }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = StateMachine::update(target_js);
-                }
+                let _ = registry::insert(new_ref_id.clone(), "StateMachine", &new_target);
             }
         }
-
-        }
-
-        instance.state_machine = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(())
     }
 
-    /// Sets the state reference
+    #[wasm_bindgen]
+    pub fn clear_state_machine(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.state_machine.is_none() {
+            return Ok(false);
+        }
+        
+        if let Some(old_ref_id) = &instance.state_machine {
+            if let Some(mut old_target) = registry::get::<StateMachine>(&old_ref_id) {
+                old_target.connection_point.retain(|id| id != &instance_id);
+                let _ = registry::insert(old_ref_id.clone(), "StateMachine", &old_target);
+            }
+        }
+        
+        instance.state_machine = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
+    }
+
     #[wasm_bindgen]
     pub fn set_state(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        // Remove from old opposite
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
         if let Some(old_ref_id) = &instance.state {
-            if let Ok(target_js) = State::get(old_ref_id.clone()) {
-                if let Ok(mut target) = serde_wasm_bindgen::from_value::<State>(target_js) {
-                    target.connection_point.retain(|x| x != &instance_id);
-                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                        let _ = State::update(target_js);
-                    }
-                }
+            if let Some(mut old_target) = registry::get::<State>(&old_ref_id) {
+                old_target.connection_point.retain(|id| id != &instance_id);
+                let _ = registry::insert(old_ref_id.clone(), "State", &old_target);
             }
         }
-
-        // Add to new opposite
+        
+        instance.state = ref_id.clone();
+        
         if let Some(new_ref_id) = &ref_id {
-        if let Ok(target_js) = State::get(new_ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<State>(target_js) {
-                if !target.connection_point.contains(&instance_id) {
-                    target.connection_point.push(instance_id.clone());
+            if let Some(mut new_target) = registry::get::<State>(&new_ref_id) {
+                if !new_target.connection_point.contains(&instance_id) {
+                    new_target.connection_point.push(instance_id.clone());
                 }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = State::update(target_js);
-                }
+                let _ = registry::insert(new_ref_id.clone(), "State", &new_target);
             }
         }
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(())
+    }
 
+    #[wasm_bindgen]
+    pub fn clear_state(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.state.is_none() {
+            return Ok(false);
         }
-
-        instance.state = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+        
+        if let Some(old_ref_id) = &instance.state {
+            if let Some(mut old_target) = registry::get::<State>(&old_ref_id) {
+                old_target.connection_point.retain(|id| id != &instance_id);
+                let _ = registry::insert(old_ref_id.clone(), "State", &old_target);
+            }
+        }
+        
+        instance.state = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
     }
 
-    /// Sets the name field
-    #[wasm_bindgen]
-    pub fn set_name(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        instance.name = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
     }
 
-    /// Sets the visibility field
-    #[wasm_bindgen]
-    pub fn set_visibility(instance_id: String, value: Option<VisibilityKind>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.visibility = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
     }
 
-    /// Sets the kind field
-    #[wasm_bindgen]
-    pub fn set_kind(instance_id: String, value: PseudostateKind) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: Pseudostate = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.kind = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "Pseudostate".to_string()
     }
+
 
 }
-
-impl Pseudostate {
-    /// Validates this instance and all references
-    pub fn validate(&self) -> Result<(), Vec<String>> {
-        let mut errors = Vec::new();
-
-        // Validate all e_annotations references exist
-        for id in &self.e_annotations {
-            if !EAnnotation::exists(id.clone()) {
-                errors.push(format!("EAnnotation {} not found", id));
-            }
-        }
-
-        // Validate all owned_comment references exist
-        for id in &self.owned_comment {
-            if !Comment::exists(id.clone()) {
-                errors.push(format!("Comment {} not found", id));
-            }
-        }
-
-        // Validate all client_dependency references exist
-        for id in &self.client_dependency {
-            if !Dependency::exists(id.clone()) {
-                errors.push(format!("Dependency {} not found", id));
-            }
-        }
-
-        // Validate name_expression reference exists
-        if let Some(id) = &self.name_expression {
-            if !StringExpression::exists(id.clone()) {
-                errors.push(format!("StringExpression {} not found", id));
-            }
-        }
-
-        // Validate container reference exists
-        if let Some(id) = &self.container {
-            if !Region::exists(id.clone()) {
-                errors.push(format!("Region {} not found", id));
-            }
-        }
-
-        // Validate state_machine reference exists
-        if let Some(id) = &self.state_machine {
-            if !StateMachine::exists(id.clone()) {
-                errors.push(format!("StateMachine {} not found", id));
-            }
-        }
-
-        // Validate state reference exists
-        if let Some(id) = &self.state {
-            if !State::exists(id.clone()) {
-                errors.push(format!("State {} not found", id));
-            }
-        }
-
-        if errors.is_empty() {
-            Ok(())
-        } else {
-            Err(errors)
-        }
-    }
-}
-

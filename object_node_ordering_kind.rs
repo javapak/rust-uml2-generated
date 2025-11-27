@@ -5,7 +5,7 @@
 // Type:           ObjectNodeOrderingKind (enum)
 // Source Package: uml
 // Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-24 11:19:15
+// Generated:      2025-11-26 14:56:46
 // Generator:      EcoreToRustGenerator v0.1.0
 //
 // Generation Options:
@@ -22,23 +22,12 @@ use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
 use tsify::Tsify;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Tsify)]
 #[wasm_bindgen]
 pub enum ObjectNodeOrderingKind {
     Unordered,
     Ordered,
     Lifo,
     Fifo,
-}
-
-impl std::fmt::Display for ObjectNodeOrderingKind {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Self::Unordered => write!(f, "unordered"),
-            Self::Ordered => write!(f, "ordered"),
-            Self::Lifo => write!(f, "LIFO"),
-            Self::Fifo => write!(f, "FIFO"),
-        }
-    }
 }
 

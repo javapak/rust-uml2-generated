@@ -1,62 +1,48 @@
-// ============================================================================
-// Generated Rust Code
-// ============================================================================
-//
-// Type:           ClassifierTemplateParameter (struct)
-// Source Package: uml
-// Package URI:    http://www.eclipse.org/uml2/2.1.0/UML
-// Generated:      2025-11-24 11:19:15
-// Generator:      EcoreToRustGenerator v0.1.0
-//
-// Generation Options:
-//   - WASM:       enabled
-//   - Tsify:      enabled
-//   - Serde:      enabled
-//   - Builders:   disabled
-//   - References: String IDs
-//
-// WARNING: This file is auto-generated. Manual changes will be overwritten.
-// ============================================================================
+// ClassifierTemplateParameter - Generated UML Class
+// Uses unified registry with type filtering
 
-use lazy_static::lazy_static;
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::sync::Mutex;
 use uuid::Uuid;
+use crate::registry;
 use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
 use serde_wasm_bindgen;
 use tsify::Tsify;
-use crate::eannotation::EAnnotation;
-use crate::comment::Comment;
-use crate::template_signature::TemplateSignature;
-use crate::parameterable_element::ParameterableElement;
-use crate::classifier::Classifier;
 
-lazy_static! {
-    static ref CLASSIFIER_TEMPLATE_PARAMETER_REGISTRY: Mutex<RefCell<HashMap<String, ClassifierTemplateParameter>>> = 
-        Mutex::new(RefCell::new(HashMap::new()));
-}
 
-#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+const TYPE_NAME: &str = "ClassifierTemplateParameter";
+
+#[derive(Clone, Serialize, Deserialize, Tsify)]
+#[serde(rename_all = "camelCase")]
+#[wasm_bindgen]
 pub struct ClassifierTemplateParameter {
     /// Unique identifier for this instance
+    #[wasm_bindgen(skip)]
     pub id: String,
+    #[wasm_bindgen(skip)]
     pub e_annotations: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub owned_comment: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub signature: String,
+    #[wasm_bindgen(skip)]
     pub parametered_element: String,
+    #[wasm_bindgen(skip)]
     pub owned_parametered_element: Option<String>,
+    #[wasm_bindgen(skip)]
     pub default: Option<String>,
+    #[wasm_bindgen(skip)]
     pub owned_default: Option<String>,
+    #[wasm_bindgen(skip)]
     pub allow_substitutable: String,
+    #[wasm_bindgen(skip)]
     pub default_classifier: Option<String>,
+    #[wasm_bindgen(skip)]
     pub constraining_classifier: Option<String>,
 }
 
 #[wasm_bindgen]
 impl ClassifierTemplateParameter {
-    /// Creates a new ClassifierTemplateParameter and returns its ID
+    /// Creates a new ClassifierTemplateParameter instance
     #[wasm_bindgen]
     pub fn create(signature: String, parametered_element: String, allow_substitutable: String) -> String {
         let id = Uuid::new_v4().to_string();
@@ -64,459 +50,149 @@ impl ClassifierTemplateParameter {
             id: id.clone(),
             e_annotations: Vec::new(),
             owned_comment: Vec::new(),
-            signature: signature,
-            parametered_element: parametered_element,
+            signature,
+            parametered_element,
             owned_parametered_element: None,
             default: None,
             owned_default: None,
-            allow_substitutable: allow_substitutable,
+            allow_substitutable,
             default_classifier: None,
             constraining_classifier: None,
         };
-
-        CLASSIFIER_TEMPLATE_PARAMETER_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(id.clone(), instance);
-
+        
+        registry::insert(id.clone(), TYPE_NAME, &instance)
+            .expect("Failed to insert into registry");
+        
         id
     }
 
-    /// Gets a ClassifierTemplateParameter by ID
-    /// Returns the instance as a JavaScript object
+    /// Gets a snapshot of this instance
+    /// Note: Returns a snapshot. Modifications require calling update().
     #[wasm_bindgen]
     pub fn get(id: String) -> Result<JsValue, JsValue> {
-        CLASSIFIER_TEMPLATE_PARAMETER_REGISTRY.lock().unwrap()
-            .borrow()
-            .get(&id)
-            .ok_or_else(|| JsValue::from_str("Instance not found"))
-            .and_then(|instance| {
-                serde_wasm_bindgen::to_value(instance)
-                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-            })
+        registry::get_as_jsvalue(&id)
     }
 
-    /// Updates a ClassifierTemplateParameter instance
-    /// Takes a JavaScript object and updates the registry
+    /// Updates the instance in the registry
     #[wasm_bindgen]
     pub fn update(value: JsValue) -> Result<(), JsValue> {
         let instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(value)
-            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
-
-        CLASSIFIER_TEMPLATE_PARAMETER_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(instance.id.clone(), instance);
-
-        Ok(())
+            .map_err(|_| JsValue::from_str("Invalid data"))?;
+        registry::update_from_jsvalue(
+            instance.id.clone(),
+            TYPE_NAME,
+            serde_wasm_bindgen::to_value(&instance)?
+        )
     }
 
-    /// Deletes a ClassifierTemplateParameter by ID
-    /// Returns true if deleted, false if not found
+    /// Deletes this instance from the registry
     #[wasm_bindgen]
     pub fn delete(id: String) -> bool {
-        CLASSIFIER_TEMPLATE_PARAMETER_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .remove(&id)
-            .is_some()
+        registry::delete(&id)
     }
 
-    /// Checks if a ClassifierTemplateParameter exists by ID
+    /// Checks if an instance exists
     #[wasm_bindgen]
     pub fn exists(id: String) -> bool {
-        CLASSIFIER_TEMPLATE_PARAMETER_REGISTRY.lock().unwrap()
-            .borrow()
-            .contains_key(&id)
+        registry::exists(&id)
     }
 
-    /// Gets all ClassifierTemplateParameter instances
-    /// Returns an array of JavaScript objects
+    /// Gets all instances of this type
     #[wasm_bindgen]
     pub fn get_all() -> Result<JsValue, JsValue> {
-        let instances: Vec<ClassifierTemplateParameter> = CLASSIFIER_TEMPLATE_PARAMETER_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .cloned()
-            .collect();
-
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
+        registry::get_all_of_type_as_jsvalue(TYPE_NAME)
     }
 
-    /// Returns the count of ClassifierTemplateParameter instances
+    /// Clears all instances of this type
     #[wasm_bindgen]
-    pub fn count() -> usize {
-        CLASSIFIER_TEMPLATE_PARAMETER_REGISTRY.lock().unwrap()
-            .borrow()
-            .len()
+    pub fn clear_all() -> usize {
+        registry::clear_type(TYPE_NAME)
     }
 
-    /// Removes all ClassifierTemplateParameter instances
-    #[wasm_bindgen]
-    pub fn clear_all() {
-        CLASSIFIER_TEMPLATE_PARAMETER_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .clear();
-    }
+#[wasm_bindgen]
+pub fn set_allow_substitutable(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.allow_substitutable = value;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
 
-    /// Adds a EAnnotation to e_annotations
-    #[wasm_bindgen]
-    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        if instance.e_annotations.contains(&ref_id) {
-            return Ok(false);
-        }
 
-        instance.e_annotations.push(ref_id.clone());
 
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
 
-        Ok(true)
-    }
-
-    /// Removes a EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
-            instance.e_annotations.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.e_annotations.len();
-
-        instance.e_annotations.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Adds a Comment to owned_comment
-    #[wasm_bindgen]
-    pub fn add_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.owned_comment.contains(&ref_id) {
-            return Ok(false);
-        }
-
-        instance.owned_comment.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(true)
-    }
-
-    /// Removes a Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn remove_owned_comment(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Some(pos) = instance.owned_comment.iter().position(|x| x == &ref_id) {
-            instance.owned_comment.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
-        }
-    }
-
-    /// Clears all Comment from owned_comment
-    #[wasm_bindgen]
-    pub fn clear_owned_comment(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        let count = instance.owned_comment.len();
-
-        instance.owned_comment.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
-    }
-
-    /// Sets the signature reference
-    #[wasm_bindgen]
-    pub fn set_signature(instance_id: String, ref_id: String) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Ok(target_js) = TemplateSignature::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<TemplateSignature>(target_js) {
-                if !target.owned_parameter.contains(&instance_id) {
-                    target.owned_parameter.push(instance_id.clone());
-                }
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = TemplateSignature::update(target_js);
-                }
-            }
-        }
-
-        instance.signature = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the parametered_element reference
-    #[wasm_bindgen]
-    pub fn set_parametered_element(instance_id: String, ref_id: String) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if let Ok(target_js) = ParameterableElement::get(ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ParameterableElement>(target_js) {
-                target.template_parameter = Some(instance_id.clone());
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ParameterableElement::update(target_js);
-                }
-            }
-        }
-
-        instance.parametered_element = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the owned_parametered_element reference
-    #[wasm_bindgen]
-    pub fn set_owned_parametered_element(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        // Remove from old opposite
-        if let Some(old_ref_id) = &instance.owned_parametered_element {
-            if let Ok(target_js) = ParameterableElement::get(old_ref_id.clone()) {
-                if let Ok(mut target) = serde_wasm_bindgen::from_value::<ParameterableElement>(target_js) {
-                    target.owning_template_parameter = None;
-                    if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                        let _ = ParameterableElement::update(target_js);
-                    }
-                }
-            }
-        }
-
-        // Add to new opposite
-        if let Some(new_ref_id) = &ref_id {
-        if let Ok(target_js) = ParameterableElement::get(new_ref_id.clone()) {
-            if let Ok(mut target) = serde_wasm_bindgen::from_value::<ParameterableElement>(target_js) {
-                target.owning_template_parameter = Some(instance_id.clone());
-                if let Ok(target_js) = serde_wasm_bindgen::to_value(&target) {
-                    let _ = ParameterableElement::update(target_js);
-                }
-            }
-        }
-
-        }
-
-        instance.owned_parametered_element = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the default reference
-    #[wasm_bindgen]
-    pub fn set_default(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.default = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the owned_default reference
-    #[wasm_bindgen]
-    pub fn set_owned_default(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.owned_default = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the default_classifier reference
     #[wasm_bindgen]
     pub fn set_default_classifier(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.default_classifier = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        instance.default_classifier = ref_id.clone();
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(())
     }
 
-    /// Sets the constraining_classifier reference
+    #[wasm_bindgen]
+    pub fn clear_default_classifier(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.default_classifier.is_none() {
+            return Ok(false);
+        }
+        
+        instance.default_classifier = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
+    }
+
     #[wasm_bindgen]
     pub fn set_constraining_classifier(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.constraining_classifier = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        instance.constraining_classifier = ref_id.clone();
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(())
     }
 
-    /// Sets the allow_substitutable field
     #[wasm_bindgen]
-    pub fn set_allow_substitutable(instance_id: String, value: String) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ClassifierTemplateParameter = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.allow_substitutable = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    pub fn clear_constraining_classifier(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.constraining_classifier.is_none() {
+            return Ok(false);
+        }
+        
+        instance.constraining_classifier = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
     }
 
-}
 
-impl ClassifierTemplateParameter {
-    /// Validates this instance and all references
-    pub fn validate(&self) -> Result<(), Vec<String>> {
-        let mut errors = Vec::new();
-
-        // Validate all e_annotations references exist
-        for id in &self.e_annotations {
-            if !EAnnotation::exists(id.clone()) {
-                errors.push(format!("EAnnotation {} not found", id));
-            }
-        }
-
-        // Validate all owned_comment references exist
-        for id in &self.owned_comment {
-            if !Comment::exists(id.clone()) {
-                errors.push(format!("Comment {} not found", id));
-            }
-        }
-
-        // Validate signature reference exists
-        if !TemplateSignature::exists(self.signature.clone()) {
-            errors.push(format!("TemplateSignature {} not found", self.signature));
-        }
-
-        // Validate parametered_element reference exists
-        if !ParameterableElement::exists(self.parametered_element.clone()) {
-            errors.push(format!("ParameterableElement {} not found", self.parametered_element));
-        }
-
-        // Validate owned_parametered_element reference exists
-        if let Some(id) = &self.owned_parametered_element {
-            if !ParameterableElement::exists(id.clone()) {
-                errors.push(format!("ParameterableElement {} not found", id));
-            }
-        }
-
-        // Validate default reference exists
-        if let Some(id) = &self.default {
-            if !ParameterableElement::exists(id.clone()) {
-                errors.push(format!("ParameterableElement {} not found", id));
-            }
-        }
-
-        // Validate owned_default reference exists
-        if let Some(id) = &self.owned_default {
-            if !ParameterableElement::exists(id.clone()) {
-                errors.push(format!("ParameterableElement {} not found", id));
-            }
-        }
-
-        // Validate default_classifier reference exists
-        if let Some(id) = &self.default_classifier {
-            if !Classifier::exists(id.clone()) {
-                errors.push(format!("Classifier {} not found", id));
-            }
-        }
-
-        // Validate constraining_classifier reference exists
-        if let Some(id) = &self.constraining_classifier {
-            if !Classifier::exists(id.clone()) {
-                errors.push(format!("Classifier {} not found", id));
-            }
-        }
-
-        if errors.is_empty() {
-            Ok(())
-        } else {
-            Err(errors)
-        }
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
     }
-}
 
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
+    }
+
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ClassifierTemplateParameter".to_string()
+    }
+
+
+}

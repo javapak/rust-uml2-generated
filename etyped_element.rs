@@ -1,56 +1,44 @@
-// ============================================================================
-// Generated Rust Code
-// ============================================================================
-//
-// Type:           ETypedElement (struct)
-// Source Package: ecore
-// Package URI:    http://www.eclipse.org/emf/2002/Ecore
-// Generated:      2025-11-24 11:19:15
-// Generator:      EcoreToRustGenerator v0.1.0
-//
-// Generation Options:
-//   - WASM:       enabled
-//   - Tsify:      enabled
-//   - Serde:      enabled
-//   - Builders:   disabled
-//   - References: String IDs
-//
-// WARNING: This file is auto-generated. Manual changes will be overwritten.
-// ============================================================================
+// ETypedElement - Generated UML Class
+// Uses unified registry with type filtering
 
-use lazy_static::lazy_static;
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::sync::Mutex;
 use uuid::Uuid;
+use crate::registry;
 use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
 use serde_wasm_bindgen;
 use tsify::Tsify;
-use crate::eannotation::EAnnotation;
-use crate::eclassifier::EClassifier;
 
-lazy_static! {
-    static ref E_TYPED_ELEMENT_REGISTRY: Mutex<RefCell<HashMap<String, ETypedElement>>> = 
-        Mutex::new(RefCell::new(HashMap::new()));
-}
 
-#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+const TYPE_NAME: &str = "ETypedElement";
+
+#[derive(Clone, Serialize, Deserialize, Tsify)]
+#[serde(rename_all = "camelCase")]
+#[wasm_bindgen]
 pub struct ETypedElement {
     /// Unique identifier for this instance
+    #[wasm_bindgen(skip)]
     pub id: String,
+    #[wasm_bindgen(skip)]
     pub e_annotations: Vec<String>,
+    #[wasm_bindgen(skip)]
     pub name: Option<String>,
+    #[wasm_bindgen(skip)]
     pub ordered: Option<bool>,
+    #[wasm_bindgen(skip)]
     pub unique: Option<bool>,
+    #[wasm_bindgen(skip)]
     pub lower_bound: Option<i32>,
+    #[wasm_bindgen(skip)]
     pub upper_bound: Option<i32>,
+    #[wasm_bindgen(skip)]
     pub e_type: Option<String>,
+    #[wasm_bindgen(skip)]
+    pub e_generic_type: Option<String>,
 }
 
 #[wasm_bindgen]
 impl ETypedElement {
-    /// Creates a new ETypedElement and returns its ID
+    /// Creates a new ETypedElement instance
     #[wasm_bindgen]
     pub fn create() -> String {
         let id = Uuid::new_v4().to_string();
@@ -63,290 +51,223 @@ impl ETypedElement {
             lower_bound: None,
             upper_bound: None,
             e_type: None,
+            e_generic_type: None,
         };
-
-        E_TYPED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(id.clone(), instance);
-
+        
+        registry::insert(id.clone(), TYPE_NAME, &instance)
+            .expect("Failed to insert into registry");
+        
         id
     }
 
-    /// Gets a ETypedElement by ID
-    /// Returns the instance as a JavaScript object
+    /// Gets a snapshot of this instance
+    /// Note: Returns a snapshot. Modifications require calling update().
     #[wasm_bindgen]
     pub fn get(id: String) -> Result<JsValue, JsValue> {
-        E_TYPED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow()
-            .get(&id)
-            .ok_or_else(|| JsValue::from_str("Instance not found"))
-            .and_then(|instance| {
-                serde_wasm_bindgen::to_value(instance)
-                    .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-            })
+        registry::get_as_jsvalue(&id)
     }
 
-    /// Updates a ETypedElement instance
-    /// Takes a JavaScript object and updates the registry
+    /// Updates the instance in the registry
     #[wasm_bindgen]
     pub fn update(value: JsValue) -> Result<(), JsValue> {
         let instance: ETypedElement = serde_wasm_bindgen::from_value(value)
-            .map_err(|e| JsValue::from_str(&format!("Deserialization error: {}", e)))?;
+            .map_err(|_| JsValue::from_str("Invalid data"))?;
+        registry::update_from_jsvalue(
+            instance.id.clone(),
+            TYPE_NAME,
+            serde_wasm_bindgen::to_value(&instance)?
+        )
+    }
 
-        E_TYPED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .insert(instance.id.clone(), instance);
+    /// Deletes this instance from the registry
+    #[wasm_bindgen]
+    pub fn delete(id: String) -> bool {
+        registry::delete(&id)
+    }
 
+    /// Checks if an instance exists
+    #[wasm_bindgen]
+    pub fn exists(id: String) -> bool {
+        registry::exists(&id)
+    }
+
+    /// Gets all instances of this type
+    #[wasm_bindgen]
+    pub fn get_all() -> Result<JsValue, JsValue> {
+        registry::get_all_of_type_as_jsvalue(TYPE_NAME)
+    }
+
+    /// Clears all instances of this type
+    #[wasm_bindgen]
+    pub fn clear_all() -> usize {
+        registry::clear_type(TYPE_NAME)
+    }
+
+#[wasm_bindgen]
+pub fn set_name(instance_id: String, value: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn clear_name(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.name = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn set_ordered(instance_id: String, value: bool) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.ordered = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn clear_ordered(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.ordered = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn set_unique(instance_id: String, value: bool) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.unique = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn clear_unique(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.unique = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn set_lower_bound(instance_id: String, value: i32) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.lower_bound = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn clear_lower_bound(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.lower_bound = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn set_upper_bound(instance_id: String, value: i32) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.upper_bound = Some(value);
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+#[wasm_bindgen]
+pub fn clear_upper_bound(instance_id: String) -> Result<(), JsValue> {
+    let mut instance: Self = registry::get(&instance_id)
+        .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+    instance.upper_bound = None;
+    registry::insert(instance_id, TYPE_NAME, &instance)?;
+    Ok(())
+}
+
+
+
+
+
+    #[wasm_bindgen]
+    pub fn set_e_type(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        instance.e_type = ref_id.clone();
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(())
     }
 
-    /// Deletes a ETypedElement by ID
-    /// Returns true if deleted, false if not found
     #[wasm_bindgen]
-    pub fn delete(id: String) -> bool {
-        E_TYPED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .remove(&id)
-            .is_some()
-    }
-
-    /// Checks if a ETypedElement exists by ID
-    #[wasm_bindgen]
-    pub fn exists(id: String) -> bool {
-        E_TYPED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow()
-            .contains_key(&id)
-    }
-
-    /// Gets all ETypedElement instances
-    /// Returns an array of JavaScript objects
-    #[wasm_bindgen]
-    pub fn get_all() -> Result<JsValue, JsValue> {
-        let instances: Vec<ETypedElement> = E_TYPED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .cloned()
-            .collect();
-
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-    }
-
-    /// Returns the count of ETypedElement instances
-    #[wasm_bindgen]
-    pub fn count() -> usize {
-        E_TYPED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow()
-            .len()
-    }
-
-    /// Removes all ETypedElement instances
-    #[wasm_bindgen]
-    pub fn clear_all() {
-        E_TYPED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow_mut()
-            .clear();
-    }
-
-    /// Finds ETypedElement instances by name pattern
-    /// Returns an array of matching JavaScript objects
-    #[wasm_bindgen]
-    pub fn find_by_name(pattern: String) -> Result<JsValue, JsValue> {
-        let instances: Vec<ETypedElement> = E_TYPED_ELEMENT_REGISTRY.lock().unwrap()
-            .borrow()
-            .values()
-            .filter(|item| {
-                item.name.as_ref()
-                    .map(|n| n.contains(&pattern))
-                    .unwrap_or(false)
-            })
-            .cloned()
-            .collect();
-
-        serde_wasm_bindgen::to_value(&instances)
-            .map_err(|e| JsValue::from_str(&format!("Serialization error: {}", e)))
-    }
-
-    /// Adds a EAnnotation to e_annotations
-    #[wasm_bindgen]
-    pub fn add_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ETypedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        if instance.e_annotations.contains(&ref_id) {
+    pub fn clear_e_type(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.e_type.is_none() {
             return Ok(false);
         }
-
-        instance.e_annotations.push(ref_id.clone());
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
+        
+        instance.e_type = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
         Ok(true)
     }
 
-    /// Removes a EAnnotation from e_annotations
     #[wasm_bindgen]
-    pub fn remove_e_annotation(instance_id: String, ref_id: String) -> Result<bool, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ETypedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+    pub fn set_e_generic_type(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        instance.e_generic_type = ref_id.clone();
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(())
+    }
 
-        if let Some(pos) = instance.e_annotations.iter().position(|x| x == &ref_id) {
-            instance.e_annotations.remove(pos);
-
-            let updated_js = serde_wasm_bindgen::to_value(&instance)
-                .map_err(|e| JsValue::from_str(&e.to_string()))?;
-            Self::update(updated_js)?;
-
-            Ok(true)
-        } else {
-            Ok(false)
+    #[wasm_bindgen]
+    pub fn clear_e_generic_type(instance_id: String) -> Result<bool, JsValue> {
+        let mut instance: Self = registry::get(&instance_id)
+            .ok_or_else(|| JsValue::from_str("Instance not found"))?;
+        
+        if instance.e_generic_type.is_none() {
+            return Ok(false);
         }
+        
+        instance.e_generic_type = None;
+        
+        registry::insert(instance_id, TYPE_NAME, &instance)?;
+        
+        Ok(true)
     }
 
-    /// Clears all EAnnotation from e_annotations
-    #[wasm_bindgen]
-    pub fn clear_e_annotations(instance_id: String) -> Result<usize, JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ETypedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-        let count = instance.e_annotations.len();
-
-        instance.e_annotations.clear();
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(count)
+    /// Returns whether this type can be created standalone (not nested)
+    pub fn can_exist_standalone() -> bool {
+        true
     }
 
-    /// Sets the e_type reference
-    #[wasm_bindgen]
-    pub fn set_e_type(instance_id: String, ref_id: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ETypedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.e_type = ref_id;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns whether this type requires a container
+    pub fn requires_container() -> bool {
+        false
     }
 
-    /// Sets the name field
-    #[wasm_bindgen]
-    pub fn set_name(instance_id: String, value: Option<String>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ETypedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.name = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
+    /// Returns the type name
+    pub fn type_name() -> String {
+        "ETypedElement".to_string()
     }
 
-    /// Sets the ordered field
-    #[wasm_bindgen]
-    pub fn set_ordered(instance_id: String, value: Option<bool>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ETypedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.ordered = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the unique field
-    #[wasm_bindgen]
-    pub fn set_unique(instance_id: String, value: Option<bool>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ETypedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.unique = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the lower_bound field
-    #[wasm_bindgen]
-    pub fn set_lower_bound(instance_id: String, value: Option<i32>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ETypedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.lower_bound = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
-
-    /// Sets the upper_bound field
-    #[wasm_bindgen]
-    pub fn set_upper_bound(instance_id: String, value: Option<i32>) -> Result<(), JsValue> {
-        let instance_js = Self::get(instance_id.clone())?;
-        let mut instance: ETypedElement = serde_wasm_bindgen::from_value(instance_js)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-
-        instance.upper_bound = value;
-
-        let updated_js = serde_wasm_bindgen::to_value(&instance)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
-        Self::update(updated_js)?;
-
-        Ok(())
-    }
 
 }
-
-impl ETypedElement {
-    /// Validates this instance and all references
-    pub fn validate(&self) -> Result<(), Vec<String>> {
-        let mut errors = Vec::new();
-
-        // Validate all e_annotations references exist
-        for id in &self.e_annotations {
-            if !EAnnotation::exists(id.clone()) {
-                errors.push(format!("EAnnotation {} not found", id));
-            }
-        }
-
-        // Validate e_type reference exists
-        if let Some(id) = &self.e_type {
-            if !EClassifier::exists(id.clone()) {
-                errors.push(format!("EClassifier {} not found", id));
-            }
-        }
-
-        if errors.is_empty() {
-            Ok(())
-        } else {
-            Err(errors)
-        }
-    }
-}
-
